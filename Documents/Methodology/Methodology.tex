@@ -6,6 +6,7 @@
 \pagestyle{fancy}
 \lhead{Alex Taylor}
 \cfoot{}
+\lfoot{Version 0.2}
 \rfoot{\thepage}
 
 \title{Project Methodology}
@@ -19,11 +20,31 @@
 
 \newpage
 
-\section{XP}
+\section{Extreme Programming}
 \subsection{Justification}
+One of the core advantages of using an XP based approach is the ability to adapt to change. The second part of this project, implementing a method to stream slides from PowerPoint or a similar piece of software, is much more open to change than the first part where the scope is far more understood. If another process such as Feature Driven Development was used, it would work for the first part of the project as all the requirements and features are known but most likely would be a struggle to use in the second part. XP gives the flexibility needed to complete the second part of the project whilst also allowing the first part to be done with ease.
 \newpage
+
 \section{Use in Single Person Projects}
+One of the problems with XP is that a number of the practices are not applicable to a single person project, and a few others are not applicable within this project. 
+\subsection{Practices Not Applicable to Project}
+\begin{itemize}
+	\item Pair Programming - Pair Programming would not be applicable because there is only one developer
+	\item Collective Code Ownership - As above there is only one developer
+\end{itemize}
+\subsection{Practices to use on Project}
+\begin{itemize}
+	\item Test Driven Development - Writing tests before coding any of the application logic will help to enhance both the design and also mean tests are actually written rather than left until the end and "hacked" in.
+	\item Coding Standards - Keeping to strict coding standards will help ensure the code is good quality and easy to extend in the future as this project may well be.
+	\item Small Releases - 
+	\item On Site Customer - This practice is somewhat applicable, there is a weekly meeting with the project tutor who is also the project customer. Feedback can be given during this meeting but also via email and other potential meetings.
+	\item Merciless Refactoring - Refactoring is already encouraged by using TDD, but it can also be used at other points in the project to ensure the code is structured sensibly.
+	\item Planning Game - This can be adapated to be done by one person at the start of the project, this is where all the stories will be written and then iterations and releases planned out.
+	\item Continuous Integration - Depending on whether the project is hosted online, some online tools can be set up to run automated tests. This will be useful for running the tests written with TDD and ensuring the code is always working after an update.
+\end{itemize}
+Whilst not a practice, Class-Responsibility-Collaboration (CRC) cards can be used to enhance the design stage within each iteration.
 \newpage
+
 \section{Bibliography}
 
 \end{document}
