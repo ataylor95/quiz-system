@@ -15,22 +15,30 @@
 
 \maketitle
 \begin{center}
-	Version 0.1 (draft)
+	Version 0.2 (draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
 \newpage
 
 \section{Framework}
+Early on in the project PHP was selected due to two primary reasons. The first is that I am familiar with PHP after using it in an industrial job. The second is that a majority of University projects are PHP based which will make integrating this with the University easier in the future.
 \subsection{Laravel}
-\subsection{Development Environment}
+Laravel is a web framework written in PHP\cite{Laravel}, and has been chosen for the web server part of this project. There are a number of reasons for choosing Laravel in this project over other available frameworks. The first and most important is familiarity with Laravel as I have used it a little in the past, and the main framework used in in my year in industry, which was in-house, is very similar to Laravel.
+
+Laravel is the most popular PHP framework around right now\cite{PopularPHPFrameworks}, which means there is an enormous amount of support available in the form of user forums, video guides and its own tag on Stack Overflow.
+
+Laravel 5 also natively supports web sockets, a technology that is being considered for the first part of the project, Whilst not essential it may prove useful to have the option of web sockets. Another new feature of Laravel is its conformance to PSR-2, a PHP coding standard. Given that one of the XP practices is code standards, this will help enforce coding standards across the project.
+
+For local development a server was needed, whilst Laravel supplies its own Virtual Machine set up, caled Homestead, I have opted for Laravel Valet\cite{Valet} instead. Valet was chosen over Homestead due to its light weightness and ease of use, there is almost no server setup needed compared any other method. This means less configuration at the start of the project and more time to start coding.
+
 \newpage
 
 \section{Hosting}
 \newpage
 
 \section{Bibliography}
-\bibliographystyle{IEEEannot}
+\bibliographystyle{IEEEannotU}
 \bibliography{IEEEabrv,FrameworkHostingBib}
 %\bibliographystyle{plain}
 
