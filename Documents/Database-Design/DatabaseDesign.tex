@@ -14,13 +14,26 @@
 
 \maketitle
 \begin{center}
-	Version 0.1 (draft)
+	Version 0.2 (draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
 \newpage
 
 \section{Tables}
-\newpage
+There will be five tables:
+\begin{enumerate}
+	\item Admins
+	\item Admin-Details
+	\item Quizzes
+	\item Questions
+	\item Quizzes-Questions
+\end{enumerate}
+
+The first two store information about the Admin users, i.e. the lecturers, the Admin table being used to store the name, email and other details, whilst the Admin/_Details table will be for storing password and login details.
+
+Quizzes will store the name of a quiz and the id of the admin who created it. The Questions table stores all the questions created and the Quizzes-Questions table is the link between the two. It stores which questions belong to which quiz.
+
+\section{Relationships}
 
 \end{document}
