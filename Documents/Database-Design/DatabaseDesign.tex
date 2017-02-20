@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{fancyhdr}
+\usepackage{graphicx}
 
 \pagestyle{fancy}
 \lhead{Alex Taylor}
@@ -14,26 +15,28 @@
 
 \maketitle
 \begin{center}
-	Version 0.2 (draft)
+	Version 1.0 (Release)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
 \newpage
 
 \section{Tables}
-There will be five tables:
+There will be six tables:
 \begin{enumerate}
 	\item Admins
-	\item Admin-Details
+	\item Admin\_Details
 	\item Quizzes
 	\item Questions
-	\item Quizzes-Questions
+	\item Quizzes\_Questions
+	\item Sessions
 \end{enumerate}
 
-The first two store information about the Admin users, i.e. the lecturers, the Admin table being used to store the name, email and other details, whilst the Admin/_Details table will be for storing password and login details.
+The first two store information about the Admin users, i.e. the lecturers, the Admin table being used to store the name, email and other details, whilst the Admin\_Details table will be for storing password and login details.
 
 Quizzes will store the name of a quiz and the id of the admin who created it. The Questions table stores all the questions created and the Quizzes-Questions table is the link between the two. It stores which questions belong to which quiz.
 
-\section{Relationships}
+\section{Entity Relationship Diagram}
+\includegraphics[width=\textwidth]{ERDiagram}
 
 \end{document}
