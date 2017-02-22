@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.5 (draft)
+	Version 0.6 (draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -23,8 +23,10 @@
 
 \section{Laravel - Iteration 0}
 The first section of spike work completed was working through some Laravel examples to try and gain an understanding of how the syetem works. The guide\cite{Laravel5Guide} followed provided an basic introduction to Laravel. It also involved creating and playing around with a simple database for a Laravel based web application. For the Quiz System these will be the sorts of technologies needed, not much more. Doing these things helped gain a basic understanding of how Laravel projects work and how the Quiz System will function.
-\subsection{PHPUnit and CI}
+\subsection{Testing and CI}
 A major area that was looked at during the time spent on Laravel was the testing suite available. PHPUnit comes pre set up with Laravel. This means that unit tests can be written and run with no preconfiguration and will just work when run. The ease of running these really helps speed up development as it means I can jump straight into TDD.
+
+As well as running PHPUnit, running PHPLint would probably benefit the project. PHPLint is a validator and documentor for PHP 5 and PHP 7 programs\cite{PHPLint}. This would ensure that my syntax is correct and up to the coding standards required for the project.
 
 Testing also seemed like a good place to try out some continous integration technologies. The first thing looked into was Jenkins due to its popularity however after looking into to it a bit more it seems like it would be more effort to set up than other CI tools such as Travis. The beauty of Travis is that it is integrated with Github straight out of the box and requires almost no set up. Simply linking your Github account, enabling CI for the Github project of yours choice and adding a .yml file to the project to specifiy how builds are run and other configuration settings.
 \newpage
