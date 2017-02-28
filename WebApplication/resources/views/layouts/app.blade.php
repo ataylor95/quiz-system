@@ -29,20 +29,26 @@
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar">Thing</span>
+                        <span class="icon-bar">Hey</span>
+                        <span class="icon-bar">Where is this</span>
                     </button>
 
-                    <!-- Branding Image -->
+                    <!-- Name of the page -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'Quiz System') }}
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/users">Users</a>
+                        </li>
+                        <li>
+                            <a href="/home">Quizzes</a>
+                        </li>
                         &nbsp;
                     </ul>
 
