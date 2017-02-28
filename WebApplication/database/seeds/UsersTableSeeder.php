@@ -18,5 +18,11 @@ class UsersTableSeeder extends Seeder
 		$user->email = 'amt22@aber.ac.uk';
 		$user->password = (new BcryptHasher)->make('secret');
 		$user->save();
+
+		$user2 = new User;
+		$user2->name = str_random(10);
+		$user2->email = 'amt23@aber.ac.uk';
+		$user2->password = (new BcryptHasher)->make('secret');
+		$user2->save();
     }
 }
