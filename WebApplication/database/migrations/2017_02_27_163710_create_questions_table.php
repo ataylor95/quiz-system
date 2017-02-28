@@ -15,6 +15,12 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('question_text');
+            $table->enum('type', array('multi_choice', 'multi_select', 'number_range', 'boolean', 'text'));
+            for ($i=1; $i<11; $i++) {
+                //Start from 1 because it will make it more human friendly when adding a question
+                $table->string('answer' . $i);
+            }
             $table->timestamps();
         });
     }
