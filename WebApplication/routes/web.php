@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'QuizController@index');
 
 Route::Resource('users', 'UserController');
 Route::Resource('questions', 'QuestionController');
