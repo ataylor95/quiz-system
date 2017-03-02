@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.4 (Draft)
+	Version 0.6 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -45,11 +45,10 @@ Design was limited due to the automated builder. However it added some view file
 \subsection{Implementation}
 Implementing this was far easier than originally anticipated, Laravel comes with the needed tables out of the box and has a command to run that sets up simple auth for users: \textit{php artisan make:auth}
 \subsection{Testing}
-None yet because it was auto generated
-\subsection{Extras}
+A simple test to make sure that when you try to visit /home, it is redirected to /login. Most testing here will be left because it is auto generated and feels like a waste to test something wirtten by the original framework developers.
 \newpage
 
-\section{Story: Admins can log into the backend}
+\section{Story: They are presented a list of their quizzes}
 \subsection{Analysis - Breakdown of Tasks}
 \begin{itemize}
 	\item Make the homepage the QuizController rather than the HomeController
@@ -57,9 +56,11 @@ None yet because it was auto generated
 	\item Display a list of quizzes for that user
 \end{itemize}
 \subsection{Design}
+The HomeController was removed in this period of work and the QuizController used in its place.
 \subsection{Implementation}
+Quite an easy amount of work, changing the controller was a simple change to the routes and then updating the quiz view file to use the same layout as the original home views. To get the user, a helper function is provided: \textit{auth()-$>$user()} which gets the user object. Obtaining the id from this is simple and then using an Eloquent ORM call it is easy to find all the quizzes owned by that user.
 \subsection{Testing}
-\subsection{Extras}
+Testing withheld until DB testing sorted out
 \newpage
 
 \section{Non-Story Work}
