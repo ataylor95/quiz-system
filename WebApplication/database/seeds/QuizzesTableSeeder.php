@@ -12,7 +12,7 @@ class QuizzesTableSeeder extends Seeder
      */
     public function run()
     {
-        $quiz1 = new Quiz;
+        /*$quiz1 = new Quiz;
         $quiz2 = new Quiz;
         $quiz3 = new Quiz;
         $quizzes = [$quiz1, $quiz2, $quiz3];
@@ -24,6 +24,8 @@ class QuizzesTableSeeder extends Seeder
         foreach ($quizzes as $quiz) {
             $quiz->name = str_random(5);
             $quiz->save();
-        }
+        }*/
+        factory('App\Quiz', 3)->create(['user_id' => 1]);
+        factory('App\Quiz', 17)->create();
     }
 }
