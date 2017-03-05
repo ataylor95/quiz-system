@@ -32,3 +32,15 @@ $factory->define(App\Quiz::class, function (Faker\Generator $faker) {
         },
     ];
 });
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Question::class, function (Faker\Generator $faker) {
+    return [
+        'question_text' => $faker->sentence,
+        'type' => $faker->randomElement(['multi_choice', 'multi_select']),
+        'answer1' => $faker->word,
+        'answer2' => $faker->word,
+        'answer3' => $faker->word,
+        'answer4' => $faker->word,
+    ];
+});
