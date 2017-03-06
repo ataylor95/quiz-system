@@ -47,6 +47,13 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
+        //Some simple validation, currently just require the two fields
+        $this->validate($request, [
+            'name' => 'required',
+            'desc' => 'required'
+        ]);
+
+        //Create the new quiz
         Quiz::Create([
             'name' => $request['name'],
             'desc' => $request['desc'],
