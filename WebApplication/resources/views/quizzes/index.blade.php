@@ -10,17 +10,20 @@
                 <div class="panel-body">
                     @foreach ($quizzes as $quiz)
                         <div class='row'>
-                            <div class='col-md-8'>
+                            <div class='col-xs-8'>
                                 <p>{{$quiz->name}}</p>
                             </div>
-                            <div class='col-md-2'>
+                            <div class='col-xs-2'>
                                 <p>View/ Edit</p>
                             </div>
-                            <div class='col-md-2'>
+                            <div class='col-xs-2'>
                                 <p>Delete</p>
                             </div>
                         </div>
                     @endforeach
+                </div>
+                <div class='panel-footer text-right'>
+                    <button class='btn'>New Quiz</button>
                 </div>
             </div>
         </div>
