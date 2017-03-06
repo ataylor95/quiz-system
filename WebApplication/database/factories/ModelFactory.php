@@ -27,6 +27,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Quiz::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->sentence,
+        'desc' => $faker->text,
         'user_id' => function () {
             return factory(App\User::class)->create()->id;
         },
