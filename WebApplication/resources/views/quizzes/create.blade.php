@@ -9,17 +9,19 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="name">Name of Quiz:</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
 
                     <div class="form-group">
                         <label for="desc">Description:</label>
-                        <textarea type="text" class="form-control" id="desc" name="desc"></textarea>
+                        <textarea type="text" class="form-control" id="desc" name="desc" required></textarea>
                     </div>
                     
                     <p>Questions are added in the next step</p>
 
-                    <button type="submit" class="btn center-block btn-default">Create</button> 
+                    <div class='form-group'>
+                        <button type="submit" class="btn center-block btn-default">Create</button> 
+                    </div>
                 </form>
             </div>
         </div>
