@@ -71,7 +71,6 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        //dd($quiz);
         return view('quizzes.show', compact('quiz')); 
     }
 
