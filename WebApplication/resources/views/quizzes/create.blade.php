@@ -22,6 +22,8 @@
                     <div class='form-group'>
                         <button type="submit" class="btn center-block btn-default">Create</button> 
                     </div>
+
+                    @include('layouts.form-errors')
                 </form>
             </div>
         </div>
