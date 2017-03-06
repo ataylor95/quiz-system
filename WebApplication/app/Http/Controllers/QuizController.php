@@ -47,7 +47,11 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Quiz::Create([
+            'name' => $request['name'],
+            'desc' => $request['desc'],
+            'user_id' => auth()->user()->id
+        ]);
     }
 
     /**
