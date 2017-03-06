@@ -14,7 +14,7 @@ class AddDescToQuiz extends Migration
     public function up()
     {
         Schema::table('quizzes', function (Blueprint $table) {
-            $table->text('desc');
+            $table->text('desc')->after('name');
         });
     }
 
