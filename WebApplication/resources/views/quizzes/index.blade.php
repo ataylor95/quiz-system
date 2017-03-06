@@ -14,7 +14,7 @@
                                 <p>{{$quiz->name}}</p>
                             </div>
                             <div class='col-xs-2'>
-                                <p>View/ Edit</p>
+                                <a href='quizzes/{{$quiz->id}}'>View</a>
                             </div>
                             <div class='col-xs-2'>
                                 <p>Delete</p>
