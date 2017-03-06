@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.2 (Draft)
+	Version 0.3 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -25,13 +25,15 @@
 \subsection{Analysis - Breakdown of Tasks}
 \begin{itemize}
 	\item Need quiz/new form to add name
-	\item This form will have an add question button
-	\item This will go to question/new and have a form for creating new question
+	\item Add validation
+	\item This then redirects to quiz.show for this new quiz
+	\item This page needs a button that can add a question
 \end{itemize}
 \subsection{Design}
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
 (insert images for these, maybe some form of activity diagram?)
 \subsection{Implementation}
+Added create page which has a form, added validation to it,
 \subsection{Testing}
 \newpage
 
@@ -50,6 +52,11 @@ There was not much design for this stage as it only really adds an edit page whi
 \subsection{Testing}
 \newpage
 
+\section{Non-Story Work}
+\subsection{Seeding}
+Some more data needed to be seeded for this section of work, the question data. This involved creating some new Model Factories and using them in the seeders correctly. One issue was trying to create many questions for individual quizzes, but this was overcome using some very basic looping and calling the model factories in the right places.
+\subsection{Quiz Description}
+It was decided that quizzes should probably have descriptions attached to them, in case the lecturer needs reminding of what it is in 6 months time. This involved creating a new migration and simply adding a column to the table.
 
 %\section{Bibliography}
 %\bibliographystyle{IEEEannotU}
