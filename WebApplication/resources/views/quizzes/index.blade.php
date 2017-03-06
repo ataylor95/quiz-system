@@ -23,7 +23,7 @@
                     @endforeach
                 </div>
                 <div class='panel-footer text-right'>
-                    <a href='quizzes/create' class='btn'>New Quiz</a>
+                    <button class='btn'>New Quiz</button>
                 </div>
             </div>
         </div>
