@@ -19,6 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'QuizController@index');
 
-Route::Resource('users', 'UserController');
-Route::Resource('questions', 'QuestionController');
-Route::Resource('quizzes', 'QuizController');
+Route::resource('users', 'UserController');
+Route::resource('questions', 'QuestionController');
+Route::resource('quizzes', 'QuizController');
