@@ -54,13 +54,13 @@ class QuizController extends Controller
         ]);
 
         //Create the new quiz
-        Quiz::Create([
+        $id = Quiz::Create([
             'name' => $request['name'],
             'desc' => $request['desc'],
             'user_id' => auth()->user()->id
-        ]);
+        ])->id;
 
-        return redirect('/home');
+        return redirect('/quizzes/' . $id);
     }
 
     /**
