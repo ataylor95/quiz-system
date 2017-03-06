@@ -52,6 +52,8 @@ class QuizController extends Controller
             'desc' => $request['desc'],
             'user_id' => auth()->user()->id
         ]);
+
+        return redirect('/home');
     }
 
     /**
