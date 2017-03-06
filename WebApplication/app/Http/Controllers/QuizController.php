@@ -69,9 +69,10 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Quiz $quiz)
     {
-        //
+        //dd($quiz);
+        return view('quizzes.show', compact('quiz')); 
     }
 
     /**
