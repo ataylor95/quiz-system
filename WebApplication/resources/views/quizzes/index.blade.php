@@ -9,7 +9,17 @@
 
                 <div class="panel-body">
                     @foreach ($quizzes as $quiz)
-                        <p>{{$quiz->name}}</p>
+                        <div class='row'>
+                            <div class='col-md-8'>
+                                <p>{{$quiz->name}}</p>
+                            </div>
+                            <div class='col-md-2'>
+                                <p>View/ Edit</p>
+                            </div>
+                            <div class='col-md-2'>
+                                <p>Delete</p>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             </div>
