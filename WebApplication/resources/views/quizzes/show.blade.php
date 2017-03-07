@@ -12,10 +12,10 @@
                 </div>
                 @foreach ($questions as $question)
                     <div class='row'>
-                        <div class='col-xs-6'>
+                        <div class='col-xs-5'>
                             <p>{{$question->question_text}}</p>
                         </div>
-                        <div class='col-xs-2'>
+                        <div class='col-xs-3'>
                             <p>{{config('questions')['types'][$question->type]}}</p>
                         </div>
                         <div class='col-xs-1'>
