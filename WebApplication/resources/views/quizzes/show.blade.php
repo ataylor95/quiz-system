@@ -29,8 +29,8 @@
                         </div>
                     </div>
                 @endforeach
-                <div class='panel-footer text-right'>
-                    <a href='questions/create' class='btn'>Add Question</a>
+                <div class="panel-footer text-right">
+                    <a href="questions/create?quiz={{ $quiz['id'] }}" class="btn">Add Question</a>
                 </div>
             </div>
         </div>
