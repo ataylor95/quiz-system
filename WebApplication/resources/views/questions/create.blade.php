@@ -24,7 +24,7 @@
                         @for ($j=1; $j<=$numberAnswers; $j++)
                             <div class="form-group">
                                 <label for="name">Answer {{$j}}:</label>
-                                <input type="text" class="form-control" id="answer{{$j}}" name="answer{{$j}}" required>
+                                <input type="text" class="form-control" id="answer{{$j}}" name="answer{{$j}}">
                             </div>
                         @endfor
                     
