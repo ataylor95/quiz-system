@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quiz;
+use App\QuizQuestion;
 
 class QuizController extends Controller
 {
@@ -71,7 +72,12 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        return view('quizzes.show', compact('quiz')); 
+		//getting all the questions that are associated with the quiz 
+		$questions = QuizQuestion::leftJoin('questions', function($join){
+				$join->on('quizzes_questions.question_id', '=', 'questions.id');
+			})->where('quiz_id', $quiz->id)->get();
+
+        return view('quizzes.show', compact('quiz', 'questions')); 
     }
 
     /**
