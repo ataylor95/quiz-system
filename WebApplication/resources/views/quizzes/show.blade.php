@@ -16,7 +16,7 @@
                             <p>{{$question->question_text}}</p>
                         </div>
                         <div class='col-xs-2'>
-                            <p>{{$question->type}}</p>
+                            <p>{{config('questions')['types'][$question->type]}}</p>
                         </div>
                         <div class='col-xs-1'>
                             <a href='question/{{$question->id}}'>View</a>
