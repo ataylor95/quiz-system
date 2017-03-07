@@ -34,11 +34,17 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $questionData = config('questions');
-        $numberAnswers = $questionData->numAnswers;
-        $type = $questionsData->types;
+        $questionsData = config('questions');
+        $numberAnswers = $questionsData['numAnswers'];
+        $types = $questionsData['types'];
+        $typeKeys = [];
+        $typeValues = [];
+        foreach ($types as $key => $value) {
+            $typeKeys[] = $key;
+            $typeValues[] = $value;
+        }
     
-        return view('questions.create', compact('types', 'numberAnswers')); 
+        return view('questions.create', compact('typeKeys', 'typeValues', 'numberAnswers')); 
     }
 
     /**
