@@ -30,7 +30,7 @@
                     </div>
                 @endforeach
                 <div class="panel-footer text-right">
-                    <a href="questions/create?quiz={{ $quiz['id'] }}" class="btn">Add Question</a>
+                    <a href="/questions/create?quiz={{ $quiz['id'] }}" class="btn">Add Question</a>
                 </div>
             </div>
         </div>
