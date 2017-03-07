@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Question;
 
 class QuestionController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +34,11 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $questionData = config('questions');
+        $numberAnswers = $questionData->numAnswers;
+        $type = $questionsData->types;
+    
+        return view('questions.create', compact('types', 'numberAnswers')); 
     }
 
     /**
