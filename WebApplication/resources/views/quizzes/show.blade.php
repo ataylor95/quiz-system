@@ -19,10 +19,10 @@
                             <p>{{$question->type}}</p>
                         </div>
                         <div class='col-xs-1'>
-                            <a href='question/{{$question->id}}'>View</a>
+                            <a href='/question/{{$question->id}}'>View</a>
                         </div>
                         <div class='col-xs-1'>
-                            <a href='question/{{$question->id}}'>Edit</a>
+                            <a href='/question/{{$question->id}}'>Edit</a>
                         </div>
                         <div class='col-xs-1'>
                             <p>Delete</p>
