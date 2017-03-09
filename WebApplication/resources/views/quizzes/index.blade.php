@@ -17,7 +17,7 @@
                                 <a href='quizzes/{{$quiz->id}}'>View</a>
                             </div>
                             <div class='col-xs-2'>
-                                <p>Delete</p>
+                                <a href="">Delete</a>
                             </div>
                         </div>
                     @endforeach
