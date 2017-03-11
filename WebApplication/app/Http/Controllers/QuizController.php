@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quiz;
-use App\Question;
-use App\QuizQuestion;
 
 class QuizController extends Controller
 {
