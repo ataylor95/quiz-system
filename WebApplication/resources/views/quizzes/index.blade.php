@@ -21,7 +21,7 @@
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <div class='form-group'>
-                                        <button type="submit" class="btn btn-default">Delete</button> 
+                                        <button type="submit" class="btn btn-default btn-danger">Delete</button> 
                                     </div>
                                 </form>
                             </div>
