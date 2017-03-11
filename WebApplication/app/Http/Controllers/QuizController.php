@@ -73,11 +73,7 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-		//getting all the questions that are associated with the quiz 
-		$questions = QuizQuestion::leftJoin('questions', function($join){
-				$join->on('quizzes_questions.question_id', '=', 'questions.id');
-			})->where('quiz_id', $quiz->id)->get();
-
+        $questions = Quiz::getQuestions($quiz->id);
         return view('quizzes.show', compact('quiz', 'questions')); 
     }
 
