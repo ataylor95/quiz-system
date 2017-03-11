@@ -65,25 +65,9 @@ class QuestionController extends Controller
         ]);
 
         //Create the new Question 
-        $questionId = Question::Create([
-            'question_text' => $request['question_text'],
-            'type' => $request['type'],
-            'answer1' => (is_null($request['answer1']) ? "" : $request['answer1']),
-            'answer2' => (is_null($request['answer2']) ? "" : $request['answer2']),
-            'answer3' => (is_null($request['answer3']) ? "" : $request['answer3']),
-            'answer4' => (is_null($request['answer4']) ? "" : $request['answer4']),
-            'answer5' => (is_null($request['answer5']) ? "" : $request['answer5']),
-            'answer6' => (is_null($request['answer6']) ? "" : $request['answer6']),
-            'answer7' => (is_null($request['answer7']) ? "" : $request['answer7']),
-            'answer8' => (is_null($request['answer8']) ? "" : $request['answer8']),
-            'answer9' => (is_null($request['answer9']) ? "" : $request['answer9']),
-            'answer10' => (is_null($request['answer10']) ? "" : $request['answer10']),
-        ])->id;
-
-        QuizQuestion::Create([
-            'quiz_id' => $request['quiz_id'],
-            'question_id' => $questionId,
-        ]);
+        $questionID = Question::saveQuestion($request);
+        //Create the relationship between them
+        QuizQuestion::saveQuizQuestion($request['quiz_id'], $questionID);
 
         return redirect('/quizzes/' . $request['quiz_id']);
     }
