@@ -17,7 +17,13 @@
                                 <a href='quizzes/{{$quiz->id}}'>View</a>
                             </div>
                             <div class='col-xs-2'>
-                                <a href="">Delete</a>
+                                <form method="POST" action="/quizzes/{{$quiz->id}}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <div class='form-group'>
+                                        <button type="submit" class="btn btn-default">Delete</button> 
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     @endforeach

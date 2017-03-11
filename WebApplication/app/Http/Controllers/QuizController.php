@@ -111,6 +111,7 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Quiz::destroy($id);
+        back();
     }
 }
