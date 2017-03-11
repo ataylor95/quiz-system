@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quiz;
+use App\Question;
 use App\QuizQuestion;
 
 class QuizController extends Controller
@@ -111,7 +112,14 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
+        //First delete the questions, then delete the Quiz
+        $questions = QuizQuestion::where('quiz_id', '=', $id)->get();
+        $questionIds = [];
+        foreach ($questions as $quiz) {
+            $questionIds[] = $quiz['question_id'];
+        }
+        Question::destroy($questionIds);
         Quiz::destroy($id);
-        back();
+        return back();
     }
 }
