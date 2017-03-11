@@ -12,7 +12,7 @@ class Quiz extends Model
         'name', 'desc', 'user_id',
     ];
 
-    /*
+    /**
      * Get the questions associated with the Quiz via its id 
      *
      * @param int $quizID - id of quiz
@@ -27,7 +27,26 @@ class Quiz extends Model
         return $questions;
     }
 
-    /*
+    /**
+     * Saves the newly created quiz to the db
+     *
+     * @param string $name
+     * @param string $desc
+     * @param int $user - id of the user
+     * @return int $id - id of the newly created quiz
+     */
+    public static function saveQuiz($name, $desc, $user)
+    {
+        $id = Quiz::Create([
+            'name' => $name,
+            'desc' => $desc,
+            'user_id' =>$user 
+        ])->id;
+
+        return $id;
+    }
+
+    /**
      * Deletes the quiz and associated questions by quiz id
      *
      * @param int $id - id of quiz

@@ -55,12 +55,8 @@ class QuizController extends Controller
             'desc' => 'required'
         ]);
 
-        //Create the new quiz
-        $id = Quiz::Create([
-            'name' => $request['name'],
-            'desc' => $request['desc'],
-            'user_id' => auth()->user()->id
-        ])->id;
+        $id = Quiz::saveQuiz($request['name'], $request['desc'], 
+                auth()->user()->id);
 
         return redirect('/quizzes/' . $id);
     }
