@@ -25,7 +25,13 @@
                             <a href='/questions/{{$question->id}}'>Edit</a>
                         </div>
                         <div class='col-xs-1'>
-                            <p>Delete</p>
+                            <form method="POST" action="/questions/{{$question->id}}">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <div class='form-group'>
+                                    <button type="submit" class="btn btn-default btn-danger">Delete</button> 
+                                </div>
+                            </form>
                         </div>
                     </div>
                 @endforeach
