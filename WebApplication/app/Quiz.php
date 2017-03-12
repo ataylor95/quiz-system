@@ -13,6 +13,16 @@ class Quiz extends Model
     ];
 
     /**
+     * Gets all the questions belonging to the quiz
+     *
+     * @return collection - questions
+     */
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    /**
      * Get the questions associated with the Quiz via its id 
      *
      * @param int $quizID - id of quiz
