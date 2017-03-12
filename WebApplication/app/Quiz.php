@@ -23,21 +23,6 @@ class Quiz extends Model
     }
 
     /**
-     * Get the questions associated with the Quiz via its id 
-     *
-     * @param int $quizID - id of quiz
-     * @return collection $questions
-     */
-    public static function getQuestions($quizID)
-    {
-		$questions = QuizQuestion::leftJoin('questions', function($join){
-				$join->on('quizzes_questions.question_id', '=', 'questions.id');
-			})->where('quiz_id', $quizID)->get();
-
-        return $questions;
-    }
-
-    /**
      * Saves the newly created quiz to the db
      *
      * @param string $name
