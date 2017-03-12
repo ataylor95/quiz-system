@@ -47,21 +47,6 @@ class Question extends Model
         return $questionID;        
     }
 
-    /*
-     * Deletes the questions by Quiz id
-     *
-     * @param int $quizID - id of quiz
-     */
-    public static function deleteByQuiz($quizID)
-    {
-        $questions = QuizQuestion::where('quiz_id', '=', $quizID)->get();
-        $questionIDs = [];
-        foreach ($questions as $quiz) {
-            $questionIDs[] = $quiz['question_id'];
-        }
-        Question::destroy($questionIDs);
-    }
-
     public static function deleteQuestion($quizID)
     {
         Question::destroy($quizID);

@@ -42,14 +42,12 @@ class Quiz extends Model
     }
 
     /**
-     * Deletes the quiz and associated questions by quiz id
+     * Deletes the quiz
      *
      * @param int $id - id of quiz
      */
     public static function deleteQuiz($id)
     {
-        //First delete the questions, then delete the Quiz
-        Question::deleteByQuiz($id);
         Quiz::destroy($id);
     }
 }
