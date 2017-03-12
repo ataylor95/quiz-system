@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Question;
-use App\QuizQuestion;
 
 class Quiz extends Model
 {
