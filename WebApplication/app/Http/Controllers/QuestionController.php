@@ -66,8 +66,6 @@ class QuestionController extends Controller
 
         //Create the new Question 
         $questionID = Question::saveQuestion($request);
-        //Create the relationship between them
-        QuizQuestion::saveQuizQuestion($request['quiz_id'], $questionID);
 
         return redirect('/quizzes/' . $request['quiz_id']);
     }

@@ -8,7 +8,7 @@ use App\QuizQuestion;
 class Question extends Model
 {
     protected $fillable = [
-        'question_text', 'type', 'answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10', 
+        'quiz_id', 'question_text', 'type', 'answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10', 
     ];
 
     /**
@@ -30,6 +30,7 @@ class Question extends Model
     public static function saveQuestion($dataToSave)
     {
         $questionID = Question::Create([
+            'quiz_id' => $dataToSave['quiz_id'],
             'question_text' => $dataToSave['question_text'],
             'type' => $dataToSave['type'],
             'answer1' => (is_null($dataToSave['answer1']) ? "" : $dataToSave['answer1']),
