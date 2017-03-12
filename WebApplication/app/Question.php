@@ -47,8 +47,13 @@ class Question extends Model
         return $questionID;        
     }
 
-    public static function deleteQuestion($quizID)
+    /**
+     * Deletes the question given its id
+     *
+     * @param int $questionID
+     */
+    public static function deleteQuestion($questionID)
     {
-        Question::destroy($quizID);
+        Question::destroy($questionID);
     }
 }
