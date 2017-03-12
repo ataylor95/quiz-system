@@ -114,6 +114,7 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Question::deleteQuestion($id);
+        return back();
     }
 }

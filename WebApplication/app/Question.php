@@ -51,4 +51,9 @@ class Question extends Model
         }
         Question::destroy($questionIDs);
     }
+
+    public static function deleteQuestion($quizID)
+    {
+        Question::destroy($quizID);
+    }
 }
