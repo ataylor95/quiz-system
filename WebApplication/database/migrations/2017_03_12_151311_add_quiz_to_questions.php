@@ -15,7 +15,7 @@ class AddQuizToQuestions extends Migration
     {
         Schema::table('questions', function (Blueprint $table) {
             $table->unsignedInteger('quiz_id')->after('id');
-            $table->foreign('quiz_id')->references('id')->on('quizzes');
+            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
         });
     }
 
