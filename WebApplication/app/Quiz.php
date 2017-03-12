@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Question;
-use App\QuizQuestion;
 
 class Quiz extends Model
 {
@@ -13,18 +12,13 @@ class Quiz extends Model
     ];
 
     /**
-     * Get the questions associated with the Quiz via its id 
+     * Gets all the questions belonging to the quiz
      *
-     * @param int $quizID - id of quiz
-     * @return collection $questions
+     * @return collection - questions
      */
-    public static function getQuestions($quizID)
+    public function questions()
     {
-		$questions = QuizQuestion::leftJoin('questions', function($join){
-				$join->on('quizzes_questions.question_id', '=', 'questions.id');
-			})->where('quiz_id', $quizID)->get();
-
-        return $questions;
+        return $this->hasMany(Question::class);
     }
 
     /**
@@ -47,14 +41,12 @@ class Quiz extends Model
     }
 
     /**
-     * Deletes the quiz and associated questions by quiz id
+     * Deletes the quiz
      *
      * @param int $id - id of quiz
      */
     public static function deleteQuiz($id)
     {
-        //First delete the questions, then delete the Quiz
-        Question::deleteByQuiz($id);
         Quiz::destroy($id);
     }
 }
