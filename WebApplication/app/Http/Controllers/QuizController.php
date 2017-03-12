@@ -67,7 +67,7 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        $questions = Quiz::getQuestions($quiz->id);
+        $questions = $quiz->questions;
         return view('quizzes.show', compact('quiz', 'questions')); 
     }
 
