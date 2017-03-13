@@ -61,7 +61,7 @@ class QuestionController extends Controller
         //Create the new Question 
         Question::saveQuestion($request);
 
-        return redirect('/quizzes/' . $request['quiz_id']);
+        return redirect()->route('quizzes.show', ['id' => $request['quiz_id']]);
     }
 
     /**
@@ -108,7 +108,7 @@ class QuestionController extends Controller
         //Update the object 
         Question::updateQuestion($request, $id);
 
-        return redirect('/quizzes/' . $request['quiz_id']);
+        return redirect()->route('quizzes.show', ['id' => $request['quiz_id']]);
     }
 
     /**
