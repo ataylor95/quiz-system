@@ -10,7 +10,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="name">Question Text:</label>
-                        <input type="text" class="form-control" id="question_text" name="question_text" required>
+                        <input type="text" class="form-control" id="question_text" name="question_text" value="{{$question['question_text']}}" required>
                     </div>
 
                     <div class="form-group">
@@ -24,7 +24,7 @@
                         @for ($j=1; $j<=$numberAnswers; $j++)
                             <div class="form-group">
                                 <label for="name">Answer {{$j}}:</label>
-                                <input type="text" class="form-control" id="answer{{$j}}" name="answer{{$j}}">
+                                <input type="text" class="form-control" id="answer{{$j}}" name="answer{{$j}}" value="{{$question['answer' . $j]}}">
                             </div>
                         @endfor
                     
