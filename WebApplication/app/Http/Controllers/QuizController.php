@@ -77,9 +77,9 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Quiz $quiz)
     {
-        //
+        return view('quizzes.edit', compact('quiz')); 
     }
 
     /**
