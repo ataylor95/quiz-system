@@ -25,7 +25,7 @@
                             <a href='/questions/{{$question->id}}'>View</a>
                         </div>
                         <div class='col-xs-1'>
-                            <a href='/questions/{{$question->id}}'>Edit</a>
+                            <a href='/questions/{{$question->id}}/edit'>Edit</a>
                         </div>
                         <div class='col-xs-1'>
                             <form method="POST" action="/questions/{{$question->id}}">
