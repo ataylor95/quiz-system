@@ -94,6 +94,9 @@ class QuizController extends Controller
         $this->validate($request, [
             'name' => 'min:5',
         ]);
+        Quiz::updateQuiz($request['name'], $request['desc'], $id);
+
+        return redirect()->route('quizzes.show', ['id' => $id]);
     }
 
     /**

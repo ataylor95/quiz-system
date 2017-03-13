@@ -40,6 +40,14 @@ class Quiz extends Model
         return $id;
     }
 
+    public static function updateQuiz($name, $desc, $id)
+    {
+        Quiz::find($id)->update([
+            'name' => $name,
+            'desc' => $desc,     
+        ]);
+    }
+
     /**
      * Deletes the quiz
      *
