@@ -30,7 +30,7 @@
                         @endfor
                     
                     <div class='form-group'>
-                        <button type="submit" class="btn center-block btn-default">Create</button> 
+                        <button type="submit" class="btn center-block btn-default">Update</button> 
                     </div>
 
                     @include('layouts.form-errors')
