@@ -49,14 +49,14 @@ class QuizController extends Controller
     {
         //Some simple validation, currently just require the two fields
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|min:5',
             'desc' => 'required'
         ]);
 
         $id = Quiz::saveQuiz($request['name'], $request['desc'], 
                 auth()->user()->id);
 
-        return redirect('/quizzes/' . $id);
+        return redirect()->route('quizzes.show', ['id' => $id]);
     }
 
     /**
@@ -77,9 +77,9 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Quiz $quiz)
     {
-        //
+        return view('quizzes.edit', compact('quiz')); 
     }
 
     /**
@@ -91,7 +91,12 @@ class QuizController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'min:5',
+        ]);
+        Quiz::updateQuiz($request['name'], $request['desc'], $id);
+
+        return redirect()->route('quizzes.show', ['id' => $id]);
     }
 
     /**

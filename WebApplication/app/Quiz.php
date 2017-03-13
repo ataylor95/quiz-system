@@ -41,6 +41,22 @@ class Quiz extends Model
     }
 
     /**
+     * Saves the newly created quiz to the db
+     *
+     * @param string $name - name of the quiz
+     * @param string $desc - description
+     * @param int $id
+     */
+    public static function updateQuiz($name, $desc, $id)
+    {
+        //TODO: If you try and do this with an empty desc it errors
+        Quiz::find($id)->update([
+            'name' => $name,
+            'desc' => $desc,     
+        ]);
+    }
+
+    /**
      * Deletes the quiz
      *
      * @param int $id - id of quiz

@@ -37,6 +37,9 @@ $factory->define(App\Quiz::class, function (Faker\Generator $faker) {
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Question::class, function (Faker\Generator $faker) {
     return [
+        'quiz_id' => function () {
+            return factory(App\Quiz::class)->create()->id;
+        },
         'question_text' => $faker->sentence,
         'type' => $faker->randomElement(['multi_choice', 'multi_select']),
         'answer1' => $faker->word,
@@ -46,14 +49,3 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
     ];
 });
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\QuizQuestion::class, function (Faker\Generator $faker) {
-    return [
-        'quiz_id' => function () {
-            return factory(App\Quiz::class)->create()->id;
-        },
-        'question_id' => function () {
-            return factory(App\Question::class)->create()->id;
-        },
-    ];
-});

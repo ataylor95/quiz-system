@@ -14,7 +14,7 @@
                                 <p>{{$quiz->name}}</p>
                             </div>
                             <div class='col-xs-2'>
-                                <a href='quizzes/{{$quiz->id}}'>View</a>
+                                <a href='/quizzes/{{$quiz->id}}'>View</a>
                             </div>
                             <div class='col-xs-2'>
                                 <form method="POST" action="/quizzes/{{$quiz->id}}">
@@ -29,7 +29,7 @@
                     @endforeach
                 </div>
                 <div class='panel-footer text-right'>
-                    <a href='quizzes/create' class='btn'>New Quiz</a>
+                    <a href='/quizzes/create' class='btn'>New Quiz</a>
                 </div>
             </div>
         </div>

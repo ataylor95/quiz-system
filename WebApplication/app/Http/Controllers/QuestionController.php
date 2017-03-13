@@ -34,15 +34,10 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $questionsData = config('questions');
-        $numberAnswers = $questionsData['numAnswers'];
-        $types = $questionsData['types'];
-        $typeKeys = [];
-        $typeValues = [];
-        foreach ($types as $key => $value) {
-            $typeKeys[] = $key;
-            $typeValues[] = $value;
-        }
+        $questionData = $this->getQuestionsData();
+        $numberAnswers = $questionData[0];
+        $typeKeys = $questionData[1];
+        $typeValues = $questionData[2];
     
         return view('questions.create', compact('typeKeys', 'typeValues', 'numberAnswers')); 
     }
@@ -64,9 +59,9 @@ class QuestionController extends Controller
         ]);
 
         //Create the new Question 
-        $questionID = Question::saveQuestion($request);
+        Question::saveQuestion($request);
 
-        return redirect('/quizzes/' . $request['quiz_id']);
+        return redirect()->route('quizzes.show', ['id' => $request['quiz_id']]);
     }
 
     /**
@@ -86,9 +81,13 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
-        //
+        $questionData = $this->getQuestionsData();
+        $numberAnswers = $questionData[0];
+        $typeKeys = $questionData[1];
+        $typeValues = $questionData[2];
+        return view('questions.edit', compact('question', 'typeKeys', 'typeValues', 'numberAnswers')); 
     }
 
     /**
@@ -100,7 +99,16 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'question_text' => 'required',
+            'type' => 'required',
+            'answer1' => 'required'
+        ]);
+
+        //Update the object 
+        Question::updateQuestion($request, $id);
+
+        return redirect()->route('quizzes.show', ['id' => $request['quiz_id']]);
     }
 
     /**
@@ -113,5 +121,19 @@ class QuestionController extends Controller
     {
         Question::deleteQuestion($id);
         return back();
+    }
+
+    private function getQuestionsData()
+    {
+        $questionsData = config('questions');
+        $numberAnswers = $questionsData['numAnswers'];
+        $types = $questionsData['types'];
+        $typeKeys = [];
+        $typeValues = [];
+        foreach ($types as $key => $value) {
+            $typeKeys[] = $key;
+            $typeValues[] = $value;
+        }
+        return [$numberAnswers, $typeKeys, $typeValues];
     }
 }
