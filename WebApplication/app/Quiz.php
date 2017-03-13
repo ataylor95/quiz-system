@@ -40,6 +40,13 @@ class Quiz extends Model
         return $id;
     }
 
+    /**
+     * Saves the newly created quiz to the db
+     *
+     * @param string $name - name of the quiz
+     * @param string $desc - description
+     * @param int $id
+     */
     public static function updateQuiz($name, $desc, $id)
     {
         //TODO: If you try and do this with an empty desc it errors
