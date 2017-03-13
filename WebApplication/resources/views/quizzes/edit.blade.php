@@ -10,7 +10,7 @@
                     {{ method_field('PATCH') }}
                     <div class="form-group">
                         <label for="name">Name of Quiz:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{$quiz['name']}}">
+                        <input type="text" class="form-control" id="name" name="name" value="{{$quiz['name']}}" required>
                     </div>
 
                     <div class="form-group">
