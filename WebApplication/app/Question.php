@@ -24,11 +24,10 @@ class Question extends Model
      * Saves a question to the table
      *
      * @param collection $dataToSave - request data from the form
-     * @return int $questionID
      */
     public static function saveQuestion($dataToSave)
     {
-        $questionID = Question::Create([
+        Question::Create([
             'quiz_id' => $dataToSave['quiz_id'],
             'question_text' => $dataToSave['question_text'],
             'type' => $dataToSave['type'],
@@ -42,9 +41,7 @@ class Question extends Model
             'answer8' => (is_null($dataToSave['answer8']) ? "" : $dataToSave['answer8']),
             'answer9' => (is_null($dataToSave['answer9']) ? "" : $dataToSave['answer9']),
             'answer10' => (is_null($dataToSave['answer10']) ? "" : $dataToSave['answer10']),
-        ])->id;
-
-        return $questionID;        
+        ]);
     }
 
     public static function updateQuestion($dataToSave, $id)
