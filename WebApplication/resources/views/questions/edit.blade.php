@@ -5,9 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <form method="POST" action="/questions">
-                    <input name="quiz_id" type="hidden" value="{{ app('request')->input('quiz') }}">
+                <form method="POST" action="/questions/{{$question['id']}}">
                     {{ csrf_field() }}
+                    {{ method_field('PATCH') }}
+                    <input name="quiz_id" type="hidden" value="{{ app('request')->input('quiz') }}">
                     <div class="form-group">
                         <label for="name">Question Text:</label>
                         <input type="text" class="form-control" id="question_text" name="question_text" value="{{$question['question_text']}}" required>
