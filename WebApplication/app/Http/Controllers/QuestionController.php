@@ -34,15 +34,10 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $questionsData = config('questions');
-        $numberAnswers = $questionsData['numAnswers'];
-        $types = $questionsData['types'];
-        $typeKeys = [];
-        $typeValues = [];
-        foreach ($types as $key => $value) {
-            $typeKeys[] = $key;
-            $typeValues[] = $value;
-        }
+        $questionData = $this->getQuestionsData();
+        $numberAnswers = $questionData[0];
+        $typeKeys = $questionData[1];
+        $typeValues = $questionData[2];
     
         return view('questions.create', compact('typeKeys', 'typeValues', 'numberAnswers')); 
     }
@@ -88,7 +83,11 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('questions.edit', compact('question')); 
+        $questionData = $this->getQuestionsData();
+        $numberAnswers = $questionData[0];
+        $typeKeys = $questionData[1];
+        $typeValues = $questionData[2];
+        return view('questions.edit', compact('question', 'typeKeys', 'typeValues', 'numberAnswers')); 
     }
 
     /**
@@ -113,5 +112,19 @@ class QuestionController extends Controller
     {
         Question::deleteQuestion($id);
         return back();
+    }
+
+    private function getQuestionsData()
+    {
+        $questionsData = config('questions');
+        $numberAnswers = $questionsData['numAnswers'];
+        $types = $questionsData['types'];
+        $typeKeys = [];
+        $typeValues = [];
+        foreach ($types as $key => $value) {
+            $typeKeys[] = $key;
+            $typeValues[] = $value;
+        }
+        return [$numberAnswers, $typeKeys, $typeValues];
     }
 }
