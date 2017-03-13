@@ -12,10 +12,10 @@
                 </div>
                 <p>Answers:</p>
                 @for ($i = 1; $i <= config('questions')['numAnswers']; $i++)      
-                    @if (strlen($question["answer" . $i] > 0))
+                    @if (strlen($question['answer' . $i]) > 0)
                         <div class="row">
                             <div class="col-xs-12">
-                                <p>{{ $question["answer" . $i] }}</p> 
+                                <p>{{ $question['answer' . $i] }}</p> 
                             </div>
                         </div>
                     @endif
