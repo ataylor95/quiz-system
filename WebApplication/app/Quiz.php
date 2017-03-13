@@ -42,6 +42,7 @@ class Quiz extends Model
 
     public static function updateQuiz($name, $desc, $id)
     {
+        //TODO: If you try and do this with an empty desc it errors
         Quiz::find($id)->update([
             'name' => $name,
             'desc' => $desc,     
