@@ -44,6 +44,12 @@ class Question extends Model
         ]);
     }
 
+    /**
+     * Updates the db record of the question
+     *
+     * @param collection $dataToSave  - request data from the form
+     * @param int $id
+     */
     public static function updateQuestion($dataToSave, $id)
     {
         Question::find($id)->update([
