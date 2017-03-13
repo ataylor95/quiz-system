@@ -56,7 +56,7 @@ class QuizController extends Controller
         $id = Quiz::saveQuiz($request['name'], $request['desc'], 
                 auth()->user()->id);
 
-        return redirect('/quizzes/' . $id);
+        return redirect()->route('quizzes.show', ['id' => $id]);
     }
 
     /**
