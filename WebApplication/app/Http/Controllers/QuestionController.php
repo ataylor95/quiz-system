@@ -59,7 +59,7 @@ class QuestionController extends Controller
         ]);
 
         //Create the new Question 
-        $questionID = Question::saveQuestion($request);
+        Question::saveQuestion($request);
 
         return redirect('/quizzes/' . $request['quiz_id']);
     }
@@ -99,7 +99,16 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'question_text' => 'required',
+            'type' => 'required',
+            'answer1' => 'required'
+        ]);
+
+        //Update the object 
+        Question::updateQuestion($request, $id);
+
+        return redirect('/quizzes/' . $request['quiz_id']);
     }
 
     /**
