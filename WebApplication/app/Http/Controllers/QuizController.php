@@ -49,7 +49,7 @@ class QuizController extends Controller
     {
         //Some simple validation, currently just require the two fields
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|min:5',
             'desc' => 'required'
         ]);
 
@@ -91,7 +91,9 @@ class QuizController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'min:5',
+        ]);
     }
 
     /**
