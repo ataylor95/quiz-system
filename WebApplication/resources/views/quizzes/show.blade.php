@@ -5,7 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"> {{ $quiz['name'] }}</div>
+                <div class="panel-heading"> 
+                    {{ $quiz['name'] }}
+                    <a class="heading-right" href="/quizzes/{{ $quiz['id'] }}/edit">Edit</a>
+                </div>
 
                 <div class="panel-body">
                     <p>{{ $quiz['desc'] }}</p>
