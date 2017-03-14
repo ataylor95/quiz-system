@@ -39,5 +39,12 @@
         </div>
     </div>
 </div>
+@endsection
+    
+@section('scripts')
+<script>
+    //By fefault we want the select box to show the correct type
+    $('#type').val("{{$question['type']}}");
+</script>
 
 @endsection
