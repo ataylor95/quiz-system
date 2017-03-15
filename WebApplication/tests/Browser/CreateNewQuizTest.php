@@ -98,7 +98,7 @@ class CreateNewQuizTest extends DuskTestCase
     /**
      * Test whether a quiz owns a question
      *
-     * @return null
+     * @return void
      */
     public function testQuizContainsQuestions()
     {
@@ -119,7 +119,7 @@ class CreateNewQuizTest extends DuskTestCase
     /**
      * Test adding a question to a quiz
      *
-     * @return null
+     * @return void 
      */
     public function testAddQuestion()
     {
