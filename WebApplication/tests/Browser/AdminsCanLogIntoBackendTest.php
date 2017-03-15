@@ -29,4 +29,22 @@ class AdminsCanLogIntoBackendTest extends DuskTestCase
                     ->assertPathIs('/home');
         });
     }
+
+    /**
+     * Tests that a user can register
+     *
+     * @return void
+     */
+    public function testRegister()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/register')
+                    ->type('name', 'test@example.com')
+                    ->type('email', 'test@example.com')
+                    ->type('password', 'secret')
+                    ->type('password_confirmation', 'secret')
+                    ->press('Register')
+                    ->assertPathIs('/home');
+        });
+    }
 }
