@@ -23,10 +23,8 @@ class AdminsPresentedListOfQuizzesTest extends DuskTestCase
         ]);
 
         $this->browse(function ($browser) use ($user) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/home')
                     ->assertSee('Your Quizzes');
         });
     }
@@ -50,10 +48,8 @@ class AdminsPresentedListOfQuizzesTest extends DuskTestCase
         ]);
 
         $this->browse(function ($browser) use ($user, $quiz){
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->assertSee($quiz->name);
         });
     }
@@ -78,10 +74,8 @@ class AdminsPresentedListOfQuizzesTest extends DuskTestCase
         ]);
 
         $this->browse(function ($browser) use ($user, $quiz, $quiz2){
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->assertSee($quiz->name)
                     ->assertDontSee($quiz2->name);
         });
