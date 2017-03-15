@@ -12,7 +12,7 @@ class CreateNewQuizTest extends DuskTestCase
     use DatabaseMigrations;
 
     /**
-     * A Dusk test example.
+     * Test to create a new quiz
      *
      * @return void
      */
