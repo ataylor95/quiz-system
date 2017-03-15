@@ -142,4 +142,29 @@ class CreateNewQuizTest extends DuskTestCase
                     ->assertSee('Test Question');
         });
     }
+
+    /**
+     * Test the question page
+     *
+     * @return void
+     */
+    public function testQuestionPage()
+    {
+        $user = factory(User::class)->create(['id' => 6]);
+        $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
+        $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
+
+        $this->browse(function ($browser) use ($user, $question) {
+            $browser->visit('/login')
+                    ->type('email', $user->email)
+                    ->type('password', 'secret')
+                    ->press('Login')
+                    ->clickLink('View') //Only one quiz so it will be the only 'View' link
+                    ->clickLink('View') //Only one question so it will be the only 'View' link
+                    ->assertSee($question->question_text)
+                    ->assertSee(config('questions')['types'][$question->type])
+                    ->assertSee($question->answer1)
+                    ->assertSee($question->answer2);
+        });
+    }
 }
