@@ -26,10 +26,8 @@ class CreateNewQuizTest extends DuskTestCase
         $user = factory(User::class)->create();
 
         $this->browse(function ($browser) use ($user, $quizName, $quizDesc) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->clickLink('New Quiz')
                     ->type('name', $quizName)
                     ->type('desc', $quizDesc)
@@ -57,10 +55,8 @@ class CreateNewQuizTest extends DuskTestCase
           This is because html validation is hard to see, also it might
           be different on different drivers like PhantomJS vs Chrome*/
         $this->browse(function ($browser) use ($user, $quizName, $quizDesc) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->clickLink('New Quiz')
                     ->type('name', $quizName)
                     ->type('desc', $quizDesc)
@@ -83,10 +79,8 @@ class CreateNewQuizTest extends DuskTestCase
         $user = factory(User::class)->create(['id' => 3]);
 
         $this->browse(function ($browser) use ($user, $quizName, $quizDesc) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->clickLink('New Quiz')
                     ->type('name', $quizName)
                     ->type('desc', $quizDesc)
@@ -107,10 +101,8 @@ class CreateNewQuizTest extends DuskTestCase
         $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
 
         $this->browse(function ($browser) use ($user, $question) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->clickLink('View') //Only one quiz so it will be the only 'View' link
                     ->assertSee($question->question_text);
         });
@@ -127,10 +119,8 @@ class CreateNewQuizTest extends DuskTestCase
         $quiz = factory(Quiz::class)->create(['user_id' => 5]);
 
         $this->browse(function ($browser) use ($user, $quiz) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->clickLink('View') //Only one quiz so it will be the only 'View' link
                     ->clickLink('Add Question')
                     ->type('question_text', 'Test Question')
@@ -155,10 +145,8 @@ class CreateNewQuizTest extends DuskTestCase
         $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
 
         $this->browse(function ($browser) use ($user, $question) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->clickLink('View') //Only one quiz so it will be the only 'View' link
                     ->clickLink('View') //Only one question so it will be the only 'View' link
                     ->assertSee($question->question_text)
