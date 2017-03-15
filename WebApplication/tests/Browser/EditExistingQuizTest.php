@@ -23,13 +23,11 @@ class EditExistingQuizTest extends DuskTestCase
         $quiz = factory(Quiz::class)->create(['user_id' => 1]);
 
         $this->browse(function ($browser) use ($user, $quiz) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->assertSee($quiz->name)
                     ->press('Delete')
-                    ->assertPathIs('/home') //Make sure directed to same page
+                    ->assertPathIs('/quizzes') //Make sure directed to same page
                     ->assertDontSee($quiz->name);
         });
     }
@@ -46,10 +44,8 @@ class EditExistingQuizTest extends DuskTestCase
         $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
 
         $this->browse(function ($browser) use ($user, $quiz, $question) {
-            $browser->visit('/login')
-                    ->type('email', $user->email)
-                    ->type('password', 'secret')
-                    ->press('Login')
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
                     ->clickLink('View')
                     ->assertSee($question->question_text)
                     ->press('Delete')
