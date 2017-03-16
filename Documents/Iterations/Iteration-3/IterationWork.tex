@@ -29,7 +29,14 @@
 \newpage
 
 \section{Non-Story Work}
-\subsection{}
+\subsection{Refactor Controllers}
+The first major piece of work was to refactor the controllers and models into a far more sensible format. The problem was that much of the model logic was within the controllers, it was a simple case of refactoring the functions into the respective models. This would make it easier if I ever needed to change the model logic or db structure.
+\subsection{Changing the DB Structure}
+The original design was changed, and the quiz\_questions table for linking quizzes and questions together was removed. The original reason for this table was most likely such that questions could be reused. However, after thinking about the potential for that to happen, and the issues that the structure was causing in the model logic it was decjded that the quiz\_question table was more of a hinderance than a help.
+
+The questions table now simply has a quiz\_id column that references the quiz it belongs to. Doing this means that the relationships between the two tables are much easier to define in the models, simply having a belongsTo and hasMany function in both that automatically return the necessary data. Thanks to the previous refactoring of model logic, changing this functionality was quite quick.
+\subsection{Front-End Setup}
+This was the first time that any custom css was written and Laravel uses sass to generate its css. To build this sass into css, and also to build any future js Laravel Mix was needed to run builds for this code. For this, npm and node had to be installed so that they could run their webpack build scripts. There were some issues trying to get the build scripts to run, even though it worked on fresh installs of laravel, but eventually a Github issue was discovered that had some solutions.
 https://github.com/JeffreyWay/laravel-mix/issues/478
 
 %\section{Bibliography}
