@@ -47,4 +47,12 @@ class AdminsCanLogIntoBackendTest extends DuskTestCase
                     ->assertPathIs('/home');
         });
     }
+
+    public function testQuizzesRedirect()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/quizzes')
+                    ->assertPathIs('/login'); 
+        });
+    }
 }
