@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.3 (Draft)
+	Version 0.4 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -33,8 +33,19 @@
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
 (insert images for these, maybe some form of activity diagram?)
 \subsection{Implementation}
-Added create page which has a form, added validation to it,
+Added create page which has a form, added validation to it
+
+Could do validation with javascript.
 \subsection{Testing}
+Dusk tests:
+\begin{enumerate}
+	\item Test to create a new quiz
+	\item Test the HTML validation for creating a new quiz
+	\item Test backend validation of quizzes
+	\item Test a quiz contains questions that have all been added before hand
+	\item Test to add a question to a quiz
+	\item Test to make sure the question page contains the relevent information
+\end{enumerate}
 \newpage
 
 \section{Story: They can edit an existing quiz they own}
@@ -50,6 +61,13 @@ Added create page which has a form, added validation to it,
 There was not much design for this stage as it only really adds an edit page which should look the same as the pages in the above story
 \subsection{Implementation}
 \subsection{Testing}
+Dusk Tests:
+\begin{enumerate}
+	\item Test the deletion of a quiz
+	\item Test the deletion of a question on a quiz
+	\item Test the edit page of a quiz
+	\item Test the edit page of a question
+\end{enumerate}
 \newpage
 
 \section{Non-Story Work}
