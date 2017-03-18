@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.6 (Draft)
+	Version 0.7 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -33,7 +33,7 @@
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
 (TODO: insert images for these, maybe some form of activity diagram?)
 \subsection{Implementation}
-A create page was added for quizzes, this was linked to from the home page. This was mapped to /quizzes/create address. A simple form was added to this page with the name and description of the quiz. Questions would be added on an individual quiz page. The form sends the form as an HTTP POST request to the /quizzes page which then maps onto the 'Store' action in the Quiz Controller. This action is used for server side validation and passing the data to the Quiz model to be saved to the database. The model function called just saves to the database using Eloquent, and returns the id of the new quiz. The user\_id is assigned to the quiz by simply getting the current user. Using this id, this Store function redirects to the newly created quiz.
+A create page was added for quizzes, this was linked to from the home page. This was mapped to /quizzes/create address. A simple form was added to this page with the name and description of the quiz. Questions would be added on an individual quiz page. The form sends the form as an HTTP POST request to the /quizzes page which then maps onto the 'Store' action in the Quiz Controller. This action is used for server side validation and saving the data to the databse using an Eloquent function. This Eloquent function also returns the id of the new quiz. The user\_id is assigned to the quiz by simply getting the current user. Using this id, this Store function redirects to the newly created quiz.
 
 On a quiz page, it displays the name and description and has a button to add any questions to the quiz. This button links to the questions/create page that functions in the same way as the quiz creation, albeit with the relevant fields in the form. The questions are assigned to the quiz by passing the quiz id to the question creation page in a GET variables via the url. This allows the question to be assigned to the quiz during its creation in the database and to be redirected back to the quiz page.
 
@@ -68,9 +68,13 @@ After attempting to use the transactions it appears as though they are not usabl
 	\item You can delete a quiz and its associated questions (TODO: add this to the trello)
 \end{itemize}
 \subsection{Design}
-There was not much design for this stage as it only really adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data that is being editing.
+There was not much design for this stage as it only really adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data that is being editing. Additionally a delete button should be added for quizzes and questions. (TODO: more design here)
 \subsection{Implementation}
-The edit pages added to the 
+Pre filling the edit page was done by getting the record in the database by the id and just setting the default values of the input fields. The main difference to the creation stage was that the form had to use the HTTP PATCH method rather than POST. This PATCH method is automatically routed to the update function in the controller. Within this function, server side validation is performed and and Eloquent called to update the row in the database. It then redirects back to the quiz page for editing either a question or quiz. (TODO: probably link to a list of the methods and mappings on docs)
+
+Delete buttons were added to the quizzes and questions, these were not a simple \textless a \textgreater tag that linked to a delete page like the create and edit pages. This had to be a small form that sent an HTTP DELETE request along with an id to the /quizzes or /questions page. This was mapped to the destroy functions in the respective controllers which simply called an Eloquent function that removed the record. Due to the way the database is designed when a quiz or question is deleted, the linking row inside the quiz\_question table must also be deleted. 
+
+Another thing that had to be changed was to make the froeign key reference columns in the quizzes and questions table cascade delete on deletion of the record. This meant that they would delete the rows in the quiz\_question table that referenced the row being deleted. For a quiz deletion, this had to go further and also find the questions associated with the quiz and delete all of those, which used a simple Eloquent function to find them using the quiz\_question table before the rows in that table were deleted and then delete the questions using those ids. 
 \subsection{Testing}
 Dusk Tests:
 \begin{enumerate}
