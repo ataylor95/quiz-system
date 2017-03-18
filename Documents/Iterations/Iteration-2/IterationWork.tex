@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.4 (Draft)
+	Version 0.5 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -46,6 +46,9 @@ Dusk tests:
 	\item Test to add a question to a quiz
 	\item Test to make sure the question page contains the relevent information
 \end{enumerate}
+A problem encountered in this set of tests is the speed of testing. Running these tests takes about a minute. The reason for this is that the tests use DatabaseMigrations rather than DatabaseTransactions, meaning that the database is migrated for every test. Using transactions would reduce the time taken by only doing a migration at the start and then using a transaction for each test. Alternatively having a pre migrated test database on which you run transactions would work too, but this would mean any time you change your database, you would have to reember to migrate the test database. 
+
+After attempting to use the transactions it appears as though they are not usable within Dusk. This is because Dusk is running in another process and migrations is the only choice (site this with https://github.com/laravel/dusk/issues/110) 
 \newpage
 
 \section{Story: They can edit an existing quiz they own}
