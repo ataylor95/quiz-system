@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.5 (Draft)
+	Version 0.6 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -31,11 +31,17 @@
 \end{itemize}
 \subsection{Design}
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
-(insert images for these, maybe some form of activity diagram?)
+(TODO: insert images for these, maybe some form of activity diagram?)
 \subsection{Implementation}
-Added create page which has a form, added validation to it
+A create page was added for quizzes, this was linked to from the home page. This was mapped to /quizzes/create address. A simple form was added to this page with the name and description of the quiz. Questions would be added on an individual quiz page. The form sends the form as an HTTP POST request to the /quizzes page which then maps onto the 'Store' action in the Quiz Controller. This action is used for server side validation and passing the data to the Quiz model to be saved to the database. The model function called just saves to the database using Eloquent, and returns the id of the new quiz. The user\_id is assigned to the quiz by simply getting the current user. Using this id, this Store function redirects to the newly created quiz.
 
-Could do validation with javascript.
+On a quiz page, it displays the name and description and has a button to add any questions to the quiz. This button links to the questions/create page that functions in the same way as the quiz creation, albeit with the relevant fields in the form. The questions are assigned to the quiz by passing the quiz id to the question creation page in a GET variables via the url. This allows the question to be assigned to the quiz during its creation in the database and to be redirected back to the quiz page.
+
+For validation there are two parts, one on the HTML form and the other handles server side. The HTML validation (client side) uses simple HTML 5 validation like the "required" attribute in the form inputs. Further frontend validation could be added utilising Javascript but the HTML solution was far easier to implement, being the addition of one word and not several lines of code that have to be built and added to the correct pages. The server side complements this as client side validation can be circumnavigated by determined users.
+
+The server side validation in Laravel is well supported and made as easy as possible to implement. The Store function used to save data from the POST request simply calls \textit{\$this-\textgreater validate()} on the request data. Inside this validation function, various rules can be imposed on individual pieces of the request data such as simply requiring that is is filled or that it has to have a minimum length (TODO: cite the docs for this).
+
+Something that Laravel enforces is the use of CRSF tokens to prevent cross site request forgery attacks on the site. A token is generated for the project during its creation, and this token must be placed in a hidden field within every form so that it can verify that the authenticated user is the one actually making the requests to the application. (TODO: cite this doc page)
 \subsection{Testing}
 Dusk tests:
 \begin{enumerate}
@@ -48,7 +54,7 @@ Dusk tests:
 \end{enumerate}
 A problem encountered in this set of tests is the speed of testing. Running these tests takes about a minute. The reason for this is that the tests use DatabaseMigrations rather than DatabaseTransactions, meaning that the database is migrated for every test. Using transactions would reduce the time taken by only doing a migration at the start and then using a transaction for each test. Alternatively having a pre migrated test database on which you run transactions would work too, but this would mean any time you change your database, you would have to reember to migrate the test database. 
 
-After attempting to use the transactions it appears as though they are not usable within Dusk. This is because Dusk is running in another process and migrations is the only choice (site this with https://github.com/laravel/dusk/issues/110) 
+After attempting to use the transactions it appears as though they are not usable within Dusk. This is because Dusk is running in another process and migrations is the only choice (TODO: cite this with https://github.com/laravel/dusk/issues/110) 
 \newpage
 
 \section{Story: They can edit an existing quiz they own}
@@ -59,10 +65,12 @@ After attempting to use the transactions it appears as though they are not usabl
 	\item You can remove questions
 	\item You can add questions
 	\item You can edit the content of a question
+	\item You can delete a quiz and its associated questions (TODO: add this to the trello)
 \end{itemize}
 \subsection{Design}
-There was not much design for this stage as it only really adds an edit page which should look the same as the pages in the above story
+There was not much design for this stage as it only really adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data that is being editing.
 \subsection{Implementation}
+The edit pages added to the 
 \subsection{Testing}
 Dusk Tests:
 \begin{enumerate}
