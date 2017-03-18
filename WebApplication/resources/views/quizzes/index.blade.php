@@ -13,8 +13,11 @@
                             <div class='col-xs-8'>
                                 <p>{{$quiz->name}}</p>
                             </div>
-                            <div class='col-xs-2'>
+                            <div class='col-xs-1'>
                                 <a href='/quizzes/{{$quiz->id}}'>View</a>
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="submit" class="btn btn-primary">Run</button>
                             </div>
                             <div class='col-xs-2'>
                                 <form method="POST" action="/quizzes/{{$quiz->id}}">
