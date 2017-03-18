@@ -48,6 +48,8 @@ The questions table now simply has a quiz\_id column that references the quiz it
 \subsection{Front-End Setup}
 This was the first time that any custom css was written and Laravel uses sass to generate its css. To build this sass into css, and also to build any future js Laravel Mix was needed to run builds for this code. For this, npm and node had to be installed so that they could run their webpack build scripts. There were some issues trying to get the build scripts to run, even though it worked on fresh installs of laravel, but eventually a Github issue was discovered that had some solutions.
 https://github.com/JeffreyWay/laravel-mix/issues/478
+\subsection{Dusk and Travis}
+The aim was to try and set up Laravel Dusk on Travis. Dusk can use a few different browser drivers for running the tests in, by default this is Chrome but Travis comes presetup with PhantomJS which is also supported by Dusk. It should be a simple swap in drivers and then to set Travis to run a PhantomJS server. Unfortunately this does not seem to work, and no reason can be found. A supposedly working copy was even cloned and that does not work for me therefore I have to conclude it is currently not working.
 
 %\section{Bibliography}
 %\bibliographystyle{IEEEannotU}

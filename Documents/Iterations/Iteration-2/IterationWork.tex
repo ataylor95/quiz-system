@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.7 (Draft)
+	Version 0.8 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -90,6 +90,8 @@ Dusk Tests:
 Some more data needed to be seeded for this section of work, the question data. This involved creating some new Model Factories and using them in the seeders correctly. One issue was trying to create many questions for individual quizzes, but this was overcome using some very basic looping and calling the model factories in the right places.
 \subsection{Quiz Description}
 It was decided that quizzes should probably have descriptions attached to them, in case the lecturer needs reminding of what it is in 6 months time. This involved creating a new migration and simply adding a column to the table.
+\subsection{Travis Setup}
+Travis is a CI tool that can be used to run tests automatically on git pushes. Setting it up involved doing some spike work with another git project. It is really easy to set up, needing you to simply add a travis.yml file which specifies what travis will do after a push. The project also has to be added from Github which is simple.
 
 %\section{Bibliography}
 %\bibliographystyle{IEEEannotU}
