@@ -32,15 +32,15 @@ Pusher was chosen due to its ease of use and due to its high recommendation rate
 After configuring the spike work application to use Pusher, a simple Laravel Event was created to send a message to the Pusher. To test this event there were a couple methods implemented. The first was to simply register a route that triggers it when the page is visited: 
 	event(new App\textbackslash Events\textbackslash HelloPusherEvent('Hi there Pusher!')); (put in full line)
  
-Or with a custom made artisan command that can trigger the event. (insert this command here)
+Or with a custom made artisan command that can trigger the event. (TODO: insert this command here)
  
 \subsection{Testing}
-Both of these methods send the event to Pusher where it is registered: (insert picture of pusher)
+Both of these methods send the event to Pusher where it is registered: (TODO: insert picture of pusher)
 \newpage
 
 \section{Non-Story Work}
 \subsection{Refactor Controllers}
-The first major piece of work was to refactor the controllers and models into a far more sensible format. The problem was that much of the model logic was within the controllers, it was a simple case of refactoring the functions into the respective models. This would make it easier if I ever needed to change the model logic or db structure.
+The first major piece of work was to refactor the controllers and models into a far more sensible structure. The problem was that the Eloquent functions for modifying and reading from the database was within the controllers. In a full MVC system, this functionality should be inside the models. To fix this the Eloquent functions were refactored into the respective quiz and question models. This would make it easier if anything ever needed to change within the logic for any database interactions.
 \subsection{Changing the DB Structure}
 The original design was changed, and the quiz\_questions table for linking quizzes and questions together was removed. The original reason for this table was most likely such that questions could be reused. However, after thinking about the potential for that to happen, and the issues that the structure was causing in the model logic it was decjded that the quiz\_question table was more of a hinderance than a help.
 
