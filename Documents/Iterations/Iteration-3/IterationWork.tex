@@ -25,12 +25,12 @@
 \subsection{Analysis - Breakdown of Tasks}
 This story is quite large and whilst it will probably be split into a number of tasks, the first thing to do was some spike work on the way this system would work. One route is with WebSockets, a relatively new technology that allows the server to push data to the page quickly and easily. This would be nice solution as it is relatively future proof and seems like a better alternative to other solutions that involve a lot of javascript and forcing page changes on the users.
 \subsection{Design}
-WebSockets were introduced into Laravel 5 and have become one of the defacto ways to update the front end in real time. Unlike in some other web frameworks such as Ruby on Rails the web sockets in Laravel requires some extra set up. In Rails the WebSockets can be run on the main web server that is used to run the site[cite this], in Laravel however another server has to be set up to run these. Laravel offers several different drivers for running the WebSockets, including a Redis server[cite this] and  third party application called Pusher. Pusher handles most of the work for you and requires little set up other than creating a free account. 
+WebSockets were introduced into Laravel 5 and have become one of the defacto ways to update the front end in real time. Unlike in some other web frameworks such as Ruby on Rails the web sockets in Laravel requires some extra set up. In Rails the WebSockets can be run on the main web server that is used to run the site(TODO: site this), in Laravel however another server has to be set up to run these. Laravel offers several different drivers for running the WebSockets, including a Redis server[cite this] and  third party application called Pusher. Pusher handles most of the work for you and requires little set up other than creating a free account. 
 \subsection{Implementation}
 Pusher was chosen due to its ease of use and due to its high recommendation rate within the Laravel community. A problem with Pusher is that due to it being a third party service, it is not free forever (it has a number of users limitation). However you could host your own Redis server to mitigate this cost. This means that the system had to be designed in a way that the driver for WebSockets could be changed with ease.
 
 After configuring the spike work application to use Pusher, a simple Laravel Event was created to send a message to the Pusher. To test this event there were a couple methods implemented. The first was to simply register a route that triggers it when the page is visited: 
-	event(new App\textbackslash Events\textbackslash HelloPusherEvent('Hi there Pusher!')); (put in full line)
+	event(new App\textbackslash Events\textbackslash HelloPusherEvent('Hi there Pusher!')); (TODO: put in full line)
  
 Or with a custom made artisan command that can trigger the event. (TODO: insert this command here)
  
