@@ -14,16 +14,16 @@ class DisplayQuiz implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $quiz;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($quiz)
     {
-        $this->message = $message;
+        $this->quiz = $quiz;
     }
 
     /**
