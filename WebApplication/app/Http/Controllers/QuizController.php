@@ -118,9 +118,10 @@ class QuizController extends Controller
      *
      * @param String $name of quiz
      */
-    public function run($name)
+    public function run(Quiz $quiz)
     {
-        event(new DisplayQuiz($name));
+        //TODO: Sanitize what gets sent through the WebSockets
+        event(new DisplayQuiz($quiz));
         return back();
     }
 }
