@@ -112,6 +112,12 @@ class QuizController extends Controller
         return back();
     }
 
+    /**
+     * Action that is called via quizzes/run
+     * This triggers the broadcast event for WebSockets
+     *
+     * @param String $name of quiz
+     */
     public function run($name)
     {
         event(new DisplayQuiz($name));
