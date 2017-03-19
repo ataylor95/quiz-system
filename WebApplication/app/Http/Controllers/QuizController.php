@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quiz;
+use App\Events\DisplayQuiz;
 
 class QuizController extends Controller
 {
@@ -108,6 +109,19 @@ class QuizController extends Controller
     public function destroy($id)
     {
         Quiz::deleteQuiz($id);
+        return back();
+    }
+
+    /**
+     * Action that is called via quizzes/run
+     * This triggers the broadcast event for WebSockets
+     *
+     * @param String $name of quiz
+     */
+    public function run(Quiz $quiz)
+    {
+        //TODO: Sanitize what gets sent through the WebSockets
+        event(new DisplayQuiz($quiz));
         return back();
     }
 }

@@ -17,7 +17,7 @@
                                 <a href='/quizzes/{{$quiz->id}}'>View</a>
                             </div>
                             <div class="col-xs-1">
-                                <button type="submit" class="btn btn-primary">Run</button>
+                                <a href="/quizzes/run/{{$quiz->id}}" class="btn btn-primary">Run</a>
                             </div>
                             <div class='col-xs-2'>
                                 <form method="POST" action="/quizzes/{{$quiz->id}}">
