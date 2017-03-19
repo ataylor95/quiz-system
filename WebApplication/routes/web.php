@@ -21,4 +21,5 @@ Route::get('/home', 'QuizController@index');
 
 Route::resource('users', 'UserController');
 Route::resource('questions', 'QuestionController');
+Route::get('quizzes/run/{name}', 'QuizController@run');
 Route::resource('quizzes', 'QuizController');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quiz;
+use App\Events\DisplayQuiz;
 
 class QuizController extends Controller
 {
@@ -108,6 +109,12 @@ class QuizController extends Controller
     public function destroy($id)
     {
         Quiz::deleteQuiz($id);
+        return back();
+    }
+
+    public function run($name)
+    {
+        event(new DisplayQuiz($name));
         return back();
     }
 }
