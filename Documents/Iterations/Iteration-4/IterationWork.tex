@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage{cite}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\lhead{Alex Taylor}
+\cfoot{}
+\rfoot{\thepage}
+
+\title{Iteration: 4 (16/03 - 22/03)}
+\author{Alex Taylor - amt22@aber.ac.uk}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+	Version 0.2 (Draft)
+\end{center}
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+\section{Story: Admins can log into the website and run a session with a quiz}
+\subsection{Analysis - Breakdown of Tasks}
+After doing some spike work last week, this task can now be approached and broken into several sub tasks:
+\begin{itemize}
+	\item Set up config for Pusher
+	\item Add event for broadcasting
+	\item Write a command to trigger this event
+	\item Add a button to quizzes to trigger this event
+	\item Display this on the front end using the javascript which listens for Pusher events
+	\item Add a session key box to front page
+	\item Add session id to users
+	\item Allows admins to change their id
+	\item When admin clicks run, this id can be enetered into the key box to join a channel with the name of the id
+	\item The user will be presented with the initial quiz page which will be default filled with the name and description of the quiz
+	\item The admin will see the same page but with an "admin panel"
+	\item This admin panel has a next and previous button for questions
+	\item When these buttons are pressed, the question is sent to pusher
+	\item These question are rendered as a form on the user end and admin end
+	\item The user can submit the form
+\end{itemize}
+\subsection{Design}
+Here are some mockups of the user end of the system:
+\subsection{Implementation}
+\subsection{Testing}
+\subsection{Extras}
+\newpage
+
+%\section{Bibliography}
+%\bibliographystyle{IEEEannotU}
+%\bibliography{IEEEabrv,FrameworkHostingBib}
+
+\end{document}
