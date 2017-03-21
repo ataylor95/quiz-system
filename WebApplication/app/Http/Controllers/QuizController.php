@@ -124,4 +124,15 @@ class QuizController extends Controller
         event(new DisplayQuiz($quiz));
         return back();
     }
+
+    /**
+     * Actions for the quizzes that are running
+     * 
+     * @param  String  $key - key of the session
+     * @return \Illuminate\Http\Response
+     */
+    public function quiz($key)
+    {
+        return view('quizzes.run', compact('key'));
+    }
 }
