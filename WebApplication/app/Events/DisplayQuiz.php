@@ -33,6 +33,9 @@ class DisplayQuiz implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['quiz_channel'];
+        //We broadcast on the quiz_session channel so we 
+        //can have many channels
+        $user_key = auth()->user()->session_key;
+        return ['quiz_' . $user_key];
     }
 }
