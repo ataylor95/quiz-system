@@ -14,7 +14,7 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="session_key">Session Key:</label>
-                    <input name="session_key" id="session_id"></input>
+                    <input name="session_key" id="session_key"></input>
                 </div>
 
                 <div class="form-group">
