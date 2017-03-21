@@ -13,6 +13,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\User')->create(['email' => 'amt22@aber.ac.uk']);
+        factory('App\User')->create([
+            'email' => 'amt22@aber.ac.uk',
+            'session_key' => 'testy'
+        ]);
     }
 }
