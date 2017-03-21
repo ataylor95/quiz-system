@@ -5,8 +5,24 @@
 @endsection
 
 @section('content')
-    <h1>Quiz System</h1>
-    <ul id="messages" class="list-group"></ul>
+    <div class="vertical-align">
+        <h1 class="text-center">Quiz System</h1>
+        <ul id="messages" class="list-group"></ul>
+        
+        <div class="text-center">
+            <form action="">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="session_key">Session Key:</label>
+                    <input name="session_key" id="session_id"></input>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn center-block btn-primary">Join</button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
