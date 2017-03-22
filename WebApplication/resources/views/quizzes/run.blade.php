@@ -16,7 +16,7 @@
         @endif
     </div>
     
-    @include('quizzes.admin-panel')
+    @include('quizzes.admin-panel.panel')
 @endsection
 
 @section('scripts')
@@ -41,4 +41,6 @@
         $('#messages').prepend(listItem);
       }
     </script>
+
+    @include('quizzes.admin-panel.javascript')
 @endsection
