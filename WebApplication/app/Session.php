@@ -26,8 +26,12 @@ class Session extends Model
      */
     public static function setQuizRunning($quizID, $userID)
     {
+        //Set the quiz, reset the position in case it wasnt earlier
+        //All set running to true
         Session::where('user_id', $userID)->update([
-            'quiz_id' => $quizID
+            'quiz_id' => $quizID,
+            'position' => 0,
+            'running' => true
         ]);
     } 
 }
