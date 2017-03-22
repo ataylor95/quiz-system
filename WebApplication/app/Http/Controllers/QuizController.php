@@ -121,7 +121,9 @@ class QuizController extends Controller
     public function run(Quiz $quiz)
     {
         //TODO: Sanitize what gets sent through the WebSockets
-        event(new DisplayQuiz($quiz));
+        $user = auth()->user()->id;
+
+        event(new DisplayQuiz($quiz, $user));
         return back();
     }
 
