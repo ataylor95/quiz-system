@@ -24,4 +24,7 @@ Route::resource('questions', 'QuestionController');
 Route::get('quizzes/run/{quiz}', 'QuizController@run');
 Route::resource('quizzes', 'QuizController');
 
+Route::get('quiz/prev', 'QuizController@prevQuestion');
+Route::get('quiz/next', 'QuizController@nextQuestion');
+Route::get('quiz/end', 'QuizController@endQuiz');
 Route::get('quiz/{session_key}', 'QuizController@quiz');
