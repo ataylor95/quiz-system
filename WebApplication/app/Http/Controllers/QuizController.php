@@ -146,4 +146,25 @@ class QuizController extends Controller
         }
         return view('quizzes.run', compact('key', 'quiz'));
     }
+
+    /**
+     * Decrements the question counter in the session row
+     */
+    public function prevQuestion()
+    {
+    }
+
+    /**
+     * Incerements the question counter in the session row
+     */
+    public function nextQuestion()
+    {
+    }
+
+    /**
+     * Ends the quiz within the session row, also resets the position
+     */
+    public function endQuiz()
+    {
+    }
 }
