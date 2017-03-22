@@ -7,6 +7,17 @@ use App\User;
 
 class Session extends Model
 {
+
+    /**
+     * Gets the user that the session belongs to
+     *
+     * @return user 
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     /**
      * Gets the session key used in the channel name
      *
