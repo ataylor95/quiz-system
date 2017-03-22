@@ -124,7 +124,7 @@ class QuizController extends Controller
         //TODO: Sanitize what gets sent through the WebSockets
         $user = auth()->user()->id;
 
-        //TODO: set quiz in the session row
+        Session::setQuizRunning($quiz->id, $user);
 
         event(new DisplayQuiz($quiz, $user));
         return back();
