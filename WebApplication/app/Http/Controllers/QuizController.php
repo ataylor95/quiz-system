@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Quiz;
 use App\Events\DisplayQuiz;
+use App\Session;
 
 class QuizController extends Controller
 {
@@ -123,6 +124,8 @@ class QuizController extends Controller
         //TODO: Sanitize what gets sent through the WebSockets
         $user = auth()->user()->id;
 
+        //TODO: set quiz in the session row
+
         event(new DisplayQuiz($quiz, $user));
         return back();
     }
@@ -135,6 +138,12 @@ class QuizController extends Controller
      */
     public function quiz($key)
     {
-        return view('quizzes.run', compact('key'));
+        $quiz_id = Session::where('session_key', $key)->get()[0]->quiz_id;
+        if (is_null($quiz_id)) {
+            $quiz = null;
+        } else {
+            $quiz = Quiz::find($quiz_id);
+        }
+        return view('quizzes.run', compact('key', 'quiz'));
     }
 }

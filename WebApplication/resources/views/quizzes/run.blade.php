@@ -1,12 +1,20 @@
 @extends('layouts.basic')
 
 @section('title')
-    <title>Quiz</title>
+    <title>Quiz - {{$key}}</title>
 @endsection
 
 @section('content')
-    <h1>Quiz: {{$key}}</h1>
-    <ul id="messages" class="list-group"></ul>
+    <div id="default-content" class="vertical-align">
+        @if (is_null($quiz))
+            <h2 class="text-center">No quiz running for: {{$key}}</h2>
+        @else
+            <h1 class="text-center">{{$quiz['name']}}</h1>
+            <h3 class="text-center">{{$quiz['desc']}}</h3>
+            <h4 class="text-center">Session: {{$key}}</h4>
+            <ul id="messages" class="list-group"></ul>
+        @endif
+    </div>
     
     @include('quizzes.admin-panel')
 @endsection
