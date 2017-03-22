@@ -15,7 +15,6 @@ class UsersTableSeeder extends Seeder
     {
         factory('App\User')->create([
             'email' => 'amt22@aber.ac.uk',
-            'session_key' => 'testy'
         ]);
     }
 }

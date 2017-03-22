@@ -21,5 +21,6 @@ class QuestionsTableSeeder extends Seeder
             ]);
         }
         factory('App\Question', 10)->create();
+        factory('App\Session')->create(['user_id' => 1]);
     }
 }

@@ -20,7 +20,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
-        'session_key' => str_random(8),
     ];
 });
 
@@ -50,3 +49,14 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Session::class, function (Faker\Generator $faker) {
+    return [
+        'session_key' => str_random(8),
+        'quiz_id' => null,
+        'position' => 0,
+        'running' => false,
+        'user_id' => function () {
+            return factory(App\User::class)->create()->id;
+        },
+    ];
+});
