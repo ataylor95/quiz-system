@@ -7,6 +7,8 @@
 @section('content')
     <h1>Quiz: {{$key}}</h1>
     <ul id="messages" class="list-group"></ul>
+    
+    @include('quizzes.admin-panel')
 @endsection
 
 @section('scripts')
