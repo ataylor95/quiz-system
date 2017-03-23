@@ -152,6 +152,7 @@ class QuizController extends Controller
      */
     public function prevQuestion()
     {
+        Session::prevNextQuestion(auth()->user()->id, false);
     }
 
     /**
@@ -159,6 +160,7 @@ class QuizController extends Controller
      */
     public function nextQuestion()
     {
+        Session::prevNextQuestion(auth()->user()->id, true);
     }
 
     /**
@@ -166,5 +168,6 @@ class QuizController extends Controller
      */
     public function endQuiz()
     {
+        Session::endQuiz(auth()->user()->id);
     }
 }

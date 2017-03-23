@@ -7,7 +7,6 @@ use App\User;
 
 class Session extends Model
 {
-
     /**
      * Gets the user that the session belongs to
      *
@@ -45,4 +44,41 @@ class Session extends Model
             'running' => true
         ]);
     } 
+
+    /**
+     * Increments or decrements the question counter in the session
+     * 
+     * @param int $userID
+     * @param boolean $incrementing - true for next question, false for prev
+     */
+    public static function prevNextQuestion($userID, $incrementing)
+    {
+        //TODO: Could this be more OOP?
+        //TODO: Stop this from goin above or below max/ min num questions
+        $position = Session::where('user_id', $userID)->get(['position'])[0]->position;
+        if ($incrementing) {
+            $newPosition = $position + 1;
+        } else {
+            $newPosition = $position - 1;
+        }
+
+        Session::where('user_id', $userID)->update([
+            'position' => $newPosition,
+            'running' => true
+        ]);
+    }
+
+    /**
+     * Ends the quiz in the session table 
+     * 
+     * @param int $userID
+     */
+    public static function endQuiz($userID)
+    {
+        Session::where('user_id', $userID)->update([
+            'position' => 0,
+            'running' => false,
+            'quiz_id' => null
+        ]);
+    }
 }
