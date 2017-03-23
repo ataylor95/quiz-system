@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
+use App\User;
 
 class QuizController extends Controller
 {
@@ -123,11 +124,12 @@ class QuizController extends Controller
     {
         //TODO: Sanitize what gets sent through the WebSockets
         $user = auth()->user()->id;
+        $sessionKey = User::find($user)->session->session_key;
 
         Session::setQuizRunning($quiz->id, $user);
 
         event(new DisplayQuiz($quiz, $user));
-        return back();
+        return redirect()->route('runQuiz', ['session_key' => $sessionKey]);
     }
 
     /**
