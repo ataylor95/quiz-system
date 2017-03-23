@@ -16,7 +16,7 @@ class DisplayQuiz implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     //Public variables are broadcast
-    public $quiz;
+    public $data;
     private $user;
 
     /**
@@ -24,9 +24,9 @@ class DisplayQuiz implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($quiz, $user)
+    public function __construct($data, $user)
     {
-        $this->quiz = $quiz;
+        $this->data = $data;
         $this->user = $user;
     }
 
