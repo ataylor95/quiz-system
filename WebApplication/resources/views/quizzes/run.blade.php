@@ -37,7 +37,7 @@
 
       function addMessage(data) {
         var listItem = $("<li class='list-group-item'></li>");
-        listItem.html(data.quiz.name);
+        listItem.html(data.data.question_text);
         $('#messages').prepend(listItem);
       }
     </script>
