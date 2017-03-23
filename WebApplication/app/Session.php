@@ -66,6 +66,8 @@ class Session extends Model
             'position' => $newPosition,
             'running' => true
         ]);
+        
+        return $newPosition;
     }
 
     /**
@@ -80,5 +82,14 @@ class Session extends Model
             'running' => false,
             'quiz_id' => null
         ]);
+    }
+
+    public static function getQuestionForQuiz($userID, $position)
+    {
+        //TODO: Limit question going above or below max/ min question num
+        //TODO: Add a position variable to the questions table
+        $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
+        $question = Quiz::find($quizID)->questions[$position - 1];
+        return $question;
     }
 }

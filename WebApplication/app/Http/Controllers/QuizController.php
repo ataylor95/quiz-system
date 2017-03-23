@@ -152,15 +152,21 @@ class QuizController extends Controller
      */
     public function prevQuestion()
     {
-        Session::prevNextQuestion(auth()->user()->id, false);
+        $position = Session::prevNextQuestion(auth()->user()->id, false);
     }
 
     /**
      * Incerements the question counter in the session row
+     * TODO: Could these be done by API routing?
      */
     public function nextQuestion()
     {
-        Session::prevNextQuestion(auth()->user()->id, true);
+        //Send the next question to the event
+        $position = Session::prevNextQuestion(auth()->user()->id, true);
+        $question = Session::getQuestionForQuiz(auth()->user()->id, $position);
+
+        $user = auth()->user()->id;
+        event(new DisplayQuiz($question, $user));
     }
 
     /**
