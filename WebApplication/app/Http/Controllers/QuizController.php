@@ -152,7 +152,11 @@ class QuizController extends Controller
      */
     public function prevQuestion()
     {
-        $position = Session::prevNextQuestion(auth()->user()->id, false);
+        $user = auth()->user()->id;
+        $position = Session::prevNextQuestion($user, false);
+        $question = Session::getQuestionForQuiz($user, $position);
+
+        event(new DisplayQuiz($question, $user));
     }
 
     /**
@@ -162,10 +166,10 @@ class QuizController extends Controller
     public function nextQuestion()
     {
         //Send the next question to the event
-        $position = Session::prevNextQuestion(auth()->user()->id, true);
-        $question = Session::getQuestionForQuiz(auth()->user()->id, $position);
-
         $user = auth()->user()->id;
+        $position = Session::prevNextQuestion($user, true);
+        $question = Session::getQuestionForQuiz($user, $position);
+
         event(new DisplayQuiz($question, $user));
     }
 
