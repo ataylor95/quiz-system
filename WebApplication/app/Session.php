@@ -29,6 +29,18 @@ class Session extends Model
     } 
 
     /**
+     * Checks if a session key exists in the database
+     *
+     * @param String $key - session key
+     * @return Boolean - true if it is present in table
+     */
+    public static function isASessionKey($key)
+    {
+        $record = Session::where('session_key', $key)->get();
+        return (sizeof($record) > 0);
+    }
+
+    /**
      * Gets the session key used in the channel name
      *
      * @param int $quizID
