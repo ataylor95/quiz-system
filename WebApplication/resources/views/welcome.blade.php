@@ -25,10 +25,32 @@
 @section('scripts')
     <script>
         $('#join-button').on('click', function(){
+            goToQuizSession();
+        });
+
+        $('#session_key').keypress(function(e) {
+            //Because there is no form, pressing enter does not submit
+            //This simulates that for quality of life
+            //Key 13 should always be enter key
+            if(e.which == 13) {
+                goToQuizSession();
+            }
+        });
+
+        function goToQuizSession(){
             var key = $('#session_key').val();
             var baseUrl = "/quiz/";
             var url = baseUrl + key;
-            window.location.href = url;
-        });
+
+            if (validateSessionKey(key)) {
+                window.location.href = url;
+            } else {
+                alert("Please enter a session key");
+            }
+        }
+
+        function validateSessionKey(key) {
+            return key.length > 0;
+        }
     </script>
 @endsection
