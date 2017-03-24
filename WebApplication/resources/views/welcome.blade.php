@@ -7,7 +7,6 @@
 @section('content')
     <div class="vertical-align">
         <h1 class="text-center">Quiz System</h1>
-        <ul id="messages" class="list-group"></ul>
         
         <div class="text-center">
             <div class="form-group">
@@ -18,6 +17,7 @@
             <div class="form-group">
                 <button id="join-button" type="submit" class="btn center-block btn-primary">Join</button>
             </div>
+            <ul id="session-form-errors" class="list-group"></ul>
         </div>
     </div>
 @endsection
@@ -45,7 +45,9 @@
             if (validateSessionKey(key)) {
                 window.location.href = url;
             } else {
-                alert("Please enter a session key");
+                $('#session-form-errors').empty();
+                var error = $("<li class='list-group-item-danger'>Please enter a session key</li>");
+                $('#session-form-errors').append(error);
             }
         }
 
