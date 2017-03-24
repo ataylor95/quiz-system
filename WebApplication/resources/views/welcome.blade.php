@@ -10,40 +10,25 @@
         <ul id="messages" class="list-group"></ul>
         
         <div class="text-center">
-            <form action="">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="session_key">Session Key:</label>
-                    <input name="session_key" id="session_key"></input>
-                </div>
+            <div class="form-group">
+                <label for="session_key">Session Key:</label>
+                <input name="session_key" id="session_key"></input>
+            </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn center-block btn-primary">Join</button>
-                </div>
-            </form>
+            <div class="form-group">
+                <button id="join-button" type="submit" class="btn center-block btn-primary">Join</button>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
-    <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
     <script>
-      //instantiate a Pusher object with our Credential's key
-      var pusher = new Pusher('3f21a6176f0f0d31c04c', {
-          cluster: 'eu',
-          encrypted: true
-      });
-
-      //Subscribe to the channel we specified in our Laravel Event
-      var channel = pusher.subscribe('quiz_channel');
-
-      //Bind a function to a Event (the full Laravel class)
-      channel.bind('App\\Events\\DisplayQuiz', addMessage);
-
-      function addMessage(data) {
-        var listItem = $("<li class='list-group-item'></li>");
-        listItem.html(data.quiz.name);
-        $('#messages').prepend(listItem);
-      }
+        $('#join-button').on('click', function(){
+            var key = $('#session_key').val();
+            var baseUrl = "/quiz/";
+            var url = baseUrl + key;
+            window.location.href = url;
+        });
     </script>
 @endsection
