@@ -17,7 +17,11 @@
             <div class="form-group">
                 <button id="join-button" type="submit" class="btn center-block btn-primary">Join</button>
             </div>
-            <ul id="session-form-errors" class="list-group"></ul>
+            <ul id="session-form-errors" class="list-group">
+                @if (app('request')->input('no_session') == "true")
+                    <li class="list-group-item-danger">No session found with that id, please try again</li>
+                @endif
+            </ul>
         </div>
     </div>
 @endsection
