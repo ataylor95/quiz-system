@@ -5,7 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Your Quizzes</div>
+                <div class="panel-heading">
+                    Your Quizzes
+                    <a class="heading-right" href="">Run Slides</a>
+                </div>
 
                 <div class="panel-body">
                     @foreach ($quizzes as $quiz)

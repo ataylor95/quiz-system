@@ -8,6 +8,11 @@
     <div id="default-content" class="vertical-align">
         @if (is_null($quiz))
             <h2 class="text-center">No quiz running for: {{$key}}</h2>
+			@if (Auth::check())
+				<div class="text-center">
+					<a href="/quizzes">Start a session?</a>
+				</div>
+			@endif
         @else
             <h1 class="text-center">{{$quiz['name']}}</h1>
             <h3 class="text-center">{{$quiz['desc']}}</h3>
