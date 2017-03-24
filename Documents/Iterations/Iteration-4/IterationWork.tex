@@ -16,7 +16,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.3 (Draft)
+	Version 0.4 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -53,8 +53,11 @@ Here are some mockups of the user end of the system (TODO: label and captio thes
 
 
 \subsection{Implementation}
-It began by configuring pusher, creating an event and writing some basic javscript to append to the front page.
+It began by configuring pusher, creating an event and writing some basic javscript to append to the front page. Some work was done on the Admin panel as well, making it only visible to logged in users, and adding the functionality fro previous and next questions. These are just AJAX requests to quiz controller actions which then trigger the event for WebSockets.
+
+Early into the iteration a major flaw with using the WebSockets came up, whilst new content was easy to add to the page, if a new user joined the session late, they would see a blank page/ or the original content of the page that has not yet been removed with javascript. To remedy this, the current position in the quiz should be kept track of and the php on the page should load the question in that position. At the same time, the WebSockets will be running and updating the page from that point onwards in the session. I decided the best place for keeping track was within the session table, which now has appropriate columns for the position, quiz and if it is running.
 \subsection{Testing}
+No testing as the story is not yet complete.
 \newpage
 
 %\section{Bibliography}
