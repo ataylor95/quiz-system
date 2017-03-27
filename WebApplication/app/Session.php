@@ -7,6 +7,10 @@ use App\User;
 
 class Session extends Model
 {
+    protected $fillable = [
+        'session_key', 'quiz_id', 'position', 'running', 'user_id',
+    ];
+
     /**
      * Gets the user that the session belongs to
      *
