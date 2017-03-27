@@ -99,9 +99,8 @@ class Session extends Model
     public static function getQuestionForQuiz($userID, $position)
     {
         //TODO: Limit question going above or below max/ min question num
-        //TODO: Add a position variable to the questions table
         $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
-        $question = Quiz::find($quizID)->questions[$position - 1];
+        $question = Question::where([['quiz_id', '=', $quizID], ['position', '=', $position]])->get()[0];
         return $question;
     }
 }
