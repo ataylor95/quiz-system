@@ -41,10 +41,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/users">Users</a>
+                            <a href="{{route('users.index')}}">Users</a>
                         </li>
                         <li>
-                            <a href="/quizzes">Quizzes</a>
+                            <a href="{{route('quizzes.index')}}">Quizzes</a>
                         </li>
                         &nbsp;
                     </ul>
