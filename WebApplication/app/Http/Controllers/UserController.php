@@ -68,9 +68,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $sessionKey = Session::where('user_id', '=', $user->id)->get()[0]->session_key;
+        return view('users.edit', compact('user', 'sessionKey')); 
     }
 
     /**
