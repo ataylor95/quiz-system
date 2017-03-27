@@ -18,6 +18,7 @@ class QuestionsTableSeeder extends Seeder
             ]);
             factory('App\Question')->create([
                 'quiz_id' => $i, 
+                'position' => 2
             ]);
         }
         factory('App\Question', 10)->create();

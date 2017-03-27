@@ -40,6 +40,7 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
         'quiz_id' => function () {
             return factory(App\Quiz::class)->create()->id;
         },
+        'position' => 1,
         'question_text' => $faker->sentence,
         'type' => $faker->randomElement(['multi_choice', 'multi_select']),
         'answer1' => $faker->word,
