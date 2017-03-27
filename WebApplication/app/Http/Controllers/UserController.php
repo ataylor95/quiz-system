@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Session;
 
 class UserController extends Controller
 {
@@ -55,9 +56,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $sessionKey = Session::where('user_id', '=', $user->id)->get()[0]->session_key;
+        return view('users.show', compact('user', 'sessionKey')); 
     }
 
     /**
