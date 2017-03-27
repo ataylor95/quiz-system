@@ -107,4 +107,11 @@ class Session extends Model
         $question = Question::where([['quiz_id', '=', $quizID], ['position', '=', $position]])->get()[0];
         return $question;
     }
+
+    public static function updateSessionKey($key, $userID)
+    {
+        Session::where('user_id', '=', $userID)->update([
+            'session_key' => $key
+        ]);
+    }
 }

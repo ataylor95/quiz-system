@@ -37,4 +37,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Session::class);
     }
+
+    public static function updateUser($name, $email, $sessionKey, $id)
+    {
+        User::find($id)->update([
+            'name' => $name,
+            'email' => $email,
+        ]);
+        
+        Session::updateSessionKey($sessionKey, $id);
+    }
 }

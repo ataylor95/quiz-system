@@ -97,6 +97,7 @@ class UserController extends Controller
                     Rule::unique('sessions')->ignore($sessionKey, 'session_key'),
                 ],
         ]);
+        User::updateUser($request['name'], $request['email'], $request['session_key'], $id);
         return redirect()->route('users.show', ['id' => $id]);
     }
 
