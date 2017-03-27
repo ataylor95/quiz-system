@@ -43,8 +43,8 @@
 
         function goToQuizSession(){
             var key = $('#session_key').val();
-            var baseUrl = "/quiz/";
-            var url = baseUrl + key;
+            var baseUrl = "{{route('quizBase')}}";
+            var url = baseUrl + '/' + key;
 
             if (validateSessionKey(key)) {
                 window.location.href = url;
