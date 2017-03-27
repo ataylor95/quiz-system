@@ -130,7 +130,7 @@ class QuizController extends Controller
         Session::setQuizRunning($quiz->id, $user);
 
         event(new DisplayQuiz($quiz, $user));
-        return redirect()->route('runQuiz', ['session_key' => $sessionKey]);
+        return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
     /**
