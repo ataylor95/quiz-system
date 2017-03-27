@@ -17,13 +17,13 @@
                                 <p>{{$quiz->name}}</p>
                             </div>
                             <div class='col-xs-1'>
-                                <a href='/quizzes/{{$quiz->id}}'>View</a>
+                                <a href="{{route('quizzes.show', ['id' => $quiz['id']])}}">View</a>
                             </div>
                             <div class="col-xs-1">
-                                <a href="/quizzes/run/{{$quiz->id}}" class="btn btn-primary">Run</a>
+                                <a href="{{route('runQuiz', ['id' => $quiz['id']])}}" class="btn btn-primary">Run</a>
                             </div>
                             <div class='col-xs-2'>
-                                <form method="POST" action="/quizzes/{{$quiz->id}}">
+                                <form method="POST" action="{{route('quizzes.destroy', ['id' => $quiz['id']])}}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <div class='form-group'>
@@ -35,7 +35,7 @@
                     @endforeach
                 </div>
                 <div class='panel-footer text-right'>
-                    <a href='/quizzes/create' class='btn'>New Quiz</a>
+                    <a href="{{route('quizzes.create')}}" class='btn'>New Quiz</a>
                 </div>
             </div>
         </div>

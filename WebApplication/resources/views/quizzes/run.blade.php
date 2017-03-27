@@ -10,7 +10,7 @@
             <h2 class="text-center">No quiz running for: {{$key}}</h2>
 			@if (Auth::check())
 				<div class="text-center">
-					<a href="/quizzes">Start a session?</a>
+					<a href="{{route('quizzes.index')}}">Start a session?</a>
 				</div>
 			@endif
         @else

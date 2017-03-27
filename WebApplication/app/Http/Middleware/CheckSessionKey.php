@@ -19,7 +19,7 @@ class CheckSessionKey
         if (Session::isASessionKey($request->session_key)) {
             return $next($request);
         } else {
-            return redirect('/');
+            return redirect('/?no_session=true');
         }
     }
 }

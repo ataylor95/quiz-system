@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <form method="POST" action="/quizzes/{{$quiz['id']}}">
+                <form method="POST" action="{{route('quizzes.update', ['id' => $quiz['id']])}}">
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
                     <div class="form-group">

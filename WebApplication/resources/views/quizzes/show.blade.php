@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"> 
                     {{ $quiz['name'] }}
-                    <a class="heading-right" href="/quizzes/{{ $quiz['id'] }}/edit">Edit</a>
+                    <a class="heading-right" href="{{route('quizzes.edit', ['id' => $quiz['id']])}}">Edit</a>
                 </div>
 
                 <div class="panel-body">
@@ -22,13 +22,13 @@
                             <p>{{config('questions')['types'][$question->type]}}</p>
                         </div>
                         <div class='col-xs-1'>
-                            <a href='/questions/{{$question->id}}'>View</a>
+                            <a href="{{route('questions.show', ['id' => $question['id']])}}">View</a>
                         </div>
                         <div class='col-xs-1'>
-                            <a href="/questions/{{$question->id}}/edit?quiz={{$quiz['id']}}">Edit</a>
+                            <a href="{{route('questions.edit', ['id' => $question['id'], 'quiz' => $quiz['id']])}}">Edit</a>
                         </div>
                         <div class='col-xs-1'>
-                            <form method="POST" action="/questions/{{$question->id}}">
+                            <form method="POST" action="{{route('questions.destroy', ['id' => $question['id']])}}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <div class='form-group'>
@@ -39,7 +39,7 @@
                     </div>
                 @endforeach
                 <div class="panel-footer text-right">
-                    <a href="/questions/create?quiz={{ $quiz['id'] }}" class="btn">Add Question</a>
+                    <a href="{{route('questions.create', ['quiz' => $quiz['id']])}}" class="btn">Add Question</a>
                 </div>
             </div>
         </div>

@@ -21,10 +21,13 @@ Route::get('/home', 'QuizController@index');
 
 Route::resource('users', 'UserController');
 Route::resource('questions', 'QuestionController');
-Route::get('quizzes/run/{quiz}', 'QuizController@run');
+Route::get('quizzes/run/{quiz}', 'QuizController@run')->name('runQuiz');
 Route::resource('quizzes', 'QuizController');
 
-Route::get('quiz/prev', 'QuizController@prevQuestion');
-Route::get('quiz/next', 'QuizController@nextQuestion');
-Route::get('quiz/end', 'QuizController@endQuiz');
-Route::get('quiz/{session_key}', 'QuizController@quiz')->name('runQuiz');
+Route::group(['prefix' => 'quiz'], function () {
+    Route::get('/')->name('quizBase');
+    Route::get('prev', 'QuizController@prevQuestion')->name('prevQuiz');
+    Route::get('next', 'QuizController@nextQuestion')->name('nextQuiz');
+    Route::get('end', 'QuizController@endQuiz')->name('endQuiz');
+    Route::get('{session_key}', 'QuizController@quiz')->name('quizSession');
+});
