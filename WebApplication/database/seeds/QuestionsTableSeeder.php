@@ -24,7 +24,11 @@ class QuestionsTableSeeder extends Seeder
         factory('App\Question', 10)->create();
         factory('App\Session')->create([
             'user_id' => 1, 
-            'session_key' => 'testy'
+            'session_key' => 'aber1'
+        ]);
+        factory('App\Session')->create([
+            'user_id' => 2, 
+            'session_key' => 'aber2'
         ]);
     }
 }
