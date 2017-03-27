@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <form method="POST" action="/questions">
+                <form method="POST" action="{{route('questions.store')}}">
                     <input name="quiz_id" type="hidden" value="{{ app('request')->input('quiz') }}">
                     {{ csrf_field() }}
                     <div class="form-group">

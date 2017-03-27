@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <form method="POST" action="/questions/{{$question['id']}}">
+                <form method="POST" action="{{route('questions.update', ['id' => $question['id']])}}">
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
                     <input name="quiz_id" type="hidden" value="{{ app('request')->input('quiz') }}">
