@@ -100,6 +100,13 @@ class Session extends Model
         ]);
     }
 
+    /**
+     * Ends the quiz in the session table 
+     * 
+     * @param int $userID
+     * @param int $position in the quiz
+     * @return collection $question
+     */
     public static function getQuestionForQuiz($userID, $position)
     {
         //TODO: Limit question going above or below max/ min question num
@@ -108,6 +115,12 @@ class Session extends Model
         return $question;
     }
 
+    /**
+     * Ends the quiz in the session table 
+     * 
+     * @param string $key - the session_key
+     * @param int $userID
+     */
     public static function updateSessionKey($key, $userID)
     {
         Session::where('user_id', '=', $userID)->update([
