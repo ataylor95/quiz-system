@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\User;
+use App\Session;
 
 class UserController extends Controller
 {
@@ -55,9 +57,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $sessionKey = $user->session->session_key;
+        return view('users.show', compact('user', 'sessionKey')); 
     }
 
     /**
@@ -66,9 +69,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $sessionKey = $user->session->session_key;
+        return view('users.edit', compact('user', 'sessionKey')); 
     }
 
     /**
@@ -80,7 +84,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sessionKey = User::find($id)->session->session_key;
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => [
+                    'required',
+                    Rule::unique('users')->ignore($id),
+                ],
+            'session_key' => [
+                    'required',
+                    'min:4',
+                    Rule::unique('sessions')->ignore($sessionKey, 'session_key'),
+                ],
+        ]);
+        User::updateUser($request['name'], $request['email'], $request['session_key'], $id);
+        return redirect()->route('users.show', ['id' => $id]);
     }
 
     /**

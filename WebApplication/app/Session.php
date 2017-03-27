@@ -7,6 +7,10 @@ use App\User;
 
 class Session extends Model
 {
+    protected $fillable = [
+        'session_key', 'quiz_id', 'position', 'running', 'user_id',
+    ];
+
     /**
      * Gets the user that the session belongs to
      *
@@ -96,12 +100,31 @@ class Session extends Model
         ]);
     }
 
+    /**
+     * Ends the quiz in the session table 
+     * 
+     * @param int $userID
+     * @param int $position in the quiz
+     * @return collection $question
+     */
     public static function getQuestionForQuiz($userID, $position)
     {
         //TODO: Limit question going above or below max/ min question num
-        //TODO: Add a position variable to the questions table
         $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
-        $question = Quiz::find($quizID)->questions[$position - 1];
+        $question = Question::where([['quiz_id', '=', $quizID], ['position', '=', $position]])->get()[0];
         return $question;
+    }
+
+    /**
+     * Ends the quiz in the session table 
+     * 
+     * @param string $key - the session_key
+     * @param int $userID
+     */
+    public static function updateSessionKey($key, $userID)
+    {
+        Session::where('user_id', '=', $userID)->update([
+            'session_key' => $key
+        ]);
     }
 }

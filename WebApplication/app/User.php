@@ -37,4 +37,22 @@ class User extends Authenticatable
     {
         return $this->hasOne(Session::class);
     }
+
+    /**
+     * Ends the quiz in the session table 
+     * 
+     * @param string $name
+     * @param string $email
+     * @param string $sessionKey - the session_key
+     * @param int $id - of user
+     */
+    public static function updateUser($name, $email, $sessionKey, $id)
+    {
+        User::find($id)->update([
+            'name' => $name,
+            'email' => $email,
+        ]);
+        
+        Session::updateSessionKey($sessionKey, $id);
+    }
 }

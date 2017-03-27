@@ -17,10 +17,10 @@
                                 <p>{{$user->email}}</p>
                             </div>
                             <div class='col-md-1'>
-                                <p>View</p>
+                                <a href="{{route('users.show', ['id' => $user->id])}}">View</a>
                             </div>
                             <div class='col-md-1'>
-                                <p>Edit</p>
+                                <a href="{{route('users.edit', ['id' => $user->id])}}">Edit</a>
                             </div>
                             <div class='col-md-1'>
                                 <p>Delete</p>

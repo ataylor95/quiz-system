@@ -29,7 +29,7 @@ $factory->define(App\Quiz::class, function (Faker\Generator $faker) {
         'name' => $faker->sentence,
         'desc' => $faker->text,
         'user_id' => function () {
-            return factory(App\User::class)->create()->id;
+            return factory(App\Session::class)->create()->user_id;
         },
     ];
 });
@@ -40,6 +40,7 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
         'quiz_id' => function () {
             return factory(App\Quiz::class)->create()->id;
         },
+        'position' => 1,
         'question_text' => $faker->sentence,
         'type' => $faker->randomElement(['multi_choice', 'multi_select']),
         'answer1' => $faker->word,
@@ -51,7 +52,7 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Session::class, function (Faker\Generator $faker) {
     return [
-        'session_key' => str_random(8),
+        'session_key' => str_random(6),
         'quiz_id' => null,
         'position' => 0,
         'running' => false,
