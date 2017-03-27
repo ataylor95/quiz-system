@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <form method="POST" action="/quizzes">
+                <form method="POST" action="{{route('quizzes.store')}}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="name">Name of Quiz:</label>
