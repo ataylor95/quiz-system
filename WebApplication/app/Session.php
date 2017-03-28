@@ -66,11 +66,11 @@ class Session extends Model
      * 
      * @param int $userID
      * @param boolean $incrementing - true for next question, false for prev
+     * @return int $position - position of the quiz
      */
     public static function prevNextQuestion($userID, $incrementing)
     {
         //TODO: Could this be more OOP?
-        //TODO: Stop this from goin above or below max/ min num questions
         $position = Session::where('user_id', $userID)->get(['position'])[0]->position;
         if ($incrementing) {
             $newPosition = $position + 1;
@@ -78,12 +78,34 @@ class Session extends Model
             $newPosition = $position - 1;
         }
 
+        $newPosition = Session::validatePosition($newPosition, $userID);
+
         Session::where('user_id', $userID)->update([
             'position' => $newPosition,
             'running' => true
         ]);
         
         return $newPosition;
+    }
+
+    /**
+     * Validates the position of the quiz, ensuring it is not <0 or >number of questions 
+     * 
+     * @param int $newPosition - the proposed new position
+     * @param int $userID
+     * @return int - the position of the quiz
+     */
+    private static function validatePosition($newPosition, $userID)
+    {
+        $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
+        $numQuestions = Question::where([['quiz_id', '=', $quizID]])->get()->count();
+
+        if ($newPosition < 0) {
+            $newPosition = 0;
+        } else if ($newPosition > $numQuestions) {
+            $newPosition = $numQuestions;
+        }
+       return $newPosition; 
     }
 
     /**
@@ -101,7 +123,7 @@ class Session extends Model
     }
 
     /**
-     * Ends the quiz in the session table 
+     * Gets the question for the quiz given the quiz position 
      * 
      * @param int $userID
      * @param int $position in the quiz
@@ -109,9 +131,15 @@ class Session extends Model
      */
     public static function getQuestionForQuiz($userID, $position)
     {
-        //TODO: Limit question going above or below max/ min question num
         $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
-        $question = Question::where([['quiz_id', '=', $quizID], ['position', '=', $position]])->get()[0];
+        if ($position == 0) {
+            $question = ['question' => null]; //Send a null to the WebSockets
+        } else {
+            $question = Question::where([
+                ['quiz_id', '=', $quizID], 
+                ['position', '=', $position]
+            ])->get()[0];
+        }
         return $question;
     }
 

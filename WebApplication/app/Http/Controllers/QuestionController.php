@@ -34,7 +34,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $questionData = $this->getQuestionsData();
+        $questionData = getQuestionsData(); //Helper function in app\Support\helpers.php
         $numberAnswers = $questionData[0];
         $typeKeys = $questionData[1];
         $typeValues = $questionData[2];
@@ -83,7 +83,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        $questionData = $this->getQuestionsData();
+        $questionData = getQuestionsData(); //Helper function in app\Support\helpers.php
         $numberAnswers = $questionData[0];
         $typeKeys = $questionData[1];
         $typeValues = $questionData[2];
@@ -121,19 +121,5 @@ class QuestionController extends Controller
     {
         Question::deleteQuestion($id);
         return back();
-    }
-
-    private function getQuestionsData()
-    {
-        $questionsData = config('questions');
-        $numberAnswers = $questionsData['numAnswers'];
-        $types = $questionsData['types'];
-        $typeKeys = [];
-        $typeValues = [];
-        foreach ($types as $key => $value) {
-            $typeKeys[] = $key;
-            $typeValues[] = $value;
-        }
-        return [$numberAnswers, $typeKeys, $typeValues];
     }
 }

@@ -7,6 +7,7 @@ use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
 use App\User;
+use App\Question;
 
 class QuizController extends Controller
 {
@@ -134,20 +135,32 @@ class QuizController extends Controller
     }
 
     /**
-     * Actions for the quizzes that are running
+     * Action for the quizzes that are running
+     * Passes the quiz, session key and question to the view
      * 
      * @param  String  $key - key of the session
      * @return \Illuminate\Http\Response
      */
     public function quiz($key)
     {
-        $quiz_id = Session::where('session_key', $key)->get()[0]->quiz_id;
-        if (is_null($quiz_id)) {
+        $session = Session::where('session_key', $key)->get()[0];
+        $quizID = $session->quiz_id;
+        if (is_null($quizID)) {
             $quiz = null;
+            $question = null;
         } else {
-            $quiz = Quiz::find($quiz_id);
+            $quiz = Quiz::find($quizID)->get()[0];
+            $position = $session->position;
+			if ($position == 0) {
+				$question = null;
+			} else {
+            	$question = Question::where([
+					['quiz_id', '=', $quizID], 
+					['position', '=', $position]
+				])->get()[0];
+			}
         }
-        return view('quizzes.run', compact('key', 'quiz'));
+        return view('quizzes.run', compact('key', 'quiz', 'question'));
     }
 
     /**
@@ -181,6 +194,8 @@ class QuizController extends Controller
      */
     public function endQuiz()
     {
-        Session::endQuiz(auth()->user()->id);
+        $user = auth()->user()->id;
+        Session::endQuiz($user);
+        event(new DisplayQuiz(['end' => true], $user));
     }
 }

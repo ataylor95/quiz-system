@@ -13,11 +13,17 @@
 					<a href="{{route('quizzes.index')}}">Start a session?</a>
 				</div>
 			@endif
-        @else
+        @elseif (is_null($question))
             <h1 class="text-center">{{$quiz['name']}}</h1>
             <h3 class="text-center">{{$quiz['desc']}}</h3>
             <h4 class="text-center">Session: {{$key}}</h4>
             <ul id="messages" class="list-group"></ul>
+        @else
+            @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
+                @if ($question->type == $type)
+                    @include('questions.type.' . $type)
+                @endif
+            @endforeach
         @endif
     </div>
     
