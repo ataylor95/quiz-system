@@ -181,6 +181,8 @@ class QuizController extends Controller
      */
     public function endQuiz()
     {
-        Session::endQuiz(auth()->user()->id);
+        $user = auth()->user()->id;
+        Session::endQuiz($user);
+        event(new DisplayQuiz(['end' => true], $user));
     }
 }
