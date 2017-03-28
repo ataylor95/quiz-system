@@ -18,6 +18,10 @@
             <h3 class="text-center">{{$quiz['desc']}}</h3>
             <h4 class="text-center">Session: {{$key}}</h4>
             <ul id="messages" class="list-group"></ul>
+        @else
+            @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
+                {{$type}}
+            @endforeach
         @endif
     </div>
     
