@@ -123,6 +123,11 @@ class QuestionController extends Controller
         return back();
     }
 
+    /**
+     * This function gets all the question configuration data
+     * 
+     * @return array [number of answers, questions types keys, question types english name]
+     */
     private function getQuestionsData()
     {
         $questionsData = config('questions');
