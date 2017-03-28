@@ -134,7 +134,8 @@ class QuizController extends Controller
     }
 
     /**
-     * Actions for the quizzes that are running
+     * Action for the quizzes that are running
+     * Passes the quiz, session key and question to the view
      * 
      * @param  String  $key - key of the session
      * @return \Illuminate\Http\Response
