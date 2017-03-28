@@ -141,13 +141,17 @@ class QuizController extends Controller
      */
     public function quiz($key)
     {
-        $quiz_id = Session::where('session_key', $key)->get()[0]->quiz_id;
-        if (is_null($quiz_id)) {
+        $session = Session::where('session_key', $key)->get()[0];
+        $quizID = $session->quiz_id;
+        if (is_null($quizID)) {
             $quiz = null;
+            $question = null;
         } else {
-            $quiz = Quiz::find($quiz_id);
+            $quiz = Quiz::find($quizID)->get()[0];
+            $position = $session->position;
+            $question = $quiz->questions[$position];
         }
-        return view('quizzes.run', compact('key', 'quiz'));
+        return view('quizzes.run', compact('key', 'quiz', 'question'));
     }
 
     /**
