@@ -70,7 +70,6 @@ class Session extends Model
     public static function prevNextQuestion($userID, $incrementing)
     {
         //TODO: Could this be more OOP?
-        //TODO: Stop this from goin above or below max/ min num questions
         $position = Session::where('user_id', $userID)->get(['position'])[0]->position;
         if ($incrementing) {
             $newPosition = $position + 1;
@@ -78,12 +77,34 @@ class Session extends Model
             $newPosition = $position - 1;
         }
 
+        $newPosition = Session::validatePosition($newPosition, $userID);
+
         Session::where('user_id', $userID)->update([
             'position' => $newPosition,
             'running' => true
         ]);
         
         return $newPosition;
+    }
+
+    /**
+     * Validates the position of the quiz, ensuring it is not <0 or >number of questions 
+     * 
+     * @param int $newPosition - the proposed new position
+     * @param int $userID
+     * @param int - the position of the quiz
+     */
+    private static function validatePosition($newPosition, $userID)
+    {
+        $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
+        $numQuestions = Question::where([['quiz_id', '=', $quizID]])->get()->count();
+
+        if ($newPosition < 1) {
+            $newPosition = 1;
+        } else if ($newPosition > $numQuestions) {
+            $newPosition = $numQuestions;
+        }
+       return $newPosition; 
     }
 
     /**
