@@ -20,7 +20,9 @@
             <ul id="messages" class="list-group"></ul>
         @else
             @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
-                {{$type}}
+                @if ($question->type == $type)
+                    @include('questions.type.' . $type)
+                @endif
             @endforeach
         @endif
     </div>
