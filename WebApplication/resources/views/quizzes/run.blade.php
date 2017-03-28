@@ -13,7 +13,7 @@
 					<a href="{{route('quizzes.index')}}">Start a session?</a>
 				</div>
 			@endif
-        @else
+        @elseif (is_null($question))
             <h1 class="text-center">{{$quiz['name']}}</h1>
             <h3 class="text-center">{{$quiz['desc']}}</h3>
             <h4 class="text-center">Session: {{$key}}</h4>
