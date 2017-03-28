@@ -7,6 +7,7 @@ use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
 use App\User;
+use App\Question;
 
 class QuizController extends Controller
 {
@@ -150,7 +151,14 @@ class QuizController extends Controller
         } else {
             $quiz = Quiz::find($quizID)->get()[0];
             $position = $session->position;
-            $question = $quiz->questions[$position];
+			if ($position == 0) {
+				$question = null;
+			} else {
+            	$question = Question::where([
+					['quiz_id', '=', $quizID], 
+					['position', '=', $position]
+				])->get()[0];
+			}
         }
         return view('quizzes.run', compact('key', 'quiz', 'question'));
     }

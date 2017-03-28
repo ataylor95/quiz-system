@@ -100,8 +100,8 @@ class Session extends Model
         $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
         $numQuestions = Question::where([['quiz_id', '=', $quizID]])->get()->count();
 
-        if ($newPosition < 1) {
-            $newPosition = 1;
+        if ($newPosition < 0) {
+            $newPosition = 0;
         } else if ($newPosition > $numQuestions) {
             $newPosition = $numQuestions;
         }
@@ -133,7 +133,11 @@ class Session extends Model
     {
         //TODO: Limit question going above or below max/ min question num
         $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
-        $question = Question::where([['quiz_id', '=', $quizID], ['position', '=', $position]])->get()[0];
+        if ($position == 0) {
+            $question = ['question' => null];
+        } else {
+            $question = Question::where([['quiz_id', '=', $quizID], ['position', '=', $position]])->get()[0];
+        }
         return $question;
     }
 
