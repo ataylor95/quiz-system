@@ -136,7 +136,10 @@ class Session extends Model
         if ($position == 0) {
             $question = ['question' => null];
         } else {
-            $question = Question::where([['quiz_id', '=', $quizID], ['position', '=', $position]])->get()[0];
+            $question = Question::where([
+                ['quiz_id', '=', $quizID], 
+                ['position', '=', $position]
+            ])->get()[0];
         }
         return $question;
     }
