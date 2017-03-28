@@ -123,7 +123,7 @@ class Session extends Model
     }
 
     /**
-     * Ends the quiz in the session table 
+     * Gets the question for the quiz given the quiz position 
      * 
      * @param int $userID
      * @param int $position in the quiz
@@ -131,10 +131,9 @@ class Session extends Model
      */
     public static function getQuestionForQuiz($userID, $position)
     {
-        //TODO: Limit question going above or below max/ min question num
         $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
         if ($position == 0) {
-            $question = ['question' => null];
+            $question = ['question' => null]; //Send a null to the WebSockets
         } else {
             $question = Question::where([
                 ['quiz_id', '=', $quizID], 
