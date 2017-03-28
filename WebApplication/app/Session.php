@@ -66,6 +66,7 @@ class Session extends Model
      * 
      * @param int $userID
      * @param boolean $incrementing - true for next question, false for prev
+     * @return int $position - position of the quiz
      */
     public static function prevNextQuestion($userID, $incrementing)
     {
@@ -92,7 +93,7 @@ class Session extends Model
      * 
      * @param int $newPosition - the proposed new position
      * @param int $userID
-     * @param int - the position of the quiz
+     * @return int - the position of the quiz
      */
     private static function validatePosition($newPosition, $userID)
     {
