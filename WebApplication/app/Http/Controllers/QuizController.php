@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
@@ -198,4 +199,26 @@ class QuizController extends Controller
         Session::endQuiz($user);
         event(new DisplayQuiz(['end' => true], $user));
     }
+
+	public function results(Request $request)
+	{
+		/*$test_array = array (
+		  'bla' => 'blub',
+		  'foo' => 'bar',
+		  'another_array' => array (
+			'stack' => 'overflow',
+		  ),
+		);
+		$xml = new \SimpleXMLElement('<root/>');
+		array_walk_recursive($test_array, array ($xml, 'addChild'));
+		//dd($xml->asXML());
+
+		$bytes_written = File::put("test.xml", $xml->asXML);
+		if ($bytes_written === false)
+		{
+			die("Error writing to file");
+		}*/
+		//dd(File::get(storage_path('quiz-sessions/aber1-name.xml')));
+
+	}
 }
