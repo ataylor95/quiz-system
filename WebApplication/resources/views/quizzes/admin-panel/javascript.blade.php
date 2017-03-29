@@ -1,17 +1,17 @@
 <script>
     $('#prev-quiz').on('click', function() {
         $.ajax({
-            url: '/quiz/prev',
+            url: "{{route('prevQuiz')}}",
         });
     }); 
     $('#next-quiz').on('click', function() {
         $.ajax({
-            url: '/quiz/next'
+            url: "{{route('nextQuiz')}}",
         });
     }); 
     $('#end-quiz').on('click', function() {
         $.ajax({
-            url: '/quiz/end'
+            url: "{{route('endQuiz')}}",
         });
     }); 
 </script>
