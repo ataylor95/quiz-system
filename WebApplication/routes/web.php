@@ -32,3 +32,5 @@ Route::group(['prefix' => 'quiz'], function () {
     Route::post('results', 'QuizController@results')->name('results');
     Route::get('{session_key}', 'QuizController@quiz')->name('quizSession');
 });
+
+Route::get('questions/type/{type}', 'QuestionController@getQuestion')->name('questionType');
