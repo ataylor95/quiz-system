@@ -54,6 +54,10 @@
 
         function changeContent(response){
             $('#default-content').empty(); //Remove previous stuff
+            if(response.data.end){
+                var endContent = '<h2 class="text-center">End of the Quiz</h2>';
+                $('#default-content').append(endContent);
+            }
             if(response.data.type == "multi_choice"){
                 $.ajax({
                     url: "{{route('questionType', ['type' => 'multi_choice'])}}",
@@ -62,7 +66,6 @@
                         'position': response.data.position
                     },
                     success: function(data){
-                        console.log($(data)[0]);
                         $('#default-content').append($(data)[0]);
                     },
                 });

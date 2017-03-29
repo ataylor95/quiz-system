@@ -123,6 +123,14 @@ class QuestionController extends Controller
         return back();
     }
 
+    /**
+     * Gets the html for the question page used when pressing
+     * the next and previous keys
+     *
+     * @param  String  $type - type of the question
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getQuestion($type, Request $request)
     {
         $question = Question::where([
