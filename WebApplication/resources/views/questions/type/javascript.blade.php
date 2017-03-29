@@ -5,6 +5,10 @@
     }
 
     function submitMCQuestion(){
-        console.log($('.btn-success').attr('name'));
+        var answer = $('.btn-success').attr('name');
+        $.post({
+            url: "{{route('results')}}",
+            data: {"response": answer}
+        });
     }
 </script>
