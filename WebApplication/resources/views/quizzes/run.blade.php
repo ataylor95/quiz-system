@@ -56,8 +56,16 @@
             $('#default-content').empty(); //Remove previous stuff
             if(response.data.type == "multi_choice"){
                 $.ajax({
-                    url: "{{route('questionType', ['type' => 'multi_choice'])}}"
-                })
+                    url: "{{route('questionType', ['type' => 'multi_choice'])}}",
+                    data: {
+                        'quiz_id': response.data.quiz_id, 
+                        'position': response.data.position
+                    },
+                    success: function(data){
+                        console.log($(data)[0]);
+                        $('#default-content').append($(data)[0]);
+                    },
+                });
             }
         }
     </script>
