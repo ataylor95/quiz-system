@@ -150,7 +150,7 @@ class QuizController extends Controller
             $quiz = null;
             $question = null;
         } else {
-            $quiz = Quiz::find($quizID)->get()[0];
+            $quiz = Quiz::find($quizID);
             $position = $session->position;
 			if ($position == 0) {
 				$question = null;
