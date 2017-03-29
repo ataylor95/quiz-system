@@ -171,9 +171,15 @@ class QuizController extends Controller
     {
         $user = auth()->user()->id;
         $position = Session::prevNextQuestion($user, false);
-        $question = Session::getQuestionForQuiz($user, $position);
 
-        event(new DisplayQuiz("question", $question, $user));
+		if ($position == 0) {
+			$quizID = Session::where('user_id', $user)->get(['quiz_id'])[0];
+			$quiz = Quiz::find($quizID);
+        	event(new DisplayQuiz("start", $quiz, $user));
+		} else {
+        	$question = Session::getQuestionForQuiz($user, $position);
+        	event(new DisplayQuiz("question", $question, $user));
+		}
     }
 
     /**
