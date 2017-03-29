@@ -29,5 +29,6 @@ Route::group(['prefix' => 'quiz'], function () {
     Route::get('prev', 'QuizController@prevQuestion')->name('prevQuiz');
     Route::get('next', 'QuizController@nextQuestion')->name('nextQuiz');
     Route::get('end', 'QuizController@endQuiz')->name('endQuiz');
+    Route::post('results', 'QuizController@results')->name('results');
     Route::get('{session_key}', 'QuizController@quiz')->name('quizSession');
 });
