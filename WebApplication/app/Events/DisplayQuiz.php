@@ -17,6 +17,7 @@ class DisplayQuiz implements ShouldBroadcast
 
     //Public variables are broadcast
     public $data;
+    public $type;
     private $user;
 
     /**
@@ -24,8 +25,9 @@ class DisplayQuiz implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($data, $user)
+    public function __construct($type, $data, $user)
     {
+        $this->type = $type;
         $this->data = $data;
         $this->user = $user;
     }
