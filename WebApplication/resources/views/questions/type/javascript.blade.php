@@ -8,7 +8,10 @@
         var answer = $('.btn-success').attr('name');
         $.post({
             url: "{{route('results')}}",
-            data: {"response": answer}
+            data: {
+                "response": answer,
+                "_token": "{{csrf_token()}}"
+            }
         });
     }
 </script>
