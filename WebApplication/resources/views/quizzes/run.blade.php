@@ -53,6 +53,7 @@
         }
 
         function changeContent(response){
+            $('#default-content').empty(); //Remove previous stuff
             if(response.data.type == "multi_choice"){
                 $.ajax({
                 })
