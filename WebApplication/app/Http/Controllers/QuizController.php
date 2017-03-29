@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
@@ -130,7 +131,7 @@ class QuizController extends Controller
 
         Session::setQuizRunning($quiz->id, $user);
 
-        event(new DisplayQuiz($quiz, $user));
+        event(new DisplayQuiz("start", null, $user));
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
@@ -149,7 +150,7 @@ class QuizController extends Controller
             $quiz = null;
             $question = null;
         } else {
-            $quiz = Quiz::find($quizID)->get()[0];
+            $quiz = Quiz::find($quizID);
             $position = $session->position;
 			if ($position == 0) {
 				$question = null;
@@ -170,9 +171,15 @@ class QuizController extends Controller
     {
         $user = auth()->user()->id;
         $position = Session::prevNextQuestion($user, false);
-        $question = Session::getQuestionForQuiz($user, $position);
 
-        event(new DisplayQuiz($question, $user));
+		if ($position == 0) {
+			$quizID = Session::where('user_id', $user)->get(['quiz_id'])[0];
+			$quiz = Quiz::find($quizID);
+        	event(new DisplayQuiz("start", $quiz, $user));
+		} else {
+        	$question = Session::getQuestionForQuiz($user, $position);
+        	event(new DisplayQuiz("question", $question, $user));
+		}
     }
 
     /**
@@ -186,7 +193,7 @@ class QuizController extends Controller
         $position = Session::prevNextQuestion($user, true);
         $question = Session::getQuestionForQuiz($user, $position);
 
-        event(new DisplayQuiz($question, $user));
+        event(new DisplayQuiz("question", $question, $user));
     }
 
     /**
@@ -196,6 +203,28 @@ class QuizController extends Controller
     {
         $user = auth()->user()->id;
         Session::endQuiz($user);
-        event(new DisplayQuiz(['end' => true], $user));
+        event(new DisplayQuiz("end", null, $user));
     }
+
+	public function results(Request $request)
+	{
+		/*$test_array = array (
+		  'bla' => 'blub',
+		  'foo' => 'bar',
+		  'another_array' => array (
+			'stack' => 'overflow',
+		  ),
+		);
+		$xml = new \SimpleXMLElement('<root/>');
+		array_walk_recursive($test_array, array ($xml, 'addChild'));
+		//dd($xml->asXML());
+
+		$bytes_written = File::put("test.xml", $xml->asXML);
+		if ($bytes_written === false)
+		{
+			die("Error writing to file");
+		}*/
+		//dd(File::get(storage_path('quiz-sessions/aber1-name.xml')));
+
+	}
 }

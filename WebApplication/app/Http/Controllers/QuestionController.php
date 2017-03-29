@@ -14,7 +14,7 @@ class QuestionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['getQuestion']]);
     }
 
     /**
@@ -121,5 +121,22 @@ class QuestionController extends Controller
     {
         Question::deleteQuestion($id);
         return back();
+    }
+
+    /**
+     * Gets the html for the question page used when pressing
+     * the next and previous keys
+     *
+     * @param  String  $type - type of the question
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getQuestion($type, Request $request)
+    {
+        $question = Question::where([
+            ['quiz_id', '=', $request->quiz_id], 
+            ['position', '=', $request->position]
+        ])->get()[0];
+        return view('questions.type.' . $type, compact('question')); 
     }
 }

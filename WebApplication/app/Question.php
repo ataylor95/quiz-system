@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $fillable = [
-        'quiz_id', 'question_text', 'type', 'answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10', 
+        'quiz_id', 'position', 'question_text', 'type', 'answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10', 
     ];
 
     /**
@@ -27,8 +27,11 @@ class Question extends Model
      */
     public static function saveQuestion($dataToSave)
     {
+        $nextPosition = count(Question::where('quiz_id', 1)->get()) + 1;
+
         Question::Create([
             'quiz_id' => $dataToSave['quiz_id'],
+            'position' => $nextPosition,
             'question_text' => $dataToSave['question_text'],
             'type' => $dataToSave['type'],
             'answer1' => (is_null($dataToSave['answer1']) ? "" : $dataToSave['answer1']),
@@ -70,11 +73,29 @@ class Question extends Model
 
     /*
      * Deletes the questions by id
+     * Also shift all the positions of subsequent questions
      *
      * @param int $questionID - id of question
      */
     public static function deleteQuestion($questionID)
     {
+        $question = Question::find($questionID);
+        
+        //Get all the questions with a position < question being deleted
+        $questionsLaterInQuiz = Question::where('quiz_id', '=', $question->quiz_id)
+            ->where('position', '>', $question->position)
+            ->get();
+
+        //Loop over the questions and move reduce their position
+        //It does kind of assume quizzes have a sensible number of questions
+        //Not like say >100 questions
+        //It probably still wouldnt matter that much but you never know...
+        foreach ($questionsLaterInQuiz as $question) {
+            Question::find($question->id)->update([
+                'position' => $question->position - 1
+            ]);
+        }
+
         Question::destroy($questionID);
     }
 }

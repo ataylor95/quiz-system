@@ -17,7 +17,6 @@
             <h1 class="text-center">{{$quiz['name']}}</h1>
             <h3 class="text-center">{{$quiz['desc']}}</h3>
             <h4 class="text-center">Session: {{$key}}</h4>
-            <ul id="messages" class="list-group"></ul>
         @else
             @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
                 @if ($question->type == $type)
@@ -33,25 +32,61 @@
 @section('scripts')
     <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
     <script>
-      //instantiate a Pusher object with our Credential's key
-      var pusher = new Pusher('3f21a6176f0f0d31c04c', {
-          cluster: 'eu',
-          encrypted: true
-      });
+        //instantiate a Pusher object with our Credential's key
+        var pusher = new Pusher('3f21a6176f0f0d31c04c', {
+            cluster: 'eu',
+            encrypted: true
+        });
 
-      //Subscribe to the channel we specified in our Laravel Event
-      var channelName = 'quiz_' + '{{$key}}';
-      var channel = pusher.subscribe(channelName);
+        //Subscribe to the channel we specified in our Laravel Event
+        var sessionKey = '{{$key}}';
+        var channelName = 'quiz_' + sessionKey;
+        var channel = pusher.subscribe(channelName);
 
-      //Bind a function to a Event (the full Laravel class)
-      channel.bind('App\\Events\\DisplayQuiz', addMessage);
+        //Bind a function to a Event (the full Laravel class)
+        channel.bind('App\\Events\\DisplayQuiz', changeContent);
 
-      function addMessage(data) {
-        var listItem = $("<li class='list-group-item'></li>");
-        listItem.html(data.data.question_text);
-        $('#messages').prepend(listItem);
-      }
+        function addMessage(data) {
+            var listItem = $("<li class='list-group-item'></li>");
+            listItem.html(data.data.question_text);
+            $('#messages').prepend(listItem);
+        }
+
+        function changeContent(response){
+            $('#default-content').empty(); //Remove previous stuff
+            switch(response.type){
+                case "start":
+                    var startContent = '<h1 class="text-center">' + response.data.name + '</h1>';
+                    startContent += '<h3 class="text-center">' + response.data.desc + '</h3>';
+                    startContent += '<h4 class="text-center">Session: ' + sessionKey + '</h4>';
+                    $('#default-content').append(startContent);
+                    break;
+                case "question":
+                    changeQuestion(response);
+                    break;
+                case "end":
+                    var endContent = '<h2 class="text-center">End of the Quiz</h2>';
+                    $('#default-content').append(endContent);
+                    break;
+            }
+        }
+
+        function changeQuestion(response){
+            if(response.data.type == "multi_choice"){
+                $.ajax({
+                    url: "{{route('questionType', ['type' => 'multi_choice'])}}",
+                    data: {
+                        'quiz_id': response.data.quiz_id, 
+                        'position': response.data.position
+                    },
+                    success: function(data){
+                        $('#default-content').append($(data)[0]);
+                    },
+                });
+            }
+        }
     </script>
 
     @include('quizzes.admin-panel.javascript')
+    @include('questions.type.javascript')
 @endsection

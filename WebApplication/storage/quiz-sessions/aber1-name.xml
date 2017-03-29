@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<quiz name="thing">
+	<question position="1">
+		<answer1>1</answer1>
+		<answer2>5</answer2>
+	</question>
+</quiz>
