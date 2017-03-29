@@ -122,4 +122,9 @@ class QuestionController extends Controller
         Question::deleteQuestion($id);
         return back();
     }
+
+    public function getQuestion($type)
+    {
+        return view('questions.type.' . $type); 
+    }
 }
