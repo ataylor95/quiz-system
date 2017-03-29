@@ -73,11 +73,29 @@ class Question extends Model
 
     /*
      * Deletes the questions by id
+     * Also shift all the positions of subsequent questions
      *
      * @param int $questionID - id of question
      */
     public static function deleteQuestion($questionID)
     {
+        $question = Question::find($questionID);
+        
+        //Get all the questions with a position < question being deleted
+        $questionsLaterInQuiz = Question::where('quiz_id', '=', $question->quiz_id)
+            ->where('position', '>', $question->position)
+            ->get();
+
+        //Loop over the questions and move reduce their position
+        //It does kind of assume quizzes have a sensible number of questions
+        //Not like say >100 questions
+        //It probably still wouldnt matter that much but you never know...
+        foreach ($questionsLaterInQuiz as $question) {
+            Question::find($question->id)->update([
+                'position' => $question->position - 1
+            ]);
+        }
+
         Question::destroy($questionID);
     }
 }
