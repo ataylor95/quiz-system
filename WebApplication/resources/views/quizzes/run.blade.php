@@ -54,7 +54,7 @@
 
         function changeContent(response){
             $('#default-content').empty(); //Remove previous stuff
-            if(response.data.end){
+            if(response.type == "end"){
                 var endContent = '<h2 class="text-center">End of the Quiz</h2>';
                 $('#default-content').append(endContent);
             }
