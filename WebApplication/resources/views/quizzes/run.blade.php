@@ -39,7 +39,8 @@
         });
 
         //Subscribe to the channel we specified in our Laravel Event
-        var channelName = 'quiz_' + '{{$key}}';
+        var sessionKey = '{{$key}}';
+        var channelName = 'quiz_' + sessionKey;
         var channel = pusher.subscribe(channelName);
 
         //Bind a function to a Event (the full Laravel class)
@@ -55,6 +56,10 @@
             $('#default-content').empty(); //Remove previous stuff
             switch(response.type){
                 case "start":
+                    var startContent = '<h1 class="text-center">' + response.data.name + '</h1>';
+                    startContent += '<h3 class="text-center">' + response.data.desc + '</h3>';
+                    startContent += '<h4 class="text-center">Session: ' + sessionKey + '</h4>';
+                    $('#default-content').append(startContent);
                     break;
                 case "question":
                     changeQuestion(response);
