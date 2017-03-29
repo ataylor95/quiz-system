@@ -131,7 +131,7 @@ class QuizController extends Controller
 
         Session::setQuizRunning($quiz->id, $user);
 
-        event(new DisplayQuiz($quiz, $user));
+        event(new DisplayQuiz("start", null, $user));
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
@@ -173,7 +173,7 @@ class QuizController extends Controller
         $position = Session::prevNextQuestion($user, false);
         $question = Session::getQuestionForQuiz($user, $position);
 
-        event(new DisplayQuiz($question, $user));
+        event(new DisplayQuiz("question", $question, $user));
     }
 
     /**
@@ -187,7 +187,7 @@ class QuizController extends Controller
         $position = Session::prevNextQuestion($user, true);
         $question = Session::getQuestionForQuiz($user, $position);
 
-        event(new DisplayQuiz($question, $user));
+        event(new DisplayQuiz("question", $question, $user));
     }
 
     /**
@@ -197,7 +197,7 @@ class QuizController extends Controller
     {
         $user = auth()->user()->id;
         Session::endQuiz($user);
-        event(new DisplayQuiz(['end' => true], $user));
+        event(new DisplayQuiz("end", null, $user));
     }
 
 	public function results(Request $request)
