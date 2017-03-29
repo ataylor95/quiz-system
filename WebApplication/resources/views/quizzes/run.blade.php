@@ -72,18 +72,24 @@
         }
 
         function changeQuestion(response){
-            if(response.data.type == "multi_choice"){
-                $.ajax({
-                    url: "{{route('questionType', ['type' => 'multi_choice'])}}",
-                    data: {
-                        'quiz_id': response.data.quiz_id, 
-                        'position': response.data.position
-                    },
-                    success: function(data){
-                        $('#default-content').append($(data)[0]);
-                    },
-                });
+            switch (response.data.type) {
+                case "multi_choice":
+                    renderMultiChoiceQuestion(response.data);
+                    break;
             }
+        }
+
+        function renderMultiChoiceQuestion(question){
+            $.ajax({
+                url: "{{route('questionType', ['type' => 'multi_choice'])}}",
+                data: {
+                    'quiz_id': question.quiz_id, 
+                    'position': question.position
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
+                },
+            });
         }
     </script>
 
