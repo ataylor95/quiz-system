@@ -54,4 +54,5 @@
     </script>
 
     @include('quizzes.admin-panel.javascript')
+    @include('questions.type.javascript')
 @endsection
