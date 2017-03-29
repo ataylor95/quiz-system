@@ -54,10 +54,20 @@
 
         function changeContent(response){
             $('#default-content').empty(); //Remove previous stuff
-            if(response.type == "end"){
-                var endContent = '<h2 class="text-center">End of the Quiz</h2>';
-                $('#default-content').append(endContent);
+            switch(response.type){
+                case "start":
+                    break;
+                case "question":
+                    changeQuestion(response);
+                    break;
+                case "end":
+                    var endContent = '<h2 class="text-center">End of the Quiz</h2>';
+                    $('#default-content').append(endContent);
+                    break;
             }
+        }
+
+        function changeQuestion(response){
             if(response.data.type == "multi_choice"){
                 $.ajax({
                     url: "{{route('questionType', ['type' => 'multi_choice'])}}",
