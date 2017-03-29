@@ -123,8 +123,12 @@ class QuestionController extends Controller
         return back();
     }
 
-    public function getQuestion($type)
+    public function getQuestion($type, Request $request)
     {
-        return view('questions.type.' . $type); 
+        $question = Question::where([
+            ['quiz_id', '=', $request->quiz_id], 
+            ['position', '=', $request->position]
+        ])->get()[0];
+        return view('questions.type.' . $type, compact('question')); 
     }
 }
