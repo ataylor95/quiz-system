@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $fillable = [
-        'quiz_id', 'question_text', 'type', 'answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10', 
+        'quiz_id', 'position', 'question_text', 'type', 'answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'answer7', 'answer8', 'answer9', 'answer10', 
     ];
 
     /**
@@ -27,8 +27,11 @@ class Question extends Model
      */
     public static function saveQuestion($dataToSave)
     {
+        $nextPosition = count(Question::where('quiz_id', 1)->get()) + 1;
+
         Question::Create([
             'quiz_id' => $dataToSave['quiz_id'],
+            'position' => $nextPosition,
             'question_text' => $dataToSave['question_text'],
             'type' => $dataToSave['type'],
             'answer1' => (is_null($dataToSave['answer1']) ? "" : $dataToSave['answer1']),
