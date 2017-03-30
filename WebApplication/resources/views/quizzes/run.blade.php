@@ -76,12 +76,37 @@
                 case "multi_choice":
                     renderMultiChoiceQuestion(response.data);
                     break;
+                case "multi_select":
+                    renderMultiSelectQuestion(response.data);
+                    break;
+                case "boolean":
+                    renderBooleanQuestion(response.data);
+                    break;
+                case "number_range":
+                    renderNumberRangeQuestion(response.data);
+                    break;
+                case "text":
+                    renderTextQuestion(response.data);
+                    break;
             }
         }
 
         function renderMultiChoiceQuestion(question){
             $.ajax({
                 url: "{{route('questionType', ['type' => 'multi_choice'])}}",
+                data: {
+                    'quiz_id': question.quiz_id, 
+                    'position': question.position
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
+                },
+            });
+        }
+
+        function renderBooleanQuestion(question){
+            $.ajax({
+                url: "{{route('questionType', ['type' => 'boolean'])}}",
                 data: {
                     'quiz_id': question.quiz_id, 
                     'position': question.position
