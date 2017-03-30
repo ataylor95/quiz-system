@@ -1,6 +1,5 @@
 <div id="question-form" class="text-center">
     <h1>{{$question->question_text}}</h1>
-        {{ csrf_field() }}
         @for ($i=1; $i<=getQuestionsData()[0]; $i++)
             @php $numAnswer = "answer" . $i; @endphp
             @if (strlen($question->$numAnswer) > 0)
