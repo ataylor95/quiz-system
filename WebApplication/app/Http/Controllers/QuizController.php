@@ -19,7 +19,7 @@ class QuizController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['quiz']]);
+        $this->middleware('auth', ['except' => ['quiz', 'results']]);
         $this->middleware('session-key', ['only' => ['quiz']]);
     }
 
