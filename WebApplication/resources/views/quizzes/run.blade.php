@@ -5,18 +5,22 @@
 @endsection
 
 @section('content')
-    <div id="default-content" class="vertical-align">
+    <div id="default-content">
         @if (is_null($quiz))
-            <h2 class="text-center">No quiz running for: {{$key}}</h2>
-			@if (Auth::check())
-				<div class="text-center">
-					<a href="{{route('quizzes.index')}}">Start a session?</a>
-				</div>
-			@endif
+            <div class="vertical-align">
+                <h2 class="text-center">No quiz running for: {{$key}}</h2>
+                @if (Auth::check())
+                    <div class="text-center">
+                        <a href="{{route('quizzes.index')}}">Start a session?</a>
+                    </div>
+                @endif
+            </div>
         @elseif (is_null($question))
-            <h1 class="text-center">{{$quiz['name']}}</h1>
-            <h3 class="text-center">{{$quiz['desc']}}</h3>
-            <h4 class="text-center">Session: {{$key}}</h4>
+            <div class="vertical-align">
+                <h1 class="text-center">{{$quiz['name']}}</h1>
+                <h3 class="text-center">{{$quiz['desc']}}</h3>
+                <h4 class="text-center">Session: {{$key}}</h4>
+            </div>
         @else
             @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
                 @if ($question->type == $type)
@@ -56,16 +60,18 @@
             $('#default-content').empty(); //Remove previous stuff
             switch(response.type){
                 case "start":
-                    var startContent = '<h1 class="text-center">' + response.data.name + '</h1>';
+                    var startContent = '<div class="vertical-align">';
+                    startContent += '<h1 class="text-center">' + response.data.name + '</h1>';
                     startContent += '<h3 class="text-center">' + response.data.desc + '</h3>';
                     startContent += '<h4 class="text-center">Session: ' + sessionKey + '</h4>';
+                    startContent += '</div>';
                     $('#default-content').append(startContent);
                     break;
                 case "question":
                     changeQuestion(response);
                     break;
                 case "end":
-                    var endContent = '<h2 class="text-center">End of the Quiz</h2>';
+                    var endContent = '<div class="vertical-align"><h2 class="text-center">End of the Quiz</h2></div>';
                     $('#default-content').append(endContent);
                     break;
             }
