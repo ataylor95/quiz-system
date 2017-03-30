@@ -44,3 +44,5 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: '3f21a6176f0f0d31c04c'
 });
+
+import Pusher from 'pusher-js'
