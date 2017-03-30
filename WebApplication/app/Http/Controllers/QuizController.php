@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cookie;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
@@ -19,7 +20,7 @@ class QuizController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['quiz']]);
+        $this->middleware('auth', ['except' => ['quiz', 'results']]);
         $this->middleware('session-key', ['only' => ['quiz']]);
     }
 
@@ -208,6 +209,7 @@ class QuizController extends Controller
 
 	public function results(Request $request)
 	{
+		dd(Cookie::get('laravel_session'));
 		/*$test_array = array (
 		  'bla' => 'blub',
 		  'foo' => 'bar',

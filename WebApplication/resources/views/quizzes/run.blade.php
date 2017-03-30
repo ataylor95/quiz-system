@@ -5,18 +5,22 @@
 @endsection
 
 @section('content')
-    <div id="default-content" class="vertical-align">
+    <div id="default-content">
         @if (is_null($quiz))
-            <h2 class="text-center">No quiz running for: {{$key}}</h2>
-			@if (Auth::check())
-				<div class="text-center">
-					<a href="{{route('quizzes.index')}}">Start a session?</a>
-				</div>
-			@endif
+            <div class="vertical-align">
+                <h2 class="text-center">No quiz running for: {{$key}}</h2>
+                @if (Auth::check())
+                    <div class="text-center">
+                        <a href="{{route('quizzes.index')}}">Start a session?</a>
+                    </div>
+                @endif
+            </div>
         @elseif (is_null($question))
-            <h1 class="text-center">{{$quiz['name']}}</h1>
-            <h3 class="text-center">{{$quiz['desc']}}</h3>
-            <h4 class="text-center">Session: {{$key}}</h4>
+            <div class="vertical-align">
+                <h1 class="text-center">{{$quiz['name']}}</h1>
+                <h3 class="text-center">{{$quiz['desc']}}</h3>
+                <h4 class="text-center">Session: {{$key}}</h4>
+            </div>
         @else
             @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
                 @if ($question->type == $type)
@@ -56,34 +60,80 @@
             $('#default-content').empty(); //Remove previous stuff
             switch(response.type){
                 case "start":
-                    var startContent = '<h1 class="text-center">' + response.data.name + '</h1>';
+                    var startContent = '<div class="vertical-align">';
+                    startContent += '<h1 class="text-center">' + response.data.name + '</h1>';
                     startContent += '<h3 class="text-center">' + response.data.desc + '</h3>';
                     startContent += '<h4 class="text-center">Session: ' + sessionKey + '</h4>';
+                    startContent += '</div>';
                     $('#default-content').append(startContent);
                     break;
                 case "question":
                     changeQuestion(response);
                     break;
                 case "end":
-                    var endContent = '<h2 class="text-center">End of the Quiz</h2>';
+                    var endContent = '<div class="vertical-align"><h2 class="text-center">End of the Quiz</h2></div>';
                     $('#default-content').append(endContent);
                     break;
             }
         }
 
         function changeQuestion(response){
-            if(response.data.type == "multi_choice"){
-                $.ajax({
-                    url: "{{route('questionType', ['type' => 'multi_choice'])}}",
-                    data: {
-                        'quiz_id': response.data.quiz_id, 
-                        'position': response.data.position
-                    },
-                    success: function(data){
-                        $('#default-content').append($(data)[0]);
-                    },
-                });
+            switch (response.data.type) {
+                case "multi_choice":
+                    renderMultiChoiceQuestion(response.data);
+                    break;
+                case "multi_select":
+                    renderMultiSelectQuestion(response.data);
+                    break;
+                case "boolean":
+                    renderBooleanQuestion(response.data);
+                    break;
+                case "number_range":
+                    renderNumberRangeQuestion(response.data);
+                    break;
+                case "text":
+                    renderTextQuestion(response.data);
+                    break;
             }
+        }
+
+        function renderMultiChoiceQuestion(question){
+            $.ajax({
+                url: "{{route('questionType', ['type' => 'multi_choice'])}}",
+                data: {
+                    'quiz_id': question.quiz_id, 
+                    'position': question.position
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
+                },
+            });
+        }
+
+        function renderMultiSelectQuestion(question){
+            $.ajax({
+                url: "{{route('questionType', ['type' => 'multi_select'])}}",
+                data: {
+                    'quiz_id': question.quiz_id, 
+                    'position': question.position
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
+                },
+            });
+        }
+
+        function renderBooleanQuestion(question){
+            $.ajax({
+                url: "{{route('questionType', ['type' => 'boolean'])}}",
+                data: {
+                    'quiz_id': question.quiz_id, 
+                    'position': question.position
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
+                },
+            });
         }
     </script>
 
