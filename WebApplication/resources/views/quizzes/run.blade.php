@@ -104,6 +104,19 @@
             });
         }
 
+        function renderMultiSelectQuestion(question){
+            $.ajax({
+                url: "{{route('questionType', ['type' => 'multi_select'])}}",
+                data: {
+                    'quiz_id': question.quiz_id, 
+                    'position': question.position
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
+                },
+            });
+        }
+
         function renderBooleanQuestion(question){
             $.ajax({
                 url: "{{route('questionType', ['type' => 'boolean'])}}",
