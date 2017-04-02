@@ -207,6 +207,12 @@ class QuizController extends Controller
         event(new DisplayQuiz("end", null, $user));
     }
 
+    /**
+     * This function saves the results of a quiz question
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $session - key of the session
+     */
 	public function results(Request $request, $session)
 	{
 		//dd(Cookie::get('laravel_session'), $request->response, $session);
@@ -215,7 +221,7 @@ class QuizController extends Controller
 			array(Cookie::get('laravel_session'), $request->response),
 		);
 
-		$fp = fopen('session/' . $session . '/question.csv', 'a');
+		$fp = fopen('session/' . $session . '/question.csv', 'a+');
 
 		foreach ($list as $fields) {
 			fputcsv($fp, $fields);
