@@ -207,26 +207,20 @@ class QuizController extends Controller
         event(new DisplayQuiz("end", null, $user));
     }
 
-	public function results(Request $request)
+	public function results(Request $request, $session)
 	{
-		dd(Cookie::get('laravel_session'));
-		/*$test_array = array (
-		  'bla' => 'blub',
-		  'foo' => 'bar',
-		  'another_array' => array (
-			'stack' => 'overflow',
-		  ),
+		//dd(Cookie::get('laravel_session'), $request->response, $session);
+
+		$list = array (
+			array(Cookie::get('laravel_session'), $request->response),
 		);
-		$xml = new \SimpleXMLElement('<root/>');
-		array_walk_recursive($test_array, array ($xml, 'addChild'));
-		//dd($xml->asXML());
 
-		$bytes_written = File::put("test.xml", $xml->asXML);
-		if ($bytes_written === false)
-		{
-			die("Error writing to file");
-		}*/
-		//dd(File::get(storage_path('quiz-sessions/aber1-name.xml')));
+		$fp = fopen('session/' . $session . '/question.csv', 'a');
 
+		foreach ($list as $fields) {
+			fputcsv($fp, $fields);
+		}
+
+		fclose($fp);
 	}
 }
