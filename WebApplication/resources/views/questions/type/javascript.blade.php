@@ -6,10 +6,12 @@
 
     function submitMCQuestion(){
         var answer = $('.btn-success').attr('name');
+        var questionNumber = $('#question-number').val();
         $.post({
             url: "{{route('results', ['session_key' => $key])}}",
             data: {
                 "response": answer,
+                "question": questionNumber,
                 "_token": "{{csrf_token()}}"
             }
         });
@@ -25,6 +27,7 @@
 
     function submitMSQuestion(){
         var answers = $('.btn-success');
+        var questionNumber = $('#question-number').val();
         //Use a javascript function, map,  to extract the names of all the 
         //answers into an array
         var result = answers.map(function(answer) {
@@ -42,6 +45,7 @@
             url: "{{route('results', ['session_key' => $key])}}",
             data: {
                 "response": result,
+                "question": questionNumber,
                 "_token": "{{csrf_token()}}"
             }
         });

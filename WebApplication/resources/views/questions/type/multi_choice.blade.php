@@ -1,5 +1,6 @@
 <div id="question-form" class="text-center">
     <h1>{{$question->question_text}}</h1>
+        <input type="hidden" name="question-number" id="question-number" value="{{$position}}"</input>
         @for ($i=1; $i<=getQuestionsData()[0]; $i++)
             @php $numAnswer = "answer" . $i; @endphp
             @if (strlen($question->$numAnswer) > 0)

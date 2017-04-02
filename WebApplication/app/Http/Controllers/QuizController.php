@@ -150,6 +150,7 @@ class QuizController extends Controller
         if (is_null($quizID)) {
             $quiz = null;
             $question = null;
+			$position = null;
         } else {
             $quiz = Quiz::find($quizID);
             $position = $session->position;
@@ -162,7 +163,7 @@ class QuizController extends Controller
 				])->get()[0];
 			}
         }
-        return view('quizzes.run', compact('key', 'quiz', 'question'));
+        return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
     }
 
     /**
@@ -221,7 +222,7 @@ class QuizController extends Controller
 			array(Cookie::get('laravel_session'), $request->response),
 		);
 
-		$fp = fopen('session/' . $session . '/question.csv', 'a+');
+		$fp = fopen('session/' . $session . '/question' . $request->question . '.csv', 'a+');
 
 		foreach ($list as $fields) {
 			fputcsv($fp, $fields);
