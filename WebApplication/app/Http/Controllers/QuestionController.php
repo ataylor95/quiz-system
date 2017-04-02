@@ -137,6 +137,7 @@ class QuestionController extends Controller
             ['quiz_id', '=', $request->quiz_id], 
             ['position', '=', $request->position]
         ])->get()[0];
-        return view('questions.type.' . $type, compact('question')); 
+        $position = $request->position;
+        return view('questions.type.' . $type, compact('question', 'position')); 
     }
 }
