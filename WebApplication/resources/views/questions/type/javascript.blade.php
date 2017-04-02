@@ -7,7 +7,7 @@
     function submitMCQuestion(){
         var answer = $('.btn-success').attr('name');
         $.post({
-            url: "{{route('results')}}",
+            url: "{{route('results', ['session_key' => $key])}}",
             data: {
                 "response": answer,
                 "_token": "{{csrf_token()}}"
@@ -39,7 +39,7 @@
         result = result.toArray();
 
         $.post({
-            url: "{{route('results')}}",
+            url: "{{route('results', ['session_key' => $key])}}",
             data: {
                 "response": result,
                 "_token": "{{csrf_token()}}"
