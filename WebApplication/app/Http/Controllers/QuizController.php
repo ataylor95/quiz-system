@@ -165,7 +165,7 @@ class QuizController extends Controller
         }
 
         //create the session directory for storing answers
-        File::makeDirectory(public_path() . '/session/' . $key, 0755); 
+        File::makeDirectory(public_path() . '/session/' . $key, 0755, false, true); 
 
         return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
     }
