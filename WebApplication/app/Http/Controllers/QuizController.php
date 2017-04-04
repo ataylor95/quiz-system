@@ -236,16 +236,7 @@ class QuizController extends Controller
      */
     public function showResults($sessionKey)
     {
-		$session = Session::where('session_key', $sessionKey)->get()[0];
-        $answers = Answer::where('session_id', $session->id)
-			->where('question', $session->position)
-			->get();
-		$listOfAnswers = array();
-
-		foreach ($answers as $answer) {
-			$listOfAnswers[] = $answer->answer;
-		}
-		$occurences = array_count_values($listOfAnswers);
-		print_r($occurences);
+        $answers = Answer::getResults($sessionKey);
+        print_r($answers);
     }
 }

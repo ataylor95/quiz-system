@@ -54,4 +54,19 @@ class Answer extends Model
             Answer::destroy($answer->id);
         }
     }
+
+	public static function getResults($sessionKey)
+	{
+        $session = Session::where('session_key', $sessionKey)->get()[0];
+        $answers = Answer::where('session_id', $session->id)
+			->where('question', $session->position)
+			->get();
+		$listOfAnswers = array();
+
+		foreach ($answers as $answer) {
+			$listOfAnswers[] = $answer->answer;
+		}
+		$occurences = array_count_values($listOfAnswers);
+        return $occurences;    
+	}
 }
