@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cookie;
 use App\Quiz;
 use App\Events\DisplayQuiz;
@@ -164,9 +163,6 @@ class QuizController extends Controller
 			}
         }
 
-        //create the session directory for storing answers
-        File::makeDirectory(public_path() . '/session/' . $key, 0755, false, true); 
-
         return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
     }
 
@@ -211,9 +207,6 @@ class QuizController extends Controller
         $key = Session::where("user_id", $user)->get()[0]->session_key;
         Session::endQuiz($user);
         event(new DisplayQuiz("end", null, $user));
-
-        //delete the session directory that stored the answers
-        File::deleteDirectory(public_path() . '/session/' . $key); 
     }
 
     /**
@@ -224,18 +217,9 @@ class QuizController extends Controller
      */
 	public function results(Request $request, $session)
 	{
-		//dd(Cookie::get('laravel_session'), $request->response, $session);
+		dd(Cookie::get('laravel_session'), $request->response, $session);
 
-		$list = array (
-			array(Cookie::get('laravel_session'), $request->response),
-		);
-
-		$fp = fopen('session/' . $session . '/question' . $request->question . '.csv', 'a+');
-
-		foreach ($list as $fields) {
-			fputcsv($fp, $fields);
-		}
-
-		fclose($fp);
+        //We should use the session name stored in the cookie to use an identifier for users
+        //We need this to stop users submitting again and again
 	}
 }
