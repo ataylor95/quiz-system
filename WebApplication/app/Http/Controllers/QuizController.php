@@ -9,6 +9,7 @@ use App\Events\DisplayQuiz;
 use App\Session;
 use App\User;
 use App\Question;
+use App\Answer;
 
 class QuizController extends Controller
 {
@@ -217,9 +218,9 @@ class QuizController extends Controller
      */
 	public function results(Request $request, $session)
 	{
-		dd(Cookie::get('laravel_session'), $request->response, $session);
-
         //We should use the session name stored in the cookie to use an identifier for users
         //We need this to stop users submitting again and again
+
+        Answer::saveResult($session, Cookie::get('laravel_session'), $request->response);
 	}
 }
