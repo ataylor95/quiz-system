@@ -34,4 +34,12 @@ class Answer extends Model
             ]
         );
     }
+
+    public static function deleteResultsAtQuizEnd($session)
+    {
+        $answers = Session::where('session_key', $session)->get()[0]->answers;
+        foreach ($answers as $answer) {
+            Answer::destroy($answer->id);
+        }
+    }
 }

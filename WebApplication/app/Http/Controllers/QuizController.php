@@ -206,6 +206,7 @@ class QuizController extends Controller
     {
         $user = auth()->user()->id;
         $key = Session::where("user_id", $user)->get()[0]->session_key;
+        Answer::deleteResultsAtQuizEnd($key);
         Session::endQuiz($user);
         event(new DisplayQuiz("end", null, $user));
     }
