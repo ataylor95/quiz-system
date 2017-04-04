@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cookie;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
 use App\User;
 use App\Question;
+use App\Answer;
 
 class QuizController extends Controller
 {
@@ -130,6 +130,10 @@ class QuizController extends Controller
         $user = auth()->user()->id;
         $sessionKey = User::find($user)->session->session_key;
 
+        //We should make sure that the previous data is deleted
+        //This could happen if they dont press End Quiz
+        //NEVER trust users
+        Answer::deleteResultsAtQuizEnd($sessionKey);
         Session::setQuizRunning($quiz->id, $user);
 
         event(new DisplayQuiz("start", null, $user));
@@ -163,6 +167,7 @@ class QuizController extends Controller
 				])->get()[0];
 			}
         }
+
         return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
     }
 
@@ -204,6 +209,8 @@ class QuizController extends Controller
     public function endQuiz()
     {
         $user = auth()->user()->id;
+        $key = Session::where("user_id", $user)->get()[0]->session_key;
+        Answer::deleteResultsAtQuizEnd($key);
         Session::endQuiz($user);
         event(new DisplayQuiz("end", null, $user));
     }
@@ -216,18 +223,20 @@ class QuizController extends Controller
      */
 	public function results(Request $request, $session)
 	{
-		//dd(Cookie::get('laravel_session'), $request->response, $session);
+        //We should use the session name stored in the cookie to use an identifier for users
+        //We need this to stop users submitting again and again
 
-		$list = array (
-			array(Cookie::get('laravel_session'), $request->response),
-		);
-
-		$fp = fopen('session/' . $session . '/question' . $request->question . '.csv', 'a+');
-
-		foreach ($list as $fields) {
-			fputcsv($fp, $fields);
-		}
-
-		fclose($fp);
+        Answer::saveResult($session, Cookie::get('laravel_session'), $request->response);
 	}
+
+    /**
+     * Function to show the results to the admin user
+     * 
+     * @param  String  $sessionKey - key of the session
+     */
+    public function showResults($sessionKey)
+    {
+        $answers = Answer::getResults($sessionKey);
+        dd($answers);
+    }
 }

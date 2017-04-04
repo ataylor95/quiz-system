@@ -22,6 +22,16 @@ class Session extends Model
     }
 
     /**
+     * Gets the answers that belongs to the session 
+     *
+     * @return collection of answers
+     */
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
+    /**
      * Gets the session key used in the channel name
      *
      * @param int $userID
