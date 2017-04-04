@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Session;
 
 class Answer extends Model
 {
@@ -16,5 +17,21 @@ class Answer extends Model
     public function session()
     {
         return $this->belongsTo(Session::class);
+    }
+
+    public static function saveResult($session, $userSession, $answer)
+    {
+        $session = Session::where('session_key', $session)->get()[0];
+
+        Answer::updateOrCreate(
+            [
+                'session_id' => $session->id,
+                'question' => $session->position,
+                'user_session' => $userSession,
+            ],
+            [
+                'answer' => $answer
+            ]
+        );
     }
 }
