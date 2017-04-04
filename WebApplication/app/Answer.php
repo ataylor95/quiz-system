@@ -19,9 +19,16 @@ class Answer extends Model
         return $this->belongsTo(Session::class);
     }
 
-    public static function saveResult($session, $userSession, $answer)
+    /**
+     * Saves the answers to the database 
+     *
+     * @param String $sessionKey - key of the session
+     * @param String $userSession - cookie[laravel_session] value
+     * @param String $answer - the answer selected
+     */
+    public static function saveResult($sessionKey, $userSession, $answer)
     {
-        $session = Session::where('session_key', $session)->get()[0];
+        $session = Session::where('session_key', $sessionKey)->get()[0];
 
         Answer::updateOrCreate(
             [
@@ -35,6 +42,11 @@ class Answer extends Model
         );
     }
 
+    /**
+     * Deletes all the results associated with a quiz when it is ended 
+     *
+     * @param String $session - key of the session
+     */
     public static function deleteResultsAtQuizEnd($session)
     {
         $answers = Session::where('session_key', $session)->get()[0]->answers;
