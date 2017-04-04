@@ -212,7 +212,7 @@ class QuizController extends Controller
         Session::endQuiz($user);
         event(new DisplayQuiz("end", null, $user));
 
-        //create the session directory for storing answers
+        //delete the session directory that stored the answers
         File::deleteDirectory(public_path() . '/session/' . $key); 
     }
 
