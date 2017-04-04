@@ -228,4 +228,24 @@ class QuizController extends Controller
 
         Answer::saveResult($session, Cookie::get('laravel_session'), $request->response);
 	}
+
+    /**
+     * Function to show the results to the admin user
+     * 
+     * @param  String  $sessionKey - key of the session
+     */
+    public function showResults($sessionKey)
+    {
+		$session = Session::where('session_key', $sessionKey)->get()[0];
+        $answers = Answer::where('session_id', $session->id)
+			->where('question', $session->position)
+			->get();
+		$listOfAnswers = array();
+
+		foreach ($answers as $answer) {
+			$listOfAnswers[] = $answer->answer;
+		}
+		$occurences = array_count_values($listOfAnswers);
+		print_r($occurences);
+    }
 }
