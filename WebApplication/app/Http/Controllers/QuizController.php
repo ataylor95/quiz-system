@@ -237,6 +237,6 @@ class QuizController extends Controller
     public function showResults($sessionKey)
     {
         $answers = Answer::getResults($sessionKey);
-        print_r($answers);
+        dd($answers);
     }
 }
