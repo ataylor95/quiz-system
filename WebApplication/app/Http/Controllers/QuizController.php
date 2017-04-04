@@ -163,6 +163,10 @@ class QuizController extends Controller
 				])->get()[0];
 			}
         }
+
+        //create the session directory for storing answers
+        File::makeDirectory(public_path() . '/session/' . $key, 0755); 
+
         return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
     }
 
@@ -204,8 +208,12 @@ class QuizController extends Controller
     public function endQuiz()
     {
         $user = auth()->user()->id;
+        $key = Session::where("user_id", $user)->get()[0]->session_key;
         Session::endQuiz($user);
         event(new DisplayQuiz("end", null, $user));
+
+        //create the session directory for storing answers
+        File::deleteDirectory(public_path() . '/session/' . $key); 
     }
 
     /**
