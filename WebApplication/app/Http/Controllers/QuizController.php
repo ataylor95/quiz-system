@@ -130,6 +130,10 @@ class QuizController extends Controller
         $user = auth()->user()->id;
         $sessionKey = User::find($user)->session->session_key;
 
+        //We should make sure that the previous data is deleted
+        //This could happen if they dont press End Quiz
+        //NEVER trust users
+        Answer::deleteResultsAtQuizEnd($sessionKey);
         Session::setQuizRunning($quiz->id, $user);
 
         event(new DisplayQuiz("start", null, $user));
