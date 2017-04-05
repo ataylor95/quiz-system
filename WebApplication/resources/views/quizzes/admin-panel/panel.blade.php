@@ -1,9 +1,11 @@
 @if (Auth::check()) 
     {{-- TODO: right now any auth user can see this, only want the owner--}}
     <div class="admin-panel">
-        <div class="row col-md-4 col-sm-6 col-xs-12" id="results-box">
-		    <canvas id="myChart"></canvas>
-        </div>
+		<div class="row">
+			<div class="col-md-4 col-sm-6 col-xs-12" id="results-box">
+				<canvas id="myChart"></canvas>
+			</div>
+		</div>
         <div class='row'>
             <div class="col-xs-2">
                 <button id="prev-quiz" name="prev-quiz" class="btn btn-primary">Prev</button>
