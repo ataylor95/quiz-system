@@ -74,24 +74,24 @@
         function changeQuestion(response){
             switch (response.data.type) {
                 case "multi_choice":
-					renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_choice'])}}");
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_choice'])}}");
                     break;
                 case "multi_select":
-					renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_select'])}}");
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_select'])}}");
                     break;
                 case "boolean":
-					renderQuestion(response.data, "{{route('questionType', ['type' => 'boolean'])}}");
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'boolean'])}}");
                     break;
                 case "number_range":
-					renderQuestion(response.data, "{{route('questionType', ['type' => 'number_range'])}}");
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'number_range'])}}");
                     break;
                 case "text":
-					renderQuestion(response.data, "{{route('questionType', ['type' => 'text'])}}");
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'text'])}}");
                     break;
             }
         }
 
-		function renderQuestion(question, url){
+        function renderQuestion(question, url){
             $.ajax({
                 url: url,
                 data: {
@@ -102,7 +102,7 @@
                     $('#default-content').append($(data)[0]);
                 },
             });
-		}
+        }
     </script>
 
     @include('quizzes.admin-panel.javascript')
