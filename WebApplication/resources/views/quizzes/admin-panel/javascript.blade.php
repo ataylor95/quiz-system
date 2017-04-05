@@ -27,7 +27,7 @@
                         keys.push(key);
                         values.push(value);
                     }
-				});
+                });
                 createChart(keys, values);
             },
         });
