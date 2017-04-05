@@ -50,6 +50,13 @@
         //Bind a function to a Event (the full Laravel class)
         channel.bind('App\\Events\\DisplayQuiz', changeContent);
 
+        /**
+         * Function that is called when an event is fired by WebSockets
+         * In here we want to change the content of the page based on
+         * the type of response data we get
+         *
+         * @param JSON data from WebSockets
+         */
         function changeContent(response){
             $('#default-content').empty(); //Remove previous stuff
             switch(response.type){
@@ -71,6 +78,11 @@
             }
         }
 
+        /**
+         * Switch on the type of question to call the appropriate question to render
+         *
+         * @param String type - the type of question needed
+         */
         function changeQuestion(response){
             switch (response.data.type) {
                 case "multi_choice":
@@ -91,6 +103,13 @@
             }
         }
 
+        /**
+         * Performs ajax request on question type page and then copies the
+         * content of that page onto the page
+         *
+         * @param JSON question - the question and its data
+         * @param String url - url of the question type for the ajax call
+         */
         function renderQuestion(question, url){
             $.ajax({
                 url: url,
