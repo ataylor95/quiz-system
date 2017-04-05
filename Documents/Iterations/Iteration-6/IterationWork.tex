@@ -53,8 +53,8 @@ Very few tasks as will be explained in the design section:
 	\item Add check for empty arrays on frontend
 	\item Add check for empty arrays on backend
 \end{itemize}
-\subsection{Design}
 \subsection{Implementation}
+Thanks to the design of the previous section, changing the data meant an empty key was sent if the user tried to change the data submitetd to the server. This could be checked in either the JavaScript or PHP end, but it was decided both would be the best for maximum security. 
 \subsection{Testing}
 \newpage
 
@@ -65,7 +65,9 @@ Very few tasks as will be explained in the design section:
 	\item Post this number on the page as part of the results form
 \end{itemize}
 \subsection{Design}
+This should appear above the results table, possibly as part of the title.
 \subsection{Implementation}
+After attempting to get a number of users connected to the channel it became clear that this number is not readily accessible for public channels. It can be gotten via the Pusher API but implementing that would mean locking some functionality down with Pusher and the long term plan is probably going to involve changing to a Redis based WebSocket system. Therefore this number has just been changed to the total number of responses which should give a good idea to the lecturer of what percentage of users have responded. This was simply added to the title attribute of the chart.
 \subsection{Testing}
 \newpage
 
