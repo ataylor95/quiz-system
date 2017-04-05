@@ -61,24 +61,25 @@ class Answer extends Model
      *
      * @param String $sessionKey - key of the session
      */
-	public static function getResults($sessionKey)
-	{
+    
+    public static function getResults($sessionKey)
+    {
         $session = Session::where('session_key', $sessionKey)->get()[0];
         $answers = Answer::where('session_id', $session->id)
-			->where('question', $session->position)
-			->get();
-		$listOfAnswers = array();
+            ->where('question', $session->position)
+            ->get();
+        $listOfAnswers = array();
 
-		foreach ($answers as $answer) {
-			$listOfAnswers[] = $answer->answer;
-		}
+        foreach ($answers as $answer) {
+            $listOfAnswers[] = $answer->answer;
+        }
 
-		$occurences = array_count_values($listOfAnswers);
+        $occurences = array_count_values($listOfAnswers);
 
         $finalList = Answer::mergeAnswersArrays($session, $occurences);
 
         return $finalList;    
-	}
+    }
 
     /**
      * Change the answer array keys to be the actual answers for readability
