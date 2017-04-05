@@ -13,6 +13,7 @@
         });
     }); 
     $('#show-results').on('click', function() {
+        removeChart(); //If we press it again whilst on the same page
         $.ajax({
             url: "{{route('showResults', ['session_key' => $key])}}",
             success: function(data){
@@ -98,7 +99,11 @@
         return colourArray;
     }
 
+    /**
+     * Removes the canvas used for the results charts
+     */
     function removeChart(){
+        //Easiest way is to empty the div and add a new canvas
         $('#results-box').empty();
         $('#results-box').append(
             '<canvas id="myChart"></canvas>'
