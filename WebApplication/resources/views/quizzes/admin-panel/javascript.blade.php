@@ -1,11 +1,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
     $('#prev-quiz').on('click', function() {
+        removeChart();
         $.ajax({
             url: "{{route('prevQuiz')}}",
         });
     }); 
     $('#next-quiz').on('click', function() {
+        removeChart();
         $.ajax({
             url: "{{route('nextQuiz')}}",
         });
@@ -26,6 +28,7 @@
         });
     }); 
     $('#end-quiz').on('click', function() {
+        removeChart();
         $.ajax({
             url: "{{route('endQuiz')}}",
         });
@@ -93,6 +96,13 @@
             colourArray.push(getRandomColour());
         }
         return colourArray;
+    }
+
+    function removeChart(){
+        $('#results-box').empty();
+        $('#results-box').append(
+            '<canvas id="myChart"></canvas>'
+        );
     }
 
 </script>
