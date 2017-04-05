@@ -50,12 +50,6 @@
         //Bind a function to a Event (the full Laravel class)
         channel.bind('App\\Events\\DisplayQuiz', changeContent);
 
-        function addMessage(data) {
-            var listItem = $("<li class='list-group-item'></li>");
-            listItem.html(data.data.question_text);
-            $('#messages').prepend(listItem);
-        }
-
         function changeContent(response){
             $('#default-content').empty(); //Remove previous stuff
             switch(response.type){

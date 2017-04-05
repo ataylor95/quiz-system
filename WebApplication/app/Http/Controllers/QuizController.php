@@ -237,6 +237,7 @@ class QuizController extends Controller
     public function showResults($sessionKey)
     {
         $answers = Answer::getResults($sessionKey);
-        dd($answers);
+        //We want to return this as json so it can be used in a graph
+        return response()->json($answers);
     }
 }

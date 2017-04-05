@@ -4,7 +4,7 @@
             @php $numAnswer = "answer" . $i; @endphp
             @if (strlen($question->$numAnswer) > 0)
             <div class="form-group">
-                <button class="btn btn-default" id="{{'answer' . $i}}" name="{{'answer' . $i}}" value="testy" onclick="selectMultiOption(this)">
+                <button class="btn btn-default" id="{{'answer' . $i}}" name="{{'answer' . $i}}" onclick="selectMultiOption(this)">
                     {{$question->$numAnswer}}
                 </button>
             </div>

@@ -108,7 +108,10 @@ class Answer extends Model
             $listOfAnswers[$question->$key] = $listOfAnswers[$key];
             unset($listOfAnswers[$key]);
         }
-
+        //Unset empty array item, this is caused when users try and submit their own
+        //answers, this is just clean up
+        unset($listOfAnswers['']);
+        
         return $listOfAnswers;
     }
 }
