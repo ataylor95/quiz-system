@@ -74,26 +74,26 @@
         function changeQuestion(response){
             switch (response.data.type) {
                 case "multi_choice":
-                    renderMultiChoiceQuestion(response.data);
+					renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_choice'])}}");
                     break;
                 case "multi_select":
-                    renderMultiSelectQuestion(response.data);
+					renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_select'])}}");
                     break;
                 case "boolean":
-                    renderBooleanQuestion(response.data);
+					renderQuestion(response.data, "{{route('questionType', ['type' => 'boolean'])}}");
                     break;
                 case "number_range":
-                    renderNumberRangeQuestion(response.data);
+					renderQuestion(response.data, "{{route('questionType', ['type' => 'number_range'])}}");
                     break;
                 case "text":
-                    renderTextQuestion(response.data);
+					renderQuestion(response.data, "{{route('questionType', ['type' => 'text'])}}");
                     break;
             }
         }
 
-        function renderMultiChoiceQuestion(question){
+		function renderQuestion(question, url){
             $.ajax({
-                url: "{{route('questionType', ['type' => 'multi_choice'])}}",
+                url: url,
                 data: {
                     'quiz_id': question.quiz_id, 
                     'position': question.position
@@ -102,33 +102,7 @@
                     $('#default-content').append($(data)[0]);
                 },
             });
-        }
-
-        function renderMultiSelectQuestion(question){
-            $.ajax({
-                url: "{{route('questionType', ['type' => 'multi_select'])}}",
-                data: {
-                    'quiz_id': question.quiz_id, 
-                    'position': question.position
-                },
-                success: function(data){
-                    $('#default-content').append($(data)[0]);
-                },
-            });
-        }
-
-        function renderBooleanQuestion(question){
-            $.ajax({
-                url: "{{route('questionType', ['type' => 'boolean'])}}",
-                data: {
-                    'quiz_id': question.quiz_id, 
-                    'position': question.position
-                },
-                success: function(data){
-                    $('#default-content').append($(data)[0]);
-                },
-            });
-        }
+		}
     </script>
 
     @include('quizzes.admin-panel.javascript')
