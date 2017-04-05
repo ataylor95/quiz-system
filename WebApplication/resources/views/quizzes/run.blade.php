@@ -50,6 +50,13 @@
         //Bind a function to a Event (the full Laravel class)
         channel.bind('App\\Events\\DisplayQuiz', changeContent);
 
+        /**
+         * Function that is called when an event is fired by WebSockets
+         * In here we want to change the content of the page based on
+         * the type of response data we get
+         *
+         * @param JSON data from WebSockets
+         */
         function changeContent(response){
             $('#default-content').empty(); //Remove previous stuff
             switch(response.type){
@@ -71,55 +78,41 @@
             }
         }
 
+        /**
+         * Switch on the type of question to call the appropriate question to render
+         *
+         * @param String type - the type of question needed
+         */
         function changeQuestion(response){
             switch (response.data.type) {
                 case "multi_choice":
-                    renderMultiChoiceQuestion(response.data);
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_choice'])}}");
                     break;
                 case "multi_select":
-                    renderMultiSelectQuestion(response.data);
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'multi_select'])}}");
                     break;
                 case "boolean":
-                    renderBooleanQuestion(response.data);
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'boolean'])}}");
                     break;
                 case "number_range":
-                    renderNumberRangeQuestion(response.data);
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'number_range'])}}");
                     break;
                 case "text":
-                    renderTextQuestion(response.data);
+                    renderQuestion(response.data, "{{route('questionType', ['type' => 'text'])}}");
                     break;
             }
         }
 
-        function renderMultiChoiceQuestion(question){
+        /**
+         * Performs ajax request on question type page and then copies the
+         * content of that page onto the page
+         *
+         * @param JSON question - the question and its data
+         * @param String url - url of the question type for the ajax call
+         */
+        function renderQuestion(question, url){
             $.ajax({
-                url: "{{route('questionType', ['type' => 'multi_choice'])}}",
-                data: {
-                    'quiz_id': question.quiz_id, 
-                    'position': question.position
-                },
-                success: function(data){
-                    $('#default-content').append($(data)[0]);
-                },
-            });
-        }
-
-        function renderMultiSelectQuestion(question){
-            $.ajax({
-                url: "{{route('questionType', ['type' => 'multi_select'])}}",
-                data: {
-                    'quiz_id': question.quiz_id, 
-                    'position': question.position
-                },
-                success: function(data){
-                    $('#default-content').append($(data)[0]);
-                },
-            });
-        }
-
-        function renderBooleanQuestion(question){
-            $.ajax({
-                url: "{{route('questionType', ['type' => 'boolean'])}}",
+                url: url,
                 data: {
                     'quiz_id': question.quiz_id, 
                     'position': question.position

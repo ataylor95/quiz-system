@@ -154,18 +154,18 @@ class QuizController extends Controller
         if (is_null($quizID)) {
             $quiz = null;
             $question = null;
-			$position = null;
+            $position = null;
         } else {
             $quiz = Quiz::find($quizID);
             $position = $session->position;
-			if ($position == 0) {
-				$question = null;
-			} else {
-            	$question = Question::where([
-					['quiz_id', '=', $quizID], 
-					['position', '=', $position]
-				])->get()[0];
-			}
+            if ($position == 0) {
+                $question = null;
+            } else {
+                $question = Question::where([
+                    ['quiz_id', '=', $quizID], 
+                    ['position', '=', $position]
+                ])->get()[0];
+            }
         }
 
         return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
@@ -179,14 +179,14 @@ class QuizController extends Controller
         $user = auth()->user()->id;
         $position = Session::prevNextQuestion($user, false);
 
-		if ($position == 0) {
-			$quizID = Session::where('user_id', $user)->get(['quiz_id'])[0];
-			$quiz = Quiz::find($quizID);
-        	event(new DisplayQuiz("start", $quiz, $user));
-		} else {
-        	$question = Session::getQuestionForQuiz($user, $position);
-        	event(new DisplayQuiz("question", $question, $user));
-		}
+        if ($position == 0) {
+            $quizID = Session::where('user_id', $user)->get(['quiz_id'])[0];
+            $quiz = Quiz::find($quizID);
+            event(new DisplayQuiz("start", $quiz, $user));
+        } else {
+            $question = Session::getQuestionForQuiz($user, $position);
+            event(new DisplayQuiz("question", $question, $user));
+        }
     }
 
     /**
@@ -221,13 +221,13 @@ class QuizController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  String  $session - key of the session
      */
-	public function results(Request $request, $session)
-	{
+    public function results(Request $request, $session)
+    {
         //We should use the session name stored in the cookie to use an identifier for users
         //We need this to stop users submitting again and again
 
         Answer::saveResult($session, Cookie::get('laravel_session'), $request->response);
-	}
+    }
 
     /**
      * Function to show the results to the admin user

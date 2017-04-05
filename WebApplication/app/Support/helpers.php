@@ -1,7 +1,7 @@
 <?php
     /**
      * This function gets all the question configuration data
-	 * Used as a helper function so it can be used in both controllers and blade template files
+     * Used as a helper function so it can be used in both controllers and blade template files
      * 
      * @return array [number of answers, questions types keys, question types english name]
      */
