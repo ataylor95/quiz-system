@@ -46,7 +46,12 @@
      * @param [] values - array of the values
      */
     function createChart(keys, values){
+        //Quickly add up number of responses so we can print it in the title
+        var numAnswered = values.reduce(function(i, j){return i + j}, 0);
+        var chartTitle = "Number of responses: " + numAnswered;
+
         var ctx = document.getElementById("myChart");
+        
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -74,6 +79,10 @@
                 },
                 legend: {
                     display: false
+                },
+                title: {
+                    display: true,
+                    text: chartTitle
                 },
             }
         });
