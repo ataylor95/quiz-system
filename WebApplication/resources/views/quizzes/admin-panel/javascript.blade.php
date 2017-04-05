@@ -21,8 +21,12 @@
                 var values = [];
                 //create lists of the keys and values
                 jQuery.each(data, function(key, value) {
-                    keys.push(key);
-                    values.push(value);
+                    //Keys with a length of 0 are omitted
+                    //These could come from users changing submission data...
+                    if (key.length){
+                        keys.push(key);
+                        values.push(value);
+                    }
 				});
                 createChart(keys, values);
             },
