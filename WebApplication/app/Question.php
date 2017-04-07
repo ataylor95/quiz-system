@@ -27,7 +27,7 @@ class Question extends Model
      */
     public static function saveQuestion($dataToSave)
     {
-        $nextPosition = count(Question::where('quiz_id', 1)->get()) + 1;
+        $nextPosition = count(Question::where('quiz_id', $dataToSave['quiz_id'])->get()) + 1;
 
         Question::Create([
             'quiz_id' => $dataToSave['quiz_id'],
