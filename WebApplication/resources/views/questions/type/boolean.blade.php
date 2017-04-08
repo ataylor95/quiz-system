@@ -13,7 +13,7 @@
         @endfor
 
         <div class='form-group'>
-            <button type="submit" class="btn center-block btn-default" onclick='submitMCQuestion()'>Submit</button> 
+            <button type="submit" class="btn center-block btn-info" onclick='submitMCQuestion()'>Submit</button> 
         </div>
 
 </div>
