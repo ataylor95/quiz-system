@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-    <div class="vertical-align">
+    <div class="vertical-align welcome-page">
         <h1 class="text-center">Quiz System</h1>
         
         <div class="text-center">
-            <div class="form-group">
+            <div class="form-group session-input">
                 <label for="session_key">Session Key:</label>
                 <input name="session_key" id="session_key"></input>
             </div>

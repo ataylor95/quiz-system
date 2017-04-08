@@ -50,3 +50,77 @@ $panel-default-heading-bg: #fff;
     bottom: 0%;
     width: 100%;
 }
+
+@media(min-width:768px){
+	#default-content, .welcome-page {
+		h1 {
+			font-size: 100px;
+		}
+
+		h2 {
+			font-size: 80px;
+		}
+		
+		.btn {
+			font-size: 90px;
+			min-width: 768px;
+			white-space: normal;
+		}
+
+		.session-input {
+			font-size: 50px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+	}
+}
+@media(min-width:992px){
+	#default-content, .welcome-page {
+		h1 {
+			font-size: 60px;
+		}
+
+		h2 {
+			font-size: 50px;
+		}
+		
+		.btn {
+			font-size: 44px;
+			min-width: 992px;
+			white-space: normal;
+		}
+
+		.session-input {
+			font-size: 30px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+	}
+}
+@media(min-width:1200px){
+	#default-content, .welcome-page {
+		h1 {
+			font-size: 36px;
+		}
+
+		h2 {
+			font-size: 80px;
+		}
+		
+		.btn {
+			font-size: 14px;
+			min-width: 200px;
+			white-space: normal;
+		}
+
+		.session-input {
+			font-size: 14px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+	}
+}
+
+#results-box iframe {
+	background: #f5f8fa;
+}
