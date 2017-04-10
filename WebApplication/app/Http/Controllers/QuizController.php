@@ -152,6 +152,16 @@ class QuizController extends Controller
     }
 
     /**
+     * Returns the run slides page where slides can be uploaded
+     *
+     * @param Quiz $quiz
+     */
+    public function runSlides(Quiz $quiz)
+    {
+        return view('quizzes.run-slides', compact('quiz'));
+    }
+
+    /**
      * Action for the quizzes that are running
      * Passes the quiz, session key and question to the view
      * 
