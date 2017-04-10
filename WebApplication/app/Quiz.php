@@ -22,6 +22,16 @@ class Quiz extends Model
     }
 
     /**
+     * Gets all the slides belonging to the quiz
+     *
+     * @return collection - slides
+     */
+    public function slides()
+    {
+        return $this->hasMany(Slide::class);
+    }
+
+    /**
      * Saves the newly created quiz to the db
      *
      * @param string $name
