@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Spatie\PdfToImage;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
@@ -165,8 +166,22 @@ class QuizController extends Controller
     {
         $user = auth()->user()->id;
         $sessionKey = User::find($user)->session->session_key;
-        //Could use ->storeAs
+        
+        //Save the slides in the storage folder under a sessionkey subfolder
+        //Also get the name of the file for later
         $name = $request->file('slides')->store('slides/' . $sessionKey);
+
+        //Get the pdf from above
+        $pdf = new PdfToImage\Pdf(storage_path() . '/app/' . $name); 
+        $num = $pdf->getNumberOfPages();  
+    
+        $address = (storage_path() . '/app/slides/' . $sessionKey . '/');
+        //Convert each page in the pdf to a png
+        for($i=1;$i<=$num;$i++){ 
+             $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
+        }
+
+        return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
     /**
