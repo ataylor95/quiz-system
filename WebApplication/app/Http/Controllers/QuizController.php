@@ -119,10 +119,21 @@ class QuizController extends Controller
     }
 
     /**
+     * Gives the user a choice of whether to run quiz with or
+     * without slides
+     *
+     * @param Quiz $quiz
+     */
+    public function runChoice(Quiz $quiz)
+    {
+        return view('quizzes.run-choice', compact('quiz')); 
+    }
+
+    /**
      * Action that is called via quizzes/run
      * This triggers the broadcast event for WebSockets
      *
-     * @param String $name of quiz
+     * @param Quiz $quiz
      */
     public function run(Quiz $quiz)
     {
