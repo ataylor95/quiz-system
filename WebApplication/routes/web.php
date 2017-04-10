@@ -21,6 +21,9 @@ Route::get('/home', 'QuizController@index');
 
 Route::resource('users', 'UserController');
 Route::resource('questions', 'QuestionController');
+Route::get('quizzes/run-choice/{quiz}', 'QuizController@runChoice')->name('runChoice');
+Route::get('quizzes/run-slides/{quiz}', 'QuizController@runSlides')->name('runSlides');
+Route::post('quizzes/run-slides/{quiz}', 'QuizController@storeSlides')->name('storeSlides');
 Route::get('quizzes/run/{quiz}', 'QuizController@run')->name('runQuiz');
 Route::resource('quizzes', 'QuizController');
 

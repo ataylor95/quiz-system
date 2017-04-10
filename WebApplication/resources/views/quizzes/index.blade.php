@@ -20,7 +20,7 @@
                                 <a href="{{route('quizzes.show', ['id' => $quiz['id']])}}">View</a>
                             </div>
                             <div class="col-xs-1">
-                                <a href="{{route('runQuiz', ['id' => $quiz['id']])}}" class="btn btn-primary">Run</a>
+                                <a href="{{route('runChoice', ['id' => $quiz['id']])}}" class="btn btn-primary">Run</a>
                             </div>
                             <div class='col-xs-2'>
                                 <form method="POST" action="{{route('quizzes.destroy', ['id' => $quiz['id']])}}">

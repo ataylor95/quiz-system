@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Spatie\PdfToImage;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
@@ -119,10 +120,21 @@ class QuizController extends Controller
     }
 
     /**
+     * Gives the user a choice of whether to run quiz with or
+     * without slides
+     *
+     * @param Quiz $quiz
+     */
+    public function runChoice(Quiz $quiz)
+    {
+        return view('quizzes.run.choice', compact('quiz')); 
+    }
+
+    /**
      * Action that is called via quizzes/run
      * This triggers the broadcast event for WebSockets
      *
-     * @param String $name of quiz
+     * @param Quiz $quiz
      */
     public function run(Quiz $quiz)
     {
@@ -137,6 +149,38 @@ class QuizController extends Controller
         Session::setQuizRunning($quiz->id, $user);
 
         event(new DisplayQuiz("start", null, $user));
+        return redirect()->route('quizSession', ['session_key' => $sessionKey]);
+    }
+
+    /**
+     * Returns the run slides page where slides can be uploaded
+     *
+     * @param Quiz $quiz
+     */
+    public function runSlides(Quiz $quiz)
+    {
+        return view('quizzes.run.slides', compact('quiz'));
+    }
+
+    public function storeSlides(Request $request)
+    {
+        $user = auth()->user()->id;
+        $sessionKey = User::find($user)->session->session_key;
+        
+        //Save the slides in the storage folder under a sessionkey subfolder
+        //Also get the name of the file for later
+        $name = $request->file('slides')->store('slides/' . $sessionKey);
+
+        //Get the pdf from above
+        $pdf = new PdfToImage\Pdf(storage_path() . '/app/' . $name); 
+        $num = $pdf->getNumberOfPages();  
+    
+        $address = (storage_path() . '/app/slides/' . $sessionKey . '/');
+        //Convert each page in the pdf to a png
+        for($i=1;$i<=$num;$i++){ 
+             $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
+        }
+
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
@@ -168,7 +212,7 @@ class QuizController extends Controller
             }
         }
 
-        return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
+        return view('quizzes.run.quiz', compact('key', 'quiz', 'question', 'position'));
     }
 
     /**
