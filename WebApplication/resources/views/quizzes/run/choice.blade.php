@@ -18,7 +18,7 @@
                     </p>                    
                     <div class="row">
                         <div class='text-center'>
-                            <a href="{{route('runQuiz', ['id' => $quiz->id])}}" class="btn btn-primary">Run With Slides</a>
+                            <a href="{{route('runSlides', ['id' => $quiz->id])}}" class="btn btn-primary">Run With Slides</a>
                         </div>
                     </div>
                 </div>
