@@ -126,7 +126,7 @@ class QuizController extends Controller
      */
     public function runChoice(Quiz $quiz)
     {
-        return view('quizzes.run-choice', compact('quiz')); 
+        return view('quizzes.run.choice', compact('quiz')); 
     }
 
     /**
@@ -158,7 +158,7 @@ class QuizController extends Controller
      */
     public function runSlides(Quiz $quiz)
     {
-        return view('quizzes.run-slides', compact('quiz'));
+        return view('quizzes.run.slides', compact('quiz'));
     }
 
     /**
@@ -189,7 +189,7 @@ class QuizController extends Controller
             }
         }
 
-        return view('quizzes.run', compact('key', 'quiz', 'question', 'position'));
+        return view('quizzes.run.quiz', compact('key', 'quiz', 'question', 'position'));
     }
 
     /**
