@@ -172,6 +172,10 @@ class QuizController extends Controller
      */
     public function storeSlides(Request $request)
     {
+        $this->validate($request, [
+            'slides' => 'mimetypes:application/pdf|file',
+        ]);
+
         $user = auth()->user()->id;
         $sessionKey = User::find($user)->session->session_key;
         
