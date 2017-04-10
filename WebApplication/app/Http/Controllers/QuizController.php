@@ -169,7 +169,6 @@ class QuizController extends Controller
      * Saves information about the images to the db
      * 
      * @param  \Illuminate\Http\Request  $request
-     * @param  String  $session - key of the session
      */
     public function storeSlides(Request $request)
     {
