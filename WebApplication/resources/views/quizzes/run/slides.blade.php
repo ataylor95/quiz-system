@@ -7,9 +7,9 @@
             <div class="panel panel-default">
                 <form method="POST" action="{{route('storeSlides', ['id' => $quiz->id])}}">
                     {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="file">Slides in pdf format:</label>
-                        <input type="file" name="file" accept="application/pdf">
+                    <div class="form-group text-center">
+                        <label class="text-center" for="file">Slides in pdf format:</label>
+                        <input id="slides-upload" type="file" name="file" accept="application/pdf">
                     </div>
 
                     <div class='form-group'>
