@@ -163,6 +163,14 @@ class QuizController extends Controller
         return view('quizzes.run.slides', compact('quiz'));
     }
 
+    /**
+     * Saves the pdf slides to the storage folder
+     * Then converts each slide to an image and saves that
+     * Saves information about the images to the db
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $session - key of the session
+     */
     public function storeSlides(Request $request)
     {
         $user = auth()->user()->id;
@@ -182,6 +190,7 @@ class QuizController extends Controller
             $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
         }
         
+        //We need to save some information about the slides to the db
         Slide::saveSlides($num, $request->quiz);
 
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);

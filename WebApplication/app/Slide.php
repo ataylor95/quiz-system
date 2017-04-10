@@ -20,6 +20,12 @@ class Slide extends Model
         return $this->belongsTo(Quiz::class);
     }
 
+    /**
+     * Gets the quiz that this answer belongs to
+     *
+     * @param int $numSlides - number of slides in the pdf 
+     * @param int $quizID
+     */
     public static function saveSlides($numSlides, $quizID)
     {
         $questions = Quiz::find($quizID)->questions;
@@ -42,6 +48,5 @@ class Slide extends Model
                 $count++;
             }
         }
-        dd($numSlides, $positions);        
     }
 }
