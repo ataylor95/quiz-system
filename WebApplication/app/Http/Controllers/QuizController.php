@@ -11,6 +11,7 @@ use App\Session;
 use App\User;
 use App\Question;
 use App\Answer;
+use App\Slide;
 
 class QuizController extends Controller
 {
@@ -178,8 +179,10 @@ class QuizController extends Controller
         $address = (storage_path() . '/app/slides/' . $sessionKey . '/');
         //Convert each page in the pdf to a png
         for($i=1;$i<=$num;$i++){ 
-             $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
+            $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
         }
+        
+        Slide::saveSlides($num, $request->quiz);
 
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
