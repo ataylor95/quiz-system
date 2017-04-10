@@ -161,6 +161,14 @@ class QuizController extends Controller
         return view('quizzes.run.slides', compact('quiz'));
     }
 
+    public function storeSlides(Request $request)
+    {
+        $user = auth()->user()->id;
+        $sessionKey = User::find($user)->session->session_key;
+        //Could use ->storeAs
+        $name = $request->file('slides')->store('slides/' . $sessionKey);
+    }
+
     /**
      * Action for the quizzes that are running
      * Passes the quiz, session key and question to the view
