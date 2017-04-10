@@ -192,6 +192,10 @@ class QuizController extends Controller
         //We need to save some information about the slides to the db
         Slide::saveSlides($num, $request->quiz);
 
+        //Set the quiz running, easiest way is just to call that function
+        $this->run(Quiz::find($request->quiz));
+        //For some reason its rediect does not work when called from another function
+        //So we do one here anyway
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
