@@ -80,7 +80,6 @@ class SlideController extends Controller
     public function getSlide(Request $request)
     {
 		$sessionKey = Quiz::find($request->quiz_id)
-			->get()[0]
 			->user
 			->session
 			->session_key;
