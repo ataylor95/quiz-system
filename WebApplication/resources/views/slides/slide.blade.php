@@ -1,1 +1,1 @@
-<img src="{{$location}}">
+<img id="slide-image" src="{{$location}}">
