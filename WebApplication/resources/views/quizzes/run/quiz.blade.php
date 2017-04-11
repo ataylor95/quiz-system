@@ -15,12 +15,18 @@
                     </div>
                 @endif
             </div>
-        @elseif (is_null($question))
+        @elseif (is_null($question) && is_null($slide))
             <div class="vertical-align">
                 <h1 class="text-center">{{$quiz['name']}}</h1>
                 <h3 class="text-center">{{$quiz['desc']}}</h3>
                 <h4 class="text-center">Session: {{$key}}</h4>
             </div>
+        @elseif (is_null($question) && !is_null($slide))
+            @php
+                $fileName = $slide->file_name . '.png';
+                $location = '/storage/slides/quiz-' . $slide->quiz_id . '/' . $fileName;
+            @endphp
+            @include('slides.slide')
         @else
             @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
                 @if ($question->type == $type)
