@@ -99,7 +99,8 @@ class Session extends Model
     }
 
     /**
-     * Validates the position of the quiz, ensuring it is not <0 or >number of questions 
+     * Validates the position of the quiz, ensuring it is not <0 or >number of 
+     * questions and slides
      * 
      * @param int $newPosition - the proposed new position
      * @param int $userID
@@ -107,13 +108,21 @@ class Session extends Model
      */
     private static function validatePosition($newPosition, $userID)
     {
-        $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
-        $numQuestions = Question::where([['quiz_id', '=', $quizID]])->get()->count();
+        $quizID = Session::where('user_id', $userID)
+            ->get(['quiz_id'])[0]->quiz_id;
+
+        $numQuestions = Question::where([['quiz_id', '=', $quizID]])
+            ->get()->count();
+
+        $numSlides = Slide::where([['quiz_id', '=', $quizID]])
+            ->get()->count();
+
+        $total = $numQuestions + $numSlides;
 
         if ($newPosition < 0) {
             $newPosition = 0;
-        } else if ($newPosition > $numQuestions) {
-            $newPosition = $numQuestions;
+        } else if ($newPosition > $total) {
+            $newPosition = $total;
         }
        return $newPosition; 
     }
