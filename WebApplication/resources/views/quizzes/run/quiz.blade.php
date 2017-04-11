@@ -71,6 +71,9 @@
                 case "question":
                     changeQuestion(response);
                     break;
+                case "slide":
+                    renderSlide(response);
+                    break;
                 case "end":
                     var endContent = '<div class="vertical-align"><h2 class="text-center">End of the Quiz</h2></div>';
                     $('#default-content').append(endContent);
@@ -81,7 +84,7 @@
         /**
          * Switch on the type of question to call the appropriate question to render
          *
-         * @param String type - the type of question needed
+         * @param JSON response from websockets
          */
         function changeQuestion(response){
             switch (response.data.type) {
@@ -101,6 +104,17 @@
                     renderQuestion(response.data, "{{route('questionType', ['type' => 'text'])}}");
                     break;
             }
+        }
+
+        /**
+         * Performs ajax request to a slide page then copies that
+         * content onto this page
+         *
+         * @param JSON response from websockets
+         */
+        function renderSlide(response) {
+            console.log(response);
+            $.ajax({});
         }
 
         /**
