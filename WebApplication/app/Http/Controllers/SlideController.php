@@ -54,23 +54,29 @@ class SlideController extends Controller
         $num = $pdf->getNumberOfPages();  
     
         $address = (storage_path() . '/app/public/slides/quiz-' . $request->quiz . '/');
-        //Convert each page in the pdf to a png
+        //Convert each page in the pdf to a png and save them
         for($i=1;$i<=$num;$i++){ 
             $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
         }
         
-        //We need to save some information about the slides to the db
+        //We need to save some information about the slides to the db to use them later
         Slide::saveSlides($num, $request->quiz);
 
         //Set the quiz running, easiest way is just to call that function
         //This is really dirty but its the quickest way to do this
         app('App\Http\Controllers\QuizController')->run(Quiz::find($request->quiz));
+
         //For some reason its rediect does not work when called from another function
         //So we do one here anyway
         $sessionKey = User::find($user)->session->session_key;
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
+    /**
+     * Renders the slide image in a simple img tag
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function getSlide(Request $request)
     {
         $fileName = $request->file_name . '.png';
