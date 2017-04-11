@@ -119,7 +119,9 @@
                 data: {
                     'file_name': response.file_name,
                     'quiz_id': response.quiz_id, 
-                    'position': response.position
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
                 },
             });
         }
