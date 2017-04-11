@@ -177,17 +177,16 @@ class QuizController extends Controller
         ]);
 
         $user = auth()->user()->id;
-        $sessionKey = User::find($user)->session->session_key;
         
         //Save the slides in the storage folder under a sessionkey subfolder
         //Also get the name of the file for later
-        $name = $request->file('slides')->store('slides/' . $sessionKey);
+        $name = $request->file('slides')->store('public/slides/quiz-' . $request->quiz);
 
         //Get the pdf from above
         $pdf = new PdfToImage\Pdf(storage_path() . '/app/' . $name); 
         $num = $pdf->getNumberOfPages();  
     
-        $address = (storage_path() . '/app/slides/' . $sessionKey . '/');
+        $address = (storage_path() . '/app/public/slides/quiz-' . $request->quiz . '/');
         //Convert each page in the pdf to a png
         for($i=1;$i<=$num;$i++){ 
             $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
@@ -200,6 +199,7 @@ class QuizController extends Controller
         $this->run(Quiz::find($request->quiz));
         //For some reason its rediect does not work when called from another function
         //So we do one here anyway
+        $sessionKey = User::find($user)->session->session_key;
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
