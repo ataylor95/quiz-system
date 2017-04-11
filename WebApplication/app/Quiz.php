@@ -12,6 +12,16 @@ class Quiz extends Model
     ];
 
     /**
+     * Gets the user that this quiz belongs to
+     *
+     * @return collection - user
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Gets all the questions belonging to the quiz
      *
      * @return collection - questions

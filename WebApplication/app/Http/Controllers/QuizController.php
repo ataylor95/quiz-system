@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use Spatie\PdfToImage;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
@@ -154,56 +153,6 @@ class QuizController extends Controller
     }
 
     /**
-     * Returns the run slides page where slides can be uploaded
-     *
-     * @param Quiz $quiz
-     */
-    public function runSlides(Quiz $quiz)
-    {
-        return view('quizzes.run.slides', compact('quiz'));
-    }
-
-    /**
-     * Saves the pdf slides to the storage folder
-     * Then converts each slide to an image and saves that
-     * Saves information about the images to the db
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     */
-    public function storeSlides(Request $request)
-    {
-        $this->validate($request, [
-            'slides' => 'mimetypes:application/pdf|file',
-        ]);
-
-        $user = auth()->user()->id;
-        $sessionKey = User::find($user)->session->session_key;
-        
-        //Save the slides in the storage folder under a sessionkey subfolder
-        //Also get the name of the file for later
-        $name = $request->file('slides')->store('slides/' . $sessionKey);
-
-        //Get the pdf from above
-        $pdf = new PdfToImage\Pdf(storage_path() . '/app/' . $name); 
-        $num = $pdf->getNumberOfPages();  
-    
-        $address = (storage_path() . '/app/slides/' . $sessionKey . '/');
-        //Convert each page in the pdf to a png
-        for($i=1;$i<=$num;$i++){ 
-            $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
-        }
-        
-        //We need to save some information about the slides to the db
-        Slide::saveSlides($num, $request->quiz);
-
-        //Set the quiz running, easiest way is just to call that function
-        $this->run(Quiz::find($request->quiz));
-        //For some reason its rediect does not work when called from another function
-        //So we do one here anyway
-        return redirect()->route('quizSession', ['session_key' => $sessionKey]);
-    }
-
-    /**
      * Action for the quizzes that are running
      * Passes the quiz, session key and question to the view
      * 
@@ -215,23 +164,50 @@ class QuizController extends Controller
         $session = Session::where('session_key', $key)->get()[0];
         $quizID = $session->quiz_id;
         if (is_null($quizID)) {
+            //If not running
             $quiz = null;
             $question = null;
             $position = null;
         } else {
-            $quiz = Quiz::find($quizID);
-            $position = $session->position;
-            if ($position == 0) {
-                $question = null;
+            $content = $this->getQuizOrSlide($quizID, $session);
+            $quiz = $content[0];
+            $question = $content[1];
+            $slide = $content[2];
+            $position = $content[3];
+        }
+
+        return view('quizzes.run.quiz', compact('key', 'quiz', 'question', 'slide', 'position'));
+    }
+
+    private function getQuizOrSlide($quizID, $session)
+    {
+        $quiz = Quiz::find($quizID);
+        $position = $session->position;
+            $slide = null;
+        if ($position == 0) {
+            //Need to show the title page, rather than the first question
+            $question = null;
+            $slide = null;
+        } else {
+            //Now we get questions and slides
+            $questionCollection = Question::where([
+                ['quiz_id', '=', $quizID], 
+                ['position', '=', $position]
+            ])->get();
+
+            //If the question at $position is empty, it should be a slide instead
+            if (sizeof($questionCollection)){
+                $question = $questionCollection[0];
             } else {
-                $question = Question::where([
-                    ['quiz_id', '=', $quizID], 
+                $question = null;
+                $slide = Slide::where([
+                    ['quiz_id', '=', $quizID],
                     ['position', '=', $position]
-                ])->get()[0];
+                ])->get()[0]; 
             }
         }
 
-        return view('quizzes.run.quiz', compact('key', 'quiz', 'question', 'position'));
+        return [$quiz, $question, $slide, $position];
     }
 
     /**
@@ -247,8 +223,8 @@ class QuizController extends Controller
             $quiz = Quiz::find($quizID);
             event(new DisplayQuiz("start", $quiz, $user));
         } else {
-            $question = Session::getQuestionForQuiz($user, $position);
-            event(new DisplayQuiz("question", $question, $user));
+            $content = Session::getQuestionOrSlideForQuiz($user, $position);
+            event(new DisplayQuiz($content['type'], $content['data'], $user));
         }
     }
 
@@ -261,9 +237,9 @@ class QuizController extends Controller
         //Send the next question to the event
         $user = auth()->user()->id;
         $position = Session::prevNextQuestion($user, true);
-        $question = Session::getQuestionForQuiz($user, $position);
+        $content = Session::getQuestionOrSlideForQuiz($user, $position);
 
-        event(new DisplayQuiz("question", $question, $user));
+        event(new DisplayQuiz($content['type'], $content['data'], $user));
     }
 
     /**

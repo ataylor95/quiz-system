@@ -15,12 +15,18 @@
                     </div>
                 @endif
             </div>
-        @elseif (is_null($question))
+        @elseif (is_null($question) && is_null($slide))
             <div class="vertical-align">
                 <h1 class="text-center">{{$quiz['name']}}</h1>
                 <h3 class="text-center">{{$quiz['desc']}}</h3>
                 <h4 class="text-center">Session: {{$key}}</h4>
             </div>
+        @elseif (is_null($question) && !is_null($slide))
+            @php
+                $fileName = $slide->file_name . '.png';
+                $location = '/storage/slides/quiz-' . $slide->quiz_id . '/' . $fileName;
+            @endphp
+            @include('slides.slide')
         @else
             @foreach (getQuestionsData()[1] as $type) {{-- use the helper function --}}
                 @if ($question->type == $type)
@@ -71,6 +77,9 @@
                 case "question":
                     changeQuestion(response);
                     break;
+                case "slide":
+                    renderSlide(response.data);
+                    break;
                 case "end":
                     var endContent = '<div class="vertical-align"><h2 class="text-center">End of the Quiz</h2></div>';
                     $('#default-content').append(endContent);
@@ -81,7 +90,7 @@
         /**
          * Switch on the type of question to call the appropriate question to render
          *
-         * @param String type - the type of question needed
+         * @param JSON response from websockets
          */
         function changeQuestion(response){
             switch (response.data.type) {
@@ -101,6 +110,26 @@
                     renderQuestion(response.data, "{{route('questionType', ['type' => 'text'])}}");
                     break;
             }
+        }
+
+        /**
+         * Performs ajax request to a slide page then copies that
+         * content onto this page
+         *
+         * @param JSON response from websockets
+         */
+        function renderSlide(response) {
+            console.log(response);
+            $.ajax({
+                url: "{{route('slide')}}",
+                data: {
+                    'file_name': response.file_name,
+                    'quiz_id': response.quiz_id, 
+                },
+                success: function(data){
+                    $('#default-content').append($(data)[0]);
+                },
+            });
         }
 
         /**
