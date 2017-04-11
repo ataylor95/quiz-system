@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use Spatie\PdfToImage;
 use App\Quiz;
 use App\Events\DisplayQuiz;
 use App\Session;
 use App\User;
 use App\Question;
 use App\Answer;
-use App\Slide;
 
 class QuizController extends Controller
 {
@@ -150,56 +148,6 @@ class QuizController extends Controller
         Session::setQuizRunning($quiz->id, $user);
 
         event(new DisplayQuiz("start", null, $user));
-        return redirect()->route('quizSession', ['session_key' => $sessionKey]);
-    }
-
-    /**
-     * Returns the run slides page where slides can be uploaded
-     *
-     * @param Quiz $quiz
-     */
-    public function runSlides(Quiz $quiz)
-    {
-        return view('quizzes.run.slides', compact('quiz'));
-    }
-
-    /**
-     * Saves the pdf slides to the storage folder
-     * Then converts each slide to an image and saves that
-     * Saves information about the images to the db
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     */
-    public function storeSlides(Request $request)
-    {
-        $this->validate($request, [
-            'slides' => 'mimetypes:application/pdf|file',
-        ]);
-
-        $user = auth()->user()->id;
-        
-        //Save the slides in the storage folder under a sessionkey subfolder
-        //Also get the name of the file for later
-        $name = $request->file('slides')->store('public/slides/quiz-' . $request->quiz);
-
-        //Get the pdf from above
-        $pdf = new PdfToImage\Pdf(storage_path() . '/app/' . $name); 
-        $num = $pdf->getNumberOfPages();  
-    
-        $address = (storage_path() . '/app/public/slides/quiz-' . $request->quiz . '/');
-        //Convert each page in the pdf to a png
-        for($i=1;$i<=$num;$i++){ 
-            $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
-        }
-        
-        //We need to save some information about the slides to the db
-        Slide::saveSlides($num, $request->quiz);
-
-        //Set the quiz running, easiest way is just to call that function
-        $this->run(Quiz::find($request->quiz));
-        //For some reason its rediect does not work when called from another function
-        //So we do one here anyway
-        $sessionKey = User::find($user)->session->session_key;
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
     }
 
