@@ -133,13 +133,13 @@ class Session extends Model
     }
 
     /**
-     * Gets the question for the quiz given the quiz position 
+     * Gets the question or slide for the quiz given the quiz position 
      * 
      * @param int $userID
      * @param int $position in the quiz
-     * @return collection $question
+     * @return [String 'type', collection 'data']
      */
-    public static function getQuestionForQuiz($userID, $position)
+    public static function getQuestionOrSlideForQuiz($userID, $position)
     {
         $quizID = Session::where('user_id', $userID)->get(['quiz_id'])[0]->quiz_id;
         if ($position == 0) {
@@ -148,9 +148,22 @@ class Session extends Model
             $question = Question::where([
                 ['quiz_id', '=', $quizID], 
                 ['position', '=', $position]
-            ])->get()[0];
+            ])->get();
+
+            //If the question at $position is empty, it should be a slide instead
+            if (sizeof($question)){
+                $content['type'] = 'question';
+                $content['data'] = $question[0];
+            } else {
+                $slide = Slide::where([
+                    ['quiz_id', '=', $quizID],
+                    ['position', '=', $position]
+                ])->get(); 
+                $content['type'] = 'slide';
+                $content['data'] = $slide[0];
+            }
         }
-        return $question;
+        return $content;
     }
 
     /**

@@ -247,8 +247,8 @@ class QuizController extends Controller
             $quiz = Quiz::find($quizID);
             event(new DisplayQuiz("start", $quiz, $user));
         } else {
-            $question = Session::getQuestionForQuiz($user, $position);
-            event(new DisplayQuiz("question", $question, $user));
+            $content = Session::getQuestionOrSlideForQuiz($user, $position);
+            event(new DisplayQuiz($content['type'], $content['data'], $user));
         }
     }
 
@@ -261,9 +261,9 @@ class QuizController extends Controller
         //Send the next question to the event
         $user = auth()->user()->id;
         $position = Session::prevNextQuestion($user, true);
-        $question = Session::getQuestionForQuiz($user, $position);
+        $content = Session::getQuestionOrSlideForQuiz($user, $position);
 
-        event(new DisplayQuiz("question", $question, $user));
+        event(new DisplayQuiz($content['type'], $content['data'], $user));
     }
 
     /**
