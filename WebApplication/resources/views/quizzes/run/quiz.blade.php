@@ -72,7 +72,7 @@
                     changeQuestion(response);
                     break;
                 case "slide":
-                    renderSlide(response);
+                    renderSlide(response.data);
                     break;
                 case "end":
                     var endContent = '<div class="vertical-align"><h2 class="text-center">End of the Quiz</h2></div>';
@@ -114,7 +114,14 @@
          */
         function renderSlide(response) {
             console.log(response);
-            $.ajax({});
+            $.ajax({
+                url: "{{route('slide')}}",
+                data: {
+                    'file_name': response.file_name,
+                    'quiz_id': response.quiz_id, 
+                    'position': response.position
+                },
+            });
         }
 
         /**
