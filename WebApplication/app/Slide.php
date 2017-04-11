@@ -34,8 +34,11 @@ class Slide extends Model
             $positions[] = $question->position;
         }
 
+        $numQuestions = $questions->count();
+        $total = $numSlides + $numQuestions;
+
         $count = 1; //Use the count for the slide number
-        for ($i=1; $i<=$numSlides; $i++) {
+        for ($i=1; $i<=$total; $i++) {
             if (in_array($i, $positions)) {
                 continue; //Skip if this is true
             } else {
