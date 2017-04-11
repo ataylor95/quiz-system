@@ -18,6 +18,8 @@ class SlideController extends Controller
 
     public function getSlide(Request $request)
     {
-        dd($request);
+        $fileName = $request->file_name . '.png';
+        $location = '/storage/slides/quiz-' . $request->quiz_id . '/' . $fileName;
+        return view('slides.slide', compact('location'));
     }
 }
