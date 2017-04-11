@@ -163,6 +163,7 @@ class QuizController extends Controller
         $session = Session::where('session_key', $key)->get()[0];
         $quizID = $session->quiz_id;
         if (is_null($quizID)) {
+            //If not running
             $quiz = null;
             $question = null;
             $position = null;
@@ -170,8 +171,10 @@ class QuizController extends Controller
             $quiz = Quiz::find($quizID);
             $position = $session->position;
             if ($position == 0) {
+                //Need to show the title page, rather than the first question
                 $question = null;
             } else {
+                //Now we get questions and slides
                 $question = Question::where([
                     ['quiz_id', '=', $quizID], 
                     ['position', '=', $position]
