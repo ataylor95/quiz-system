@@ -10,6 +10,7 @@ use App\Session;
 use App\User;
 use App\Question;
 use App\Answer;
+use App\Slide;
 
 class QuizController extends Controller
 {
@@ -168,21 +169,45 @@ class QuizController extends Controller
             $question = null;
             $position = null;
         } else {
-            $quiz = Quiz::find($quizID);
-            $position = $session->position;
-            if ($position == 0) {
-                //Need to show the title page, rather than the first question
-                $question = null;
+            $content = $this->getQuizOrSlide($quizID, $session);
+            $quiz = $content[0];
+            $question = $content[1];
+            $slide = $content[2];
+            $position = $content[3];
+        }
+
+        return view('quizzes.run.quiz', compact('key', 'quiz', 'question', 'slide', 'position'));
+    }
+
+    private function getQuizOrSlide($quizID, $session)
+    {
+        $quiz = Quiz::find($quizID);
+        $position = $session->position;
+            $slide = null;
+        if ($position == 0) {
+            //Need to show the title page, rather than the first question
+            $question = null;
+            $slide = null;
+        } else {
+            //Now we get questions and slides
+            $questionCollection = Question::where([
+                ['quiz_id', '=', $quizID], 
+                ['position', '=', $position]
+            ])->get();
+
+            //If the question at $position is empty, it should be a slide instead
+            if (sizeof($questionCollection)){
+                $question = $questionCollection[0];
             } else {
-                //Now we get questions and slides
-                $question = Question::where([
-                    ['quiz_id', '=', $quizID], 
+                $question = null;
+                $slide = Slide::where([
+                    ['quiz_id', '=', $quizID],
                     ['position', '=', $position]
-                ])->get()[0];
+                ])->get()[0]; 
             }
         }
 
-        return view('quizzes.run.quiz', compact('key', 'quiz', 'question', 'position'));
+        return [$quiz, $question, $slide, $position];
     }
 
     /**
