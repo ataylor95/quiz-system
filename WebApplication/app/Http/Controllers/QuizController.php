@@ -80,7 +80,10 @@ class QuizController extends Controller
 
         $combined = $this->combineSlidesAndQuestions($questions, $slides);
 
-        return view('quizzes.show', compact('quiz', 'combined')); 
+        $sessionKey = $quiz->user->session->session_key;
+        $imageBase = '/storage/slides/' . $sessionKey .'/quiz-' . $quiz->id . '/';
+
+        return view('quizzes.show', compact('quiz', 'combined', 'imageBase')); 
     }
 
     /**
