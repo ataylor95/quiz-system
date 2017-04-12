@@ -15,7 +15,7 @@
                 </div>
                 @foreach ($questions as $question)
                     <div class='row'>
-                        <div class='col-xs-5'>
+                        <div class='col-xs-3'>
                             <p>{{$question->question_text}}</p>
                         </div>
                         <div class='col-xs-2'>
@@ -23,6 +23,22 @@
                         </div>
                         <div class='col-xs-1'>
                             <p>{{$question->position}}</p>
+                        </div>
+                        <div class='col-xs-1'>
+                            <form method="" action="">
+                                {{ csrf_field() }}
+                                <div class='form-group'>
+                                    <button type="submit" class="glyphicon glyphicon-chevron-up"></button> 
+                                </div>
+                            </form>
+                        </div>
+                        <div class='col-xs-1'>
+                            <form method="" action="">
+                                {{ csrf_field() }}
+                                <div class='form-group'>
+                                    <button type="submit" class="glyphicon glyphicon-chevron-down"></button> 
+                                </div>
+                            </form>
                         </div>
                         <div class='col-xs-1'>
                             <a href="{{route('questions.show', ['id' => $question['id']])}}">View</a>
