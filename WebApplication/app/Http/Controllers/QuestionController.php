@@ -123,6 +123,18 @@ class QuestionController extends Controller
         return back();
     }
 
+    public function changePosition(Question $question, Request $request)
+    {
+        $direction = $request->direction;
+
+        //Just validate that the direction is either up or down
+        if ($direction != "up" && $direction != "down") {
+            return back();
+        }
+        Question::changePosition($question, $direction);
+        return back();
+    }
+
     /**
      * Gets the html for the question page used when pressing
      * the next and previous keys
