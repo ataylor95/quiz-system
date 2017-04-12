@@ -18,8 +18,11 @@
                         <div class='col-xs-5'>
                             <p>{{$question->question_text}}</p>
                         </div>
-                        <div class='col-xs-3'>
+                        <div class='col-xs-2'>
                             <p>{{config('questions')['types'][$question->type]}}</p>
+                        </div>
+                        <div class='col-xs-1'>
+                            <p>{{$question->position}}</p>
                         </div>
                         <div class='col-xs-1'>
                             <a href="{{route('questions.show', ['id' => $question['id']])}}">View</a>
