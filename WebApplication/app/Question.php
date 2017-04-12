@@ -98,4 +98,121 @@ class Question extends Model
 
         Question::destroy($questionID);
     }
+
+    /**
+     * Changes the position of a question to its new position
+     *
+     * @param Question $question
+     * @param String $direction - "up" | "down"
+     */
+    public static function changePosition($question, $direction)
+    {
+        $currentPosition = $question->position;
+        $quizID = $question->quiz->id;
+        if ($direction == "up") {
+            $newPosition = $currentPosition + 1;
+            
+            $positionOccupied = Question::checkPosition($newPosition, $quizID);
+            Question::swapOrUpdate($positionOccupied, $question, $newPosition);
+        } else if ($direction == "down") {
+            $newPosition = $currentPosition - 1;    
+
+            $positionOccupied = Question::checkPosition($newPosition, $quizID);
+            Question::swapOrUpdate($positionOccupied, $question, $newPosition);
+        }
+    }
+
+    /**
+     * Either swaps question with whatever is at the current position
+     * or updates the question with a new position
+     *
+     * @param [] $positionOccupied 
+     * @param Question $question
+     * @param int $newPosition
+     */
+    private static function swapOrUpdate($positionOccupied, $question, $newPosition)
+    {
+        //If occupied, we want to swap them
+        if ($positionOccupied[0]) {
+            Question::swapPositions($positionOccupied[2], $positionOccupied[1], $question);            
+        } else {
+            Question::find($question->id)->update([
+                'position' => $newPosition,
+            ]);
+        }
+    }
+
+    /**
+     * Checks the position to see if there is a question or slide already present
+     * Returns an array with the details
+     *
+     * @param int $newPosition
+     * @param int $quizID
+     * @return [] - [boolean - occupied, Question || Slide, String - type of object in [1]]
+     */
+    private static function checkPosition($newPosition, $quizID)
+    {
+        $questionAtNewPos = Question::where('position', $newPosition)
+            ->where('quiz_id', $quizID)
+            ->get();
+        $slideAtNewPos = Slide::where('position', $newPosition)
+            ->where('quiz_id', $quizID)
+            ->get();
+
+        //Check if they exist
+        if (sizeof($questionAtNewPos)) {
+            return [true, $questionAtNewPos[0], "question"];
+        }
+        if (sizeof($slideAtNewPos)) {
+            return [true, $slideAtNewPos[0], "slide"];
+        }
+
+        return [false];
+    }
+
+    /**
+     * Checks the position to see if there is a question or slide already present
+     * Returns an array with the details
+     *
+     * @param String $type
+     * @param Object $currentItem - either a Question or Slide
+     * @param Question $movingQuestion - the question that is changing positions
+     */
+    private static function swapPositions($type, $currentItem, $movingQuestion)
+    {
+        $newPosition = $currentItem->position;
+        $oldPosition = $movingQuestion->position;
+
+        if ($type == "question") {
+            //Update item in the wanted position to temp position
+            Question::find($currentItem->id)->update([
+                'position' => 9999,
+            ]);
+
+            //Update item you want to move
+            Question::find($movingQuestion->id)->update([
+                'position' => $newPosition,
+            ]);
+
+            //Update the item that used to occupy the spot
+            Question::find($currentItem->id)->update([
+                'position' => $oldPosition,
+            ]);
+        } else if ($type == "slide") {
+            //Update item in the wanted position to temp position
+            Slide::find($currentItem->id)->update([
+                'position' => 9999,
+            ]);
+
+            //Update item you want to move
+            Question::find($movingQuestion->id)->update([
+                'position' => $newPosition,
+            ]);
+
+            //Update the item that used to occupy the spot
+            Slide::find($currentItem->id)->update([
+                'position' => $oldPosition,
+            ]);
+        }
+    }
 }

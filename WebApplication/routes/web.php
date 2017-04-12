@@ -38,4 +38,5 @@ Route::group(['prefix' => 'quiz'], function () {
 });
 
 Route::get('questions/type/{type}', 'QuestionController@getQuestion')->name('questionType');
+Route::post('question/{id}/{direction}', 'QuestionController@changePosition')->name('changePosition');
 Route::get('slide', 'SlideController@getSlide')->name('slide');

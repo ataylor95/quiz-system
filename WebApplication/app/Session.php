@@ -104,7 +104,7 @@ class Session extends Model
      * 
      * @param int $newPosition - the proposed new position
      * @param int $userID
-     * @return int - the position of the quiz
+     * @return int - the position of slide or question in the quiz
      */
     private static function validatePosition($newPosition, $userID)
     {

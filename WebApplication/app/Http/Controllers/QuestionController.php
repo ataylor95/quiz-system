@@ -124,6 +124,25 @@ class QuestionController extends Controller
     }
 
     /**
+     * Moves the position of a question either up or down
+     *
+     * @param  int  $questionID
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function changePosition($questionID, Request $request)
+    {
+        $question = Question::find($questionID);
+        $direction = $request->direction;
+
+        //Just validate that the direction is either up or down
+        if ($direction != "up" && $direction != "down") {
+            return back();
+        }
+        Question::changePosition($question, $direction);
+        return back();
+    }
+
+    /**
      * Gets the html for the question page used when pressing
      * the next and previous keys
      *

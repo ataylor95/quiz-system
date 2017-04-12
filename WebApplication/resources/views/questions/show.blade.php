@@ -3,12 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading"> {{ $question['question_text'] }}</div>
 
                 <div class="panel-body">
-                    <p>{{ config('questions')['types'][$question['type']] }}</p>
+                    <p>Type: {{ config('questions')['types'][$question['type']] }}</p>
+                    <p>Position in Quiz: {{ $question->position }}</p>
                 </div>
                 <p>Answers:</p>
                 @for ($i = 1; $i <= config('questions')['numAnswers']; $i++)      
