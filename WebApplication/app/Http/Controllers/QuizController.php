@@ -76,7 +76,8 @@ class QuizController extends Controller
     public function show(Quiz $quiz)
     {
         $questions = Question::where('quiz_id', $quiz->id)->orderBy('position', 'ASC')->get();
-        return view('quizzes.show', compact('quiz', 'questions')); 
+        $slides = Slide::where('quiz_id', $quiz->id)->orderBy('position', 'ASC');
+        return view('quizzes.show', compact('quiz', 'questions', 'slides')); 
     }
 
     /**
