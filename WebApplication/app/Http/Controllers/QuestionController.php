@@ -123,8 +123,9 @@ class QuestionController extends Controller
         return back();
     }
 
-    public function changePosition(Question $question, Request $request)
+    public function changePosition($questionID, Request $request)
     {
+        $question = Question::find($questionID);
         $direction = $request->direction;
 
         //Just validate that the direction is either up or down
