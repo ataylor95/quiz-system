@@ -23,7 +23,7 @@
                                 <p>{{$item->position}}</p>
                             </div>
                             <div class='col-xs-3'>
-                                <a href="">View</a>
+                                <a href="{{$imageBase . $item->file_name}}.png">View</a>
                             </div>
                         </div>
                     @elseif ($item->question_text)
