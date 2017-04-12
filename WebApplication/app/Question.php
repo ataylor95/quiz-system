@@ -102,17 +102,84 @@ class Question extends Model
     public static function changePosition($question, $direction)
     {
         $currentPosition = $question->position;
+        $quizID = $question->quiz->id;
         if ($direction == "up") {
             $newPosition = $currentPosition + 1;
             
-            Question::find($question->id)->update([
-                'position' => $newPosition,
-            ]);
+            $positionOccupied = Question::checkPosition($currentPosition, $newPosition, $quizID);
+            Question::swapOrUpdate($positionOccupied, $question, $newPosition);
         } else if ($direction == "down") {
             $newPosition = $currentPosition - 1;    
 
+            $positionOccupied = Question::checkPosition($currentPosition, $newPosition, $quizID);
+            Question::swapOrUpdate($positionOccupied, $question, $newPosition);
+        }
+    }
+
+    public static function swapOrUpdate($positionOccupied, $question, $newPosition)
+    {
+        if ($positionOccupied[0]) {
+            Question::swapPositions($positionOccupied[2], $positionOccupied[1], $question);            
+        } else {
             Question::find($question->id)->update([
                 'position' => $newPosition,
+            ]);
+        }
+    }
+
+    public static function checkPosition($currentPosition, $newPosition, $quizID)
+    {
+        $questionAtNewPos = Question::where('position', $newPosition)
+            ->where('quiz_id', $quizID)
+            ->get();
+        $slideAtNewPos = Slide::where('position', $newPosition)
+            ->where('quiz_id', $quizID)
+            ->get();
+
+        if (sizeof($questionAtNewPos)) {
+            return [true, $questionAtNewPos[0], "question"];
+        }
+        if (sizeof($slideAtNewPos)) {
+            return [true, $slideAtNewPos[0], "slide"];
+        }
+
+        return [false];
+    }
+
+    public static function swapPositions($type, $currentItem, $movingQuestion)
+    {
+        $newPosition = $currentItem->position;
+        $oldPosition = $movingQuestion->position;
+
+        if ($type == "question") {
+            //Update item in the wanted position to filler position
+            Question::find($currentItem->id)->update([
+                'position' => 9999,
+            ]);
+
+            //Update item you want to move
+            Question::find($movingQuestion->id)->update([
+                'position' => $newPosition,
+            ]);
+
+            //Update the item that used to occupy the spot
+            Question::find($currentItem->id)->update([
+                'position' => $oldPosition,
+            ]);
+        } else if ($type == "slide") {
+            //Update item in the wanted position to filler position
+            Slide::find($currentItem->id)->update([
+                'position' => 9999,
+            ]);
+
+            //Update item you want to move
+            Question::find($movingQuestion->id)->update([
+                'position' => $newPosition,
+            ]);
+
+            //Update the item that used to occupy the spot
+            Slide::find($currentItem->id)->update([
+                'position' => $oldPosition,
             ]);
         }
     }
