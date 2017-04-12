@@ -123,6 +123,12 @@ class QuestionController extends Controller
         return back();
     }
 
+    /**
+     * Moves the position of a question either up or down
+     *
+     * @param  int  $questionID
+     * @param  \Illuminate\Http\Request  $request
+     */
     public function changePosition($questionID, Request $request)
     {
         $question = Question::find($questionID);
