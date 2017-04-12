@@ -28,7 +28,7 @@
                             <form method="post" action="{{route('changePosition', ['id' => $question->id, 'direction' => 'up'])}}">
                                 {{ csrf_field() }}
                                 <div class='form-group'>
-                                    <button type="submit" class="glyphicon glyphicon-chevron-up"></button> 
+                                    <button type="submit" class="glyphicon glyphicon-chevron-down"></button> 
                                 </div>
                             </form>
                         </div>
@@ -36,7 +36,7 @@
                             <form method="post" action="{{route('changePosition', ['id' => $question->id, 'direction' => 'down'])}}">
                                 {{ csrf_field() }}
                                 <div class='form-group'>
-                                    <button type="submit" class="glyphicon glyphicon-chevron-down"></button> 
+                                    <button type="submit" class="glyphicon glyphicon-chevron-up"></button> 
                                 </div>
                             </form>
                         </div>
