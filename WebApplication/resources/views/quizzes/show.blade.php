@@ -58,6 +58,9 @@
                     </div>
                 @endforeach
                 <div class="panel-footer text-right">
+                    <a href="" class="btn">Add Slides</a>
+                </div>
+                <div class="panel-footer text-right">
                     <a href="{{route('questions.create', ['quiz' => $quiz['id']])}}" class="btn">Add Question</a>
                 </div>
             </div>
