@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Spatie\PdfToImage;
 use App\Slide;
 use App\Quiz;
@@ -43,8 +44,11 @@ class SlideController extends Controller
             'slides' => 'mimetypes:application/pdf|file',
         ]);
 
+
         $user = auth()->user()->id;
         $sessionKey = User::find($user)->session->session_key;
+
+        $this->removeOldSlides($sessionKey, $request->quiz);
         
         //Save the slides in the storage folder under a sessionkey subfolder
         //Also get the name of the file for later
@@ -70,6 +74,18 @@ class SlideController extends Controller
         //For some reason its rediect does not work when called from another function
         //So we do one here anyway
         return redirect()->route('quizSession', ['session_key' => $sessionKey]);
+    }
+
+    /**
+     * Removes the slides if the quiz already had some
+     *
+     * @param String $sessionKey
+     * @param int $quizID
+     */
+    private function removeOldSlides($sessionKey, $quizID)
+    {
+        $address = (storage_path() . '/app/public/slides/' . $sessionKey .'/quiz-' . $quizID . '/');
+        File::deleteDirectory($address, true);
     }
 
     /**

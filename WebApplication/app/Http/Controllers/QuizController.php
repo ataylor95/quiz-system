@@ -76,7 +76,58 @@ class QuizController extends Controller
     public function show(Quiz $quiz)
     {
         $questions = Question::where('quiz_id', $quiz->id)->orderBy('position', 'ASC')->get();
-        return view('quizzes.show', compact('quiz', 'questions')); 
+        $slides = Slide::where('quiz_id', $quiz->id)->orderBy('position', 'ASC')->get();
+
+        $combined = $this->combineSlidesAndQuestions($questions, $slides);
+
+        $sessionKey = $quiz->user->session->session_key;
+        $imageBase = '/storage/slides/' . $sessionKey .'/quiz-' . $quiz->id . '/';
+
+        return view('quizzes.show', compact('quiz', 'combined', 'imageBase')); 
+    }
+
+    /**
+     * Combine the arrays but in orderBy their positions
+     * Loop over the total number of items there are
+     * Then loop over all the questions and slides to check
+     * their positions and add them in the wanted order
+     *
+     * @param  Collection $questions
+     * @param  Colelction $slides
+     * @return [] $combined - array of the two collections combined
+     */
+    private function combineSlidesAndQuestions($questions, $slides)
+    {
+        $total = count($questions) + count($slides);
+        $combined = [];
+
+        for ($i=1; $i<=$total; $i++) {
+            foreach($questions as $question) {
+                //Simple check to speed things up
+                //No need to check it again
+                if ($question->position < $i){
+                    continue;
+                }
+                if ($question->position == $i) {
+                    $combined[] = $question;
+                    continue;
+                }
+            }
+
+            foreach($slides as $slide) {
+                //Simple check to speed things up
+                //No need to check it again
+                if ($slide->position < $i){
+                    continue;
+                }
+                if ($slide->position == $i) {
+                    $combined[] = $slide;
+                    continue;
+                }
+            }
+        }
+
+        return $combined;
     }
 
     /**
