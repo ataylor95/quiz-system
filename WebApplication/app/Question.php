@@ -117,6 +117,12 @@ class Question extends Model
         } else if ($direction == "down") {
             $newPosition = $currentPosition - 1;    
 
+            //Make sure the question does not below position 1
+            //Position 0 is the title page
+            if ($newPosition < 1) {
+                $newPosition = 1;
+            }
+
             $positionOccupied = Question::checkPosition($newPosition, $quizID);
             Question::swapOrUpdate($positionOccupied, $question, $newPosition);
         }
