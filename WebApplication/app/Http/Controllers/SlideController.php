@@ -86,6 +86,8 @@ class SlideController extends Controller
     {
         $address = (storage_path() . '/app/public/slides/' . $sessionKey .'/quiz-' . $quizID . '/');
         File::deleteDirectory($address, true);
+
+        Slide::deleteSlides($quizID);
     }
 
     /**

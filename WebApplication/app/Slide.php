@@ -52,4 +52,17 @@ class Slide extends Model
             }
         }
     }
+
+    /**
+     * Deletes all the slides in the db associated with a quiz
+     *
+     * @param int $quizID
+     */
+    public static function deleteSlides($quizID)
+    {
+        $slides = Quiz::find($quizID)->slides;
+        foreach ($slides as $slide) {
+            Slide::destroy($slide->id);
+        }
+    }
 }

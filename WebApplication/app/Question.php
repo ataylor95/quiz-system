@@ -27,7 +27,10 @@ class Question extends Model
      */
     public static function saveQuestion($dataToSave)
     {
-        $nextPosition = count(Question::where('quiz_id', $dataToSave['quiz_id'])->get()) + 1;
+        $numQuestions = count(Question::where('quiz_id', $dataToSave['quiz_id'])->get());
+        $numSlides = count(Slide::where('quiz_id', $dataToSave['quiz_id'])->get());
+
+        $nextPosition = $numQuestions + $numSlides + 1;
 
         Question::Create([
             'quiz_id' => $dataToSave['quiz_id'],
@@ -86,6 +89,10 @@ class Question extends Model
             ->where('position', '>', $question->position)
             ->get();
 
+        $slidesLaterInQuiz = Slide::where('quiz_id', '=', $question->quiz_id)
+            ->where('position', '>', $question->position)
+            ->get();
+
         //Loop over the questions and move reduce their position
         //It does kind of assume quizzes have a sensible number of questions
         //Not like say >100 questions
@@ -93,6 +100,11 @@ class Question extends Model
         foreach ($questionsLaterInQuiz as $question) {
             Question::find($question->id)->update([
                 'position' => $question->position - 1
+            ]);
+        }
+        foreach ($slidesLaterInQuiz as $slide) {
+            Slide::find($slide->id)->update([
+                'position' => $slide->position - 1
             ]);
         }
 

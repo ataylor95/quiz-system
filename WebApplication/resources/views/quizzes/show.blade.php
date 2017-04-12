@@ -16,12 +16,14 @@
                 @foreach ($combined as $item)
                     @if ($item->file_name)
                         <div class="row">
-                            <div class='col-xs-5 text-center'>
+                            <div class='col-xs-3 text-center'>
                                 <p>{{$item->file_name}}</p>
                             </div>
-                            <div class='col-xs-3'>
+                            <div class='col-xs-2'></div>
+                            <div class='col-xs-1'>
                                 <p>{{$item->position}}</p>
                             </div>
+                            <div class='col-xs-2'></div>
                             <div class='col-xs-3'>
                                 <a href="{{$imageBase . $item->file_name}}.png">View</a>
                             </div>
