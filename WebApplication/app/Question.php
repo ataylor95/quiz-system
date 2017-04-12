@@ -98,4 +98,22 @@ class Question extends Model
 
         Question::destroy($questionID);
     }
+
+    public static function changePosition($question, $direction)
+    {
+        $currentPosition = $question->position;
+        if ($direction == "up") {
+            $newPosition = $currentPosition + 1;
+            
+            Question::find($question->id)->update([
+                'position' => $newPosition,
+            ]);
+        } else if ($direction == "down") {
+            $newPosition = $currentPosition - 1;    
+
+            Question::find($question->id)->update([
+                'position' => $newPosition,
+            ]);
+        }
+    }
 }
