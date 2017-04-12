@@ -75,7 +75,7 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        $questions = $quiz->questions;
+        $questions = Question::where('quiz_id', $quiz->id)->orderBy('position', 'ASC')->get();
         return view('quizzes.show', compact('quiz', 'questions')); 
     }
 
