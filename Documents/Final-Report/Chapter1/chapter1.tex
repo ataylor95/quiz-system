@@ -19,8 +19,9 @@ TODO: tense this
 \subsection{Approach}
 A web based approach was chosen for the first part. This application would allow lecturers to log in to an admin panel and from there create and run quizzes for the students. This would also lay the groundwork for the second part, setting up the front end for students, how sessions are run and how answering questions worked. 
 
-The second part required more extensive research to be done when it was reached in development. But the main suggestion was to create an Microsoft PowerPoint extension much like Qwizdom to create slides embedded with questions. Due to the size of such an undertaking, another potential solution was to create the web application in such a way that an extension could be worked on in the future, i.e. set up the system for future extensions.
+The second part required more extensive research to be done when it was reached in development. But the main suggestion was to create an Microsoft PowerPoint extension much like Qwizdom to create slides embedded with questions. Due to the size of such an undertaking, another potential solution was to create the web application in such a way that an extension could be worked on in the future, i.e. set up the system for future extensions. TODO: cite microsoft extension stuff
 \subsubsection{Frameworks and hosting}
+TODO: could this section be moved about a bit?
 
 \section{Process}
 The methodlolgy followed within this project was an Extreme Programming based approach. One of the core advantages of using an XP based approach is the ability to adapt to change. The second part of this project, implementing a method to stream slides to students, was much more open to change than the first part where the scope is far more understood. If another process such as Feature Driven Development was used, it would work for the first part of the project as all the requirements and features are known but most likely would be a struggle to use in the second part. XP gives the flexibility needed to complete the second part of the project whilst also allowing the first part to be done with ease.
@@ -36,5 +37,32 @@ A number of practices were selected for the project that work in a single develo
 	\item Continuous Integration - Some online tools can be used to provide an CI workflow, to run tests continually with the constant small releases.
 \end{itemize}
 \subsection{Stories}
+Before any development could start, a list of functional requirements was needed. For an XP based project, these would be in the form of "stories". The stories have a difficulty ranking associated with each item in relation to the other stories. 1 would the easiest and 10 the hardest.
+Stories for the first part:
+\begin{itemize}
+	\item (6) Admins can create quizzes via the website
+	\item (4) Quizzes contain a variety of questions
+	\item (7) Admins can login to the website and run a session with a quiz
+	\item (8) Multiple different sessions can be run simultaneously
+	\item (3) The Admin specifies which question is being run by clicking next/prev question etc
+	\item (5) Sessions can be joined by users via the website
+	\item (3) Up to 300 users should be able to join and answer questions
+	\item (1) Users answer the question being displayed by the quiz
+	\item (2) The Admin can see what percentage of users connected to the session have answered
+	\item (4) The Admin can show the results of the question in a sensible format e.g. graph
+	\item (2) Admin can then save results as CSV or XML
+	\item (2) The Admin can load from saved file to display again
+	\item (4) Users should not be able to submit their own answers by altering the HTML, as they did with Qwizom
+\end{itemize}
+These ones fit the second part, though there are some stories from the first part that are applicable within this part.
+\begin{itemize}
+	\item (1) The Admin creates slides in a slideshow editor (Most likely Microsoft Office Power Point)
+	\item (2) The Admin can place question slides within the slides during creation
+	\item (10) The Admin can stream these slides to a session
+	\item (5) Users can join the session and follow the slides as they are used	
+	\item (4) The specified question slides will act as questions for the users connected to the session
+	\item (2) Results are handled in the same way as the first web only part
+	\item (3) The Admin can embed HTML content in quiz slides during creation
+\end{itemize}
 
 \section{Plan}
