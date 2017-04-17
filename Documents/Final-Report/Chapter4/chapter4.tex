@@ -9,7 +9,9 @@ To do application tests, a testing framework called Laravel Dusk (TODO cite http
 
 These tests test the application as whole, rather than individual bits of code. This allows the tests to be written with the original requirements, the stories, in mind and so makes these tests a good way to evaluate the application at the end of its development. Tests were organised by story, as these provided an area of the application that needed to be checked, which makes them more human readable for any future development.
 
-DB stuff
+Tests use a test database rather than the production one to ensure the integrity of data on the production system. This test database is left intentionally empty when, with each test performing a migration for the test. Within each test the database is populated with relevant data using a number of database factories. These factories allow the easy and quick creation of any data needed within the test, though using a normal Model to input data would also still work. At the end of each test, the database is rolled back for the next test to run, leaving an empty db for a new migration and data.
+
+Database transactions could have been used instead, which use a pre migrated database and then any data input during each test is deleted at the end of the test. Whilst the test db could be migrated before any tests were run to allow the use of transactions, this would mean than any future changes to the migration files would mean that the developer would have to remember to remigrate the test database as well. Doing a migration for every test might be somewhat resource intensive, but it allows the tests to be written and run completely standalone from each other with no need to tie into any earlier setup functions. 
 
 \section{Security Testing}
 
