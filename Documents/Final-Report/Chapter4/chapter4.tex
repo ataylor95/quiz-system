@@ -3,7 +3,7 @@
 \section{Overview}
 At the start of the project, testing was to use two practices from Agile. These were Test Driven Development and Continuous Integration. Whilst these two practices both failed due to a mixture of reasons as described in the Iterations chapter, testing was still performed within each iteration. Rather than go over the tests made each week within the previous chapter, this section will summarise the tests. Overall there were x tests (TODO: fill in) that test the overall functionality of the system. Unit tests were dropped for a number of reasons in favour of application tests (TODO: why? take from iter docs).
 
-\section{Application Testing}
+\section{Application testing}
 TODO: screenshot final output of tests, possible one running for appendices. Also could list all tests somewhere.
 To do application tests, a testing framework called Laravel Dusk (TODO cite https://mattstauffer.co/blog/introducing-laravel-dusk-new-in-laravel-5-4) was used, which is the default testing framework provided with Laravel 5.4. It runs the tests within a Chrome instance by running a standalone server which then calls the Chrome application installed on the machine that the tests are being run on. The advantages of running tests like this rather than say executing PHP ont he server and reading a virtual DOM is that this allows JavaScript on the page to be evaluated and executed. JavaScript is vital to many of the components of the application so if it was not usable within tests, many parts of the system would have to be ignored within the tests.
 
@@ -13,16 +13,18 @@ Tests use a test database rather than the production one to ensure the integrity
 
 Database transactions could have been used instead, which use a pre migrated database and then any data input during each test is deleted at the end of the test. Whilst the test db could be migrated before any tests were run to allow the use of transactions, this would mean than any future changes to the migration files would mean that the developer would have to remember to remigrate the test database as well. Doing a migration for every test might be somewhat resource intensive, but it allows the tests to be written and run completely standalone from each other with no need to tie into any earlier setup functions. 
 
-\section{Security Testing}
+\section{Security testing}
+One story specifically concerns security: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizom. The tests for this however are not that easy to do within the confines of Dusk due to the nature of the framework. The framework is concerned with user facing application tests and has no ability to change the DOM of the page or send custom POST requests to the server. This means that this story is better tested in the User testing section.
+
+Other aspects of security can be checked however, being a web application there are a number of well known attack types including SQL injection, cross site scripting and cross site request forgery attacks. These are tested in (TODO: add these)
+
+\section{User testing}
 
 
-\section{User Testing}
+\section{Stress testing}
 
 
-\section{Stress Testing}
-
-
-\section{Automated Testing}
+\section{Automated testing}
 TODO: remove this section?
 Whilst CI was abandoned early on into the development of the application, the Dusk tests are easy to run and automatically execute within a browser if the appropriate browser drivers are available. This means that it should not be too hard to integrate these tests into a CI tool if required in any future development.
 
