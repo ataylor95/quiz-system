@@ -70,12 +70,25 @@ Need to use php artisan storage:link to create a /storage folder
 
 \section{Story: The admin can reorder the questions within the quiz to move them around the slides}
 \subsection{Analysis - Breakdown of tasks}
+\begin{itemize}
+	\item Add buttons to reorder questions
+	\item This button increases or decreases position of question
+	\item It swaps the positions of two questions or a slide and question if required
+	\item Add some limits to positioning like below 1
+\end{itemize}
 \subsection{Design}
 \subsection{Implementation}
+Involved adding a route, a function, then swap positions if required
 \subsection{Testing}
 
 \section{Story: When the quiz is run, it should render the slides as well as question in the order specified}
 \subsection{Analysis - Breakdown of tasks}
+\begin{itemize}
+	\item Find the position in the database and decide whether its a slide or question
+	\item Render a question like normal
+	\item If a slide, render a simple img tag and populate with the image name from the WebSockets
+	\item Resize image to fit the page, including for mobile responsive
+\end{itemize}
 \subsection{Design}
 \subsection{Implementation}
 \subsection{Testing}
