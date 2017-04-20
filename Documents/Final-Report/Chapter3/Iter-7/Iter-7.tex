@@ -1,19 +1,19 @@
-\section{Story: Site should be mobile responsive}
-\subsection{Analysis - Breakdown of Tasks}
+\subsection{Story: Site should be mobile responsive}
+\subsubsection{Analysis - Breakdown of Tasks}
 \begin{itemize}
 	\item Create standard media query sizes
 	\item Create media query for quiz questions
 	\item Media query for welcome page
 \end{itemize}
-\subsection{Design}
+\subsubsection{Design}
 A quiz page should look like the design specified in iteration 4.
-\subsection{Implementation}
+\subsubsection{Implementation}
 Finding the media query sizes was simple, Bootstrap recommends some default sizes for phones, tablets etc. (TODO: cite this https://getbootstrap.com/css/\#grid-media-queries ) It was then a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
-\subsection{Testing}
+\subsubsection{Testing}
 This is not really possible to test with automated testing, but should be easy to test with users later in the project. Additionally once live the system could be tested with the Google Responsive Test site that gives a score for the usability of a site in mobile view.
 \newpage
 
-\section{Part Two Re-Design}
+\subsection{Part Two Re-Design}
 Originally planned to be an extension to Microsoft PowerPoint or a similar technology, such as Libre Office, this was determined to be a large amount of work (TODO: cite this). This meant an alternative solution had to be devised or some extra requirements had to be added to the system. An alternative solution was found rather than abandon the idea of having slides within the quizzes. Slideshow prgram usually have the ability to render their slides as PDF, a format which is more heavily supported compared to a proprietry format such as .pptx provided by Microsoft. If a PDF is uploaded to the application, PHP can be used to turn these PDF slides into images, which can then be rendered on the quiz pages.
 
 This new approach means some changes to the original stories for the second part, here are the revised stories for this part:
