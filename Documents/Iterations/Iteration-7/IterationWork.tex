@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{center}
-	Version 0.4 (Draft)
+	Version 0.6 (Draft)
 \end{center}
 \tableofcontents
 \thispagestyle{empty}
@@ -41,16 +41,17 @@ Originally planned to be an extension to Microsoft PowerPoint or a similar techn
 
 This new approach means some changes to the original stories for the second part, here are the revised stories for this part:
 \begin{itemize}
-	\item The admin creates slides in their preffered editor and exports them as a PDF
-	\item The admin can upload these slides to a quiz they have created in the past
-	\item The admin can reorder the questions within the quiz to move them around the slides
+	\item (1) The admin creates slides in their preffered editor and exports them as a PDF
+	\item (4) The admin can upload these slides to a quiz they have created in the past
+	\item (3) The admin can reorder the questions within the quiz to move them around the slides
+	\item (2) When this quiz is run, it should render the slides as well as questions in the order specified
 \end{itemize}
 
 There are some disadvantages to this however. The main issues is that slide animations are not rendered as seperate slides on the PDF. There are extensions for Microsoft PowerPoint that let the slides be rendered with animations occupying seperate slides so as to provide a "fake" animation. Another problem is that the slides would have to be uploaded before a lecture as it can take a few minutes to render PDF slides as images. This could be argued as an advantage however, if lecturers upload their slides before a lecture they only need to log in to the application when then want to run them, no need to bother carrying the slides on a memory stick or saving them to their University storage.
 \newpage
 
-\section{Story: Admins can stream slides}
-\subsection{Analysis - Breakdown of Tasks}
+\section{Story: The admin can upload these slides to a quiz they have created in the past}
+\subsection{Analysis - Breakdown of tasks}
 \begin{itemize}
 	\item Upload pdf slides
 	\item Convert these slides to images
@@ -66,6 +67,18 @@ Save to database - why? Also talk about the way slides deleted because of size c
 Need to use php artisan storage:link to create a /storage folder
 \subsection{Testing}
 \newpage
+
+\section{Story: The admin can reorder the questions within the quiz to move them around the slides}
+\subsection{Analysis - Breakdown of tasks}
+\subsection{Design}
+\subsection{Implementation}
+\subsection{Testing}
+
+\section{Story: When the quiz is run, it should render the slides as well as question in the order specified}
+\subsection{Analysis - Breakdown of tasks}
+\subsection{Design}
+\subsection{Implementation}
+\subsection{Testing}
 
 %\section{Bibliography}
 %\bibliographystyle{IEEEannotU}
