@@ -56,15 +56,16 @@ There are some disadvantages to this however. The main issues is that slide anim
 	\item Upload pdf slides
 	\item Convert these slides to images
 	\item Save references to these slides in the database
+	\item Show the slides on the Quiz.show page
 \end{itemize}
 \subsection{Design}
 TODO
 \subsection{Implementation}
-Upload of slides with standard form https://laracasts.com/series/whats-new-in-laravel-5-3/episodes/12
-Convert these using a library that uses Imagaick - https://github.com/spatie/pdf-to-image
-Save to database - why? Also talk about the way slides deleted because of size constraints. 20 slides as images is about 15mb which adds up quickly with multiple lecturers and lectures for each one. Is saving to the db actually needed? Websockets send the quizid and img name so maybe not.
+To upload the slides, it was done with a standard HTML file input but the backend used techniques native to Laravel: (TODO cite: https://laracasts.com/series/whats-new-in-laravel-5-3/episodes/12). These images are then saved in the /storage/app/public/slides folder. Within this, they are organised into folders named after the session id and then quiz id within those.
 
-Need to use php artisan storage:link to create a /storage folder
+These slides are then converted using a library that uses Imagaick - (TODO: cite this https://github.com/spatie/pdf-to-image). Whilst saving them, references are also saved to the database. This is so that the images can be referenced quickly later on when displaying an slide or question as database reading is quick. For this functionality, a new table for slides was added to the system, storing the file name, quiz it was associated with and a position. 
+
+The last task involved showing the slides and questions on the Quiz.show page. Seeing as the new story involved reordering them, simply rendering the slides after the questions would not do, it should render them in order of the position. The main problem is that there is no simple SQL query that can select two sets of results and then order them by a common column. The easier solution was to create a PHP function to create an array of all the items in the order wanted. (TODO: Cite this function in appendix, should I explain here or in the appendix?)
 \subsection{Testing}
 \newpage
 
@@ -74,12 +75,14 @@ Need to use php artisan storage:link to create a /storage folder
 	\item Add buttons to reorder questions
 	\item This button increases or decreases position of question
 	\item It swaps the positions of two questions or a slide and question if required
-	\item Add some limits to positioning like below 1
+	\item Add some limits to positioning like not going below 1
 \end{itemize}
 \subsection{Design}
+As a minor change to the system, no major design choices were made here. Simple Bootstrap icons can be used for the position changing arrows, which is the only front end change. 
 \subsection{Implementation}
-Involved adding a route, a function, then swap positions if required
+Main functionality to add was the changing of positions. This was rather simple, adding a simple Route and buttons that triggered the actions associated with the new route. It was decided that the Route would be a POST request rather than GET as technically it is submitting some data, the direction and id of the question. The action it calls simply updates the position in the database after doing some checks of the position it wants to move to. If it is already occupied, it swaps the object at the new position with its current position. This object could be a question or slide.   
 \subsection{Testing}
+\newpage
 
 \section{Story: When the quiz is run, it should render the slides as well as question in the order specified}
 \subsection{Analysis - Breakdown of tasks}
@@ -88,10 +91,16 @@ Involved adding a route, a function, then swap positions if required
 	\item Render a question like normal
 	\item If a slide, render a simple img tag and populate with the image name from the WebSockets
 	\item Resize image to fit the page, including for mobile responsive
+	\item Render question by default for users joining late
 \end{itemize}
 \subsection{Design}
+This should work in much the same way as the questions, in that it will send an Ajax request to a page with the image name and then copy the content of the ajax page into the live page. The content page to Ajax should be pretty simple, a simple container with an img tag. The other tasks are extensions to previously created functions.
 \subsection{Implementation}
+The first task is to determine what is at the position, this involved changing the current function to check if the question at the requested position was null, if it was then it should find a slide at the specified position. As well as the data about the slide or question, it would return a type so that when it was called the system knew what type of content it was to expect. The data was then sent to the WebSockets and another case was added to the JavaScript recieving end for triggering an AJAX call to a slide page. This page would render a simple img tag with the slide specified which is then added to the current page like the questions.
+
+A problem with rendering the images was the files stored within the /storage folder are not publically accessile, usually only files within the /public folder are. However, there is a simple artisan command to create a symlink from the public folder that points to the storage/app/public folder. TODO add command: php artisan storage:link
 \subsection{Testing}
+\newpage
 
 %\section{Bibliography}
 %\bibliographystyle{IEEEannotU}
