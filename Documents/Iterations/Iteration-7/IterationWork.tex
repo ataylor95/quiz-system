@@ -31,13 +31,22 @@
 \subsection{Design}
 A quiz page should look like the design specified in iteration 4.
 \subsection{Implementation}
-Finding the media query sizes was simple, Bootstrap recommends some default sizes for phones, tablets etc. (TODO: cite this https://getbootstrap.com/css/\#grid-media-queries ) Then it was a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles to be more mobile friendly.
+Finding the media query sizes was simple, Bootstrap recommends some default sizes for phones, tablets etc. (TODO: cite this https://getbootstrap.com/css/\#grid-media-queries ) It was then a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
 \subsection{Testing}
-This is not really possible to test with automated testing, but should be easy to test with users later in the project.
+This is not really possible to test with automated testing, but should be easy to test with users later in the project. Additionally once live the system could be tested with the Google Responsive Test site that gives a score for the usability of a site in mobile view.
 \newpage
 
 \section{Part Two Re-Design}
-TODO: Some stuff about redesigning with slides
+Originally planned to be an extension to Microsoft PowerPoint or a similar technology, such as Libre Office, this was determined to be a large amount of work (TODO: cite this). This meant an alternative solution had to be devised or some extra requirements had to be added to the system. An alternative solution was found rather than abandon the idea of having slides within the quizzes. Slideshow prgram usually have the ability to render their slides as PDF, a format which is more heavily supported compared to a proprietry format such as .pptx provided by Microsoft. If a PDF is uploaded to the application, PHP can be used to turn these PDF slides into images, which can then be rendered on the quiz pages.
+
+This new approach means some changes to the original stories for the second part, here are the revised stories for this part:
+\begin{itemize}
+	\item The admin creates slides in their preffered editor and exports them as a PDF
+	\item The admin can upload these slides to a quiz they have created in the past
+	\item The admin can reorder the questions within the quiz to move them around the slides
+\end{itemize}
+
+There are some disadvantages to this however. The main issues is that slide animations are not rendered as seperate slides on the PDF. There are extensions for Microsoft PowerPoint that let the slides be rendered with animations occupying seperate slides so as to provide a "fake" animation. Another problem is that the slides would have to be uploaded before a lecture as it can take a few minutes to render PDF slides as images. This could be argued as an advantage however, if lecturers upload their slides before a lecture they only need to log in to the application when then want to run them, no need to bother carrying the slides on a memory stick or saving them to their University storage.
 \newpage
 
 \section{Story: Admins can stream slides}
