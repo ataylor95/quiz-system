@@ -87,7 +87,7 @@ class QuizController extends Controller
     }
 
     /**
-     * Combine the arrays but in orderBy their positions
+     * Combine the arrays but in order of their positions
      * Loop over the total number of items there are
      * Then loop over all the questions and slides to check
      * their positions and add them in the wanted order
