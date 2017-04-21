@@ -6,12 +6,11 @@ WebSockets were introduced into Laravel 5 and have become one of the defacto way
 \subsubsection{Implementation}
 Pusher was chosen due to its ease of use and due to its high recommendation rate within the Laravel community. A problem with Pusher is that due to it being a third party service, it is not free forever (it has a number of users limitation). However you could host your own Redis server to mitigate this cost. This means that the system had to be designed in a way that the driver for WebSockets could be changed with ease.
 
-After configuring the spike work application to use Pusher, a simple Laravel Event was created to send a message to the Pusher. To test this event there were a couple methods implemented. The first was to simply register a route that triggers it when the page is visited: 
-	event(new App\textbackslash Events\textbackslash HelloPusherEvent('Hi there Pusher!')); (TODO: put in full line)
+After configuring the spike work application to use Pusher, a simple Laravel Event was created to send a message to the Pusher. To test this event there were a couple methods implemented. The first was to simply register a route that triggers it when the page is visited. (TODO: show an example of an event call?)
  
-Or with a custom made artisan command that can trigger the event. (TODO: insert this command here)
+Or with a custom made artisan command that can trigger the event such as: php artisan quiz:send {message}. A command is very useful for testing the event as it can be used without building a button on the front end to trigger it.
 
-Two online guide was used to help write this section of the system due to WebSockets being a new technology\cite{pusher-guide}\cite{echo-guide}. Though they were used to get the basic concepts working, the final code used within the project is tailored to the system and is therefore different overall.
+Two online guides were used to help write this section of the system due to WebSockets being a new technology\cite{pusher-guide}\cite{echo-guide}. Though they were used to get the basic concepts working, the final code used within the project is tailored to the system and is therefore different overall.
  
 \subsubsection{Testing}
 Both of these methods send the event to Pusher where it is registered: (TODO: insert picture of pusher)
