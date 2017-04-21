@@ -10,11 +10,11 @@
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
 (TODO: insert images for these, maybe some form of activity diagram?)
 \subsubsection{Implementation}
-A create page was added for quizzes, this was linked to from the home page. This was mapped to /quizzes/create address. A simple form was added to this page with the name and description of the quiz. Questions would be added on an individual quiz page. The form sends the form as an HTTP POST request to the /quizzes page which then maps onto the 'Store' action in the Quiz Controller. This action is used for server side validation and saving the data to the databse using an Eloquent function. This Eloquent function also returns the id of the new quiz. The user\_id is assigned to the quiz by simply getting the current user. Using this id, this Store function redirects to the newly created quiz.
+A create page was added for quizzes, this was linked to from the home page. This was mapped to /quizzes/create address. A simple form was added to this page with the name and description of the quiz. Questions would be added on an individual quiz page. The form sends the form as an HTTP POST request to the /quizzes page which then maps onto the 'Store' action in the Quiz Controller. This action is used for server side validation and saving the data to the database using an Eloquent function. This Eloquent function also returns the id of the new quiz. The user\_id is assigned to the quiz by simply getting the current user. Using this id, this Store function redirects to the newly created quiz.
 
 On a quiz page, it displays the name and description and has a button to add any questions to the quiz. This button links to the questions/create page that functions in the same way as the quiz creation, albeit with the relevant fields in the form. The questions are assigned to the quiz by passing the quiz id to the question creation page in a GET variables via the url. This allows the question to be assigned to the quiz during its creation in the database and to be redirected back to the quiz page.
 
-For validation there are two parts, one on the HTML form and the other handles server side. The HTML validation (client side) uses simple HTML 5 validation like the "required" attribute in the form inputs. Further frontend validation could be added utilising Javascript but the HTML solution was far easier to implement, being the addition of one word and not several lines of code that have to be built and added to the correct pages. The server side complements this as client side validation can be circumnavigated by determined users.
+For validation there are two parts, one on the HTML form and the other handles server side. The HTML validation (client side) uses simple HTML 5 validation like the "required" attribute in the form inputs. Further frontend validation could be added utilising JavaScript but the HTML solution was far easier to implement, being the addition of one word and not several lines of code that have to be built and added to the correct pages. The server side complements this as client side validation can be circumnavigated by determined users.
 
 The server side validation in Laravel is well supported and made as easy as possible to implement. The Store function used to save data from the POST request simply calls \textit{\$this-\textgreater validate()} on the request data. Inside this validation function, various rules can be imposed on individual pieces of the request data such as simply requiring that is is filled or that it has to have a minimum length (TODO: cite the docs for this).
 
@@ -27,7 +27,7 @@ Dusk tests:
 	\item Test backend validation of quizzes
 	\item Test a quiz contains questions that have all been added before hand
 	\item Test to add a question to a quiz
-	\item Test to make sure the question page contains the relevent information
+	\item Test to make sure the question page contains the relevant information
 \end{enumerate}
 A problem encountered in this set of tests is the speed of testing. Running these tests takes about a minute. The reason for this is that the tests use DatabaseMigrations rather than DatabaseTransactions, meaning that the database is migrated for every test. Using transactions would reduce the time taken by only doing a migration at the start and then using a transaction for each test. Alternatively having a pre migrated test database on which you run transactions would work too, but this would mean any time you change your database, you would have to reember to migrate the test database. 
 
@@ -42,7 +42,7 @@ After attempting to use the transactions it appears as though they are not usabl
 	\item You can remove questions
 	\item You can add questions
 	\item You can edit the content of a question
-	\item You can delete a quiz and its associated questions (TODO: add this to the trello)
+	\item You can delete a quiz and its associated questions
 \end{itemize}
 \subsubsection{Design}
 There was not much design for this stage as it only really adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data that is being editing. Additionally a delete button should be added for quizzes and questions. (TODO: more design here)
@@ -51,7 +51,7 @@ Pre filling the edit page was done by getting the record in the database by the 
 
 Delete buttons were added to the quizzes and questions, these were not a simple \textless a \textgreater tag that linked to a delete page like the create and edit pages. This had to be a small form that sent an HTTP DELETE request along with an id to the /quizzes or /questions page. This was mapped to the destroy functions in the respective controllers which simply called an Eloquent function that removed the record. Due to the way the database is designed when a quiz or question is deleted, the linking row inside the quiz\_question table must also be deleted. 
 
-Another thing that had to be changed was to make the froeign key reference columns in the quizzes and questions table cascade delete on deletion of the record. This meant that they would delete the rows in the quiz\_question table that referenced the row being deleted. For a quiz deletion, this had to go further and also find the questions associated with the quiz and delete all of those, which used a simple Eloquent function to find them using the quiz\_question table before the rows in that table were deleted and then delete the questions using those ids. 
+Another thing that had to be changed was to make the foreign key reference columns in the quizzes and questions table cascade delete on deletion of the record. This meant that they would delete the rows in the quiz\_question table that referenced the row being deleted. For a quiz deletion, this had to go further and also find the questions associated with the quiz and delete all of those, which used a simple Eloquent function to find them using the quiz\_question table before the rows in that table were deleted and then delete the questions using those ids. 
 \subsubsection{Testing}
 Dusk Tests:
 \begin{enumerate}
@@ -68,5 +68,5 @@ Some more data needed to be seeded for this subsection of work, the question dat
 \subsubsection{Quiz Description}
 It was decided that quizzes should probably have descriptions attached to them, in case the lecturer needs reminding of what it is in 6 months time. This involved creating a new migration and simply adding a column to the table.
 \subsubsection{Travis Setup}
-Travis is a CI tool that can be used to run tests automatically on git pushes. Setting it up involved doing some spike work with another git project. It is really easy to set up, needing you to simply add a travis.yml file which specifies what travis will do after a push. The project also has to be added from Github which is simple.
+Travis is a CI tool that can be used to run tests automatically on git pushes. Setting it up involved doing some spike work with another git project. It is really easy to set up, needing you to simply add a travis.yml file which specifies what Travis will do after a push. The project also has to be added from Github which is simple.
 \newpage

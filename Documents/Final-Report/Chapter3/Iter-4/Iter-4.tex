@@ -6,11 +6,11 @@ After doing some spike work last week, this task can now be approached and broke
 	\item Add event for broadcasting
 	\item Write a command to trigger this event
 	\item Add a button to quizzes to trigger this event
-	\item Display this on the front end using the javascript which listens for Pusher events
+	\item Display this on the front end using the JavaScript which listens for Pusher events
 	\item Add a session key box to front page
 	\item Add session id to users
 	\item Allows admins to change their id
-	\item When admin clicks run, this id can be enetered into the key box to join a channel with the name of the id
+	\item When admin clicks run, this id can be entered into the key box to join a channel with the name of the id
 	\item The user will be presented with the initial quiz page which will be default filled with the name and description of the quiz
 	\item The admin will see the same page but with an "admin panel"
 	\item This admin panel has a next and previous button for questions
@@ -29,9 +29,9 @@ Here are some mockups of the user end of the system (TODO: label and captio thes
 
 
 \subsubsection{Implementation}
-It began by configuring pusher, creating an event and writing some basic javscript to append to the front page. Some work was done on the Admin panel as well, making it only visible to logged in users, and adding the functionality fro previous and next questions. These are just AJAX requests to quiz controller actions which then trigger the event for WebSockets.
+It began by configuring pusher, creating an event and writing some basic JavaScript to append to the front page. Some work was done on the admin panel as well, making it only visible to logged in users, and adding the functionality fro previous and next questions. These are just AJAX requests to quiz controller actions which then trigger the event for WebSockets.
 
-Early into the iteration a major flaw with using the WebSockets came up, whilst new content was easy to add to the page, if a new user joined the session late, they would see a blank page/ or the original content of the page that has not yet been removed with javascript. To remedy this, the current position in the quiz should be kept track of and the php on the page should load the question in that position. At the same time, the WebSockets will be running and updating the page from that point onwards in the session. I decided the best place for keeping track was within the session table, which now has appropriate columns for the position, quiz and if it is running.
+Early into the iteration a major flaw with using the WebSockets came up, whilst new content was easy to add to the page, if a new user joined the session late, they would see a blank page/ or the original content of the page that has not yet been removed with JavaScript. To remedy this, the current position in the quiz should be kept track of and the PHP on the page should load the question in that position. At the same time, the WebSockets will be running and updating the page from that point onwards in the session. I decided the best place for keeping track was within the session table, which now has appropriate columns for the position, quiz and if it is running.
 \subsubsection{Testing}
 No testing as the story is not yet complete.
 \newpage
