@@ -17,7 +17,7 @@ Ultimately however, trying to write all this data to a csv was too troublesome t
 
 An answers table was created that specified the session, question, user and the answer given. The first three of those were used in a unique composite key to prevent multiple answers from the same users on the same questions in the same session. The model was then written to save this data when data was POST'ed to the /results url. Other functions include those to delete the data when a quiz was ended and various association functions.
 
-To read this data on the front end, an AJAX request was set up from an admin panel button that GETs the same results url which calls an action to render the results data in a JSON format. The results are in a very basic format in a key, value pairs of answer, total number of selections. TODO: maybe talk about this more
+To read this data on the front end, an AJAX request was set up from an admin panel button that GETs the same results url which calls an action to render the results data in a JSON format. The results are in a very basic format in a key-value pairs of answer, total number of selections. TODO: maybe talk about this more
 
 This JSON data could then be used in the ChartJS library which was selected to render the results bar chart on the page. TODO: cite http://www.chartjs.org/ and also http://www.chartjs.org/docs also https://www.sitepoint.com/generating-random-color-values/ also https://stackoverflow.com/questions/240660/in-php-how-do-you-change-the-key-of-an-array-element and https://stackoverflow.com/questions/37699485/skip-decimal-points-on-y-axis-in-chartjs
 \subsubsection{Testing}
