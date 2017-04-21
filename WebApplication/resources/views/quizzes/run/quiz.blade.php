@@ -24,7 +24,7 @@
         @elseif (is_null($question) && !is_null($slide))
             @php
                 $fileName = $slide->file_name . '.png';
-                $location = '/storage/slides/quiz-' . $slide->quiz_id . '/' . $fileName;
+                $location = '/storage/slides/' . $key . '/quiz-' . $slide->quiz_id . '/' . $fileName;
             @endphp
             @include('slides.slide')
         @else
