@@ -2,8 +2,11 @@
 \chapter{Design}
 This chapter will give an overview of the design of the final system, however will not go into much detail for individual parts of the system. Those designs are within the next chapter as design took place within each iteration rather than at the start.
 TODO: could this chapter actually be after the Iteration chapter?
+
 \section{Overall Architecture}
-\subsection{System Interaction Diagram}
+The Laravel framework uses a Model-View-Controller design pattern to build applications. It works in the same way as a normal MVC application. Data is stored and manipulated within the models, controllers handle most of the interactions the user has with the system, and the views are the web pages presented to the users. Within Laravel, there is also a front controller, which is used to route incoming HTTP requests to the appropriate views and controllers.
+
+There are two basic sections of the system, the student end, and the lecturer end. The lecturer end is an admin panel that they can login to, to create and manage their quizzes. The student end consists of the portal for connecting to a session, and the session pages themselves that display the slides and questions for users to answer.
 
 \section{Database Design}
 \begin{sidewaysfigure}
