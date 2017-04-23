@@ -63,6 +63,7 @@
                     backgroundColor: getColours(keys.length)
                 }]
             },
+            //Following options taken from https://stackoverflow.com/questions/37699485/skip-decimal-points-on-y-axis-in-chartjs
             options: {
                 scales: {
                     yAxes: [{
