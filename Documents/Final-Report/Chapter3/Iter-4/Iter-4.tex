@@ -41,6 +41,11 @@ It began by configuring pusher, creating an event and writing some basic JavaScr
 Early into the iteration a major flaw with using the WebSockets came up, whilst new content was easy to add to the page, if a new user joined the session late, they would see a blank page/ or the original content of the page that has not yet been removed with JavaScript. To remedy this, the current position in the quiz should be kept track of and the PHP on the page should load the question specified at that position. At the same time, the WebSockets will be running and updating the page from that point onwards in the session. It was decided the best place for keeping track was within the session table, which now has appropriate columns for the position, quiz and if it is running.
 
 Rendering the actual questions calls an action in the question controller, which takes the type of question and the quiz id and position. Using this data it renders one of several available views, one for each type of question like multiple choice or boolean. The views render a simple form showing the question, the possible answers as buttons and a submit button.
+
+For a question to be rendered by default on page load as described above, the page includes the question by rendering the above view. However, it does not know the type of question to render, so it loops over the types and checks if the type of the question is equal to the ones defined earlier in the config file and renders the view if they are the same type. One problem with this is accessing the custom config file. The function to do this was inside the question controller and not the quiz controller. 
+
+Whilst the function could be copied, it was better to create one single helper function that is global to the application. This involved creating a helpers file and adding the function there and then registering the helper function in the composer.json file\cite{laravel-helper-function}.
+
 \subsubsection{Testing}
 No testing as the story is not yet complete.
 \newpage
