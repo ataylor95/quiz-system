@@ -9,14 +9,23 @@ Tasks left over from the previous week:
 \end{itemize}
 \subsubsection{Design}
 \subsubsection{Implementation}
-Users still had to connect to the quizzes from the welcome page. A problem with this is that the sessions are being run under the url /quiz/sessionb\_name. This means that submitting a GET or POST form will not work as the url cannot be specified, as the user enters the session key. A solution was to have an input field that took the session key and then used JavaScript to redirect to that session. 
+Users still had to connect to the quizzes from the welcome page. A problem with this is that the sessions are being run under the url /quiz/sessionb\_name. This means that submitting a GET or POST form will not work as the url cannot be specified, as the user enters the session key. A solution was to have an input field that took the session key and then used JavaScript to redirect to that session. An alternative solution would be to use a form that redirected to a controller action that then itself redirected to the correct session page. Whilst this method would work, having multiple redirections in one request is not good practice or nice for the users browser.
 
 The JavaScript also allowed some client side checking to be done, but there also needed to be server side checks. A custom Middleware class was written to handle the checking of valid session keys. Middleware provide the functionality to filter incoming HTTP requests within controllers\cite{laravel-middleware}. When thr form was submitted, the Middleware function would check the database, and if the requested key was not in the database, would redirect back to the welcome page with an error. Else, it would allow the redirection to the quiz session.
 
-Helper function https://laracasts.com/discuss/channels/general-discussion/best-practices-for-custom-helpers-on-laravel-5?page=2
+When the page receives a message through the Web Sockets, it first removes the content of the page with JQuery. It then checks the position of the quiz, if it is zero, then it appends the quiz start data on to the page. This start data includes information about the quiz, like the name and description. If the position is not zero, then it will render the question at that position in the quiz.
 
-Issue with Jquery Ajax https://stackoverflow.com/questions/14193469/jquery-is-adding-prevobject-to-array
+To render a question, an Ajax request is made to a question page that will be populated with the appropriate data using the information from the Web Sockets as the variables for finding the correct question. The Ajax'ed page content is then appended on to the current page using more JQuery.
+
+For the user to submit an answer, the form again had to use JavaScript. This was primarily to make the form user friendly and for different questions types. JS was used to add a class to the options and highlight the one that were chosen, be it one option in a multiple choice question or multiple answers on a multiple selection question. When the student hits submit, it gets the answers by selecting the options with the classes that are added when an option is selected. It then sends a POST request with Ajax to the quiz session page. The POST'ed data consisted of the answers given, in the form "answer*" where the * was the answer number as well as the question number. This data is not yet handled by the server.
+
+An interesting bug with multiple selection questions was that when the answers were selected, to get just the answer value, the array of elements was iterated over and a new array with the answers is produced. However, due to using a JQuery array function to iterate over these, it created a JQuery collection, rather than a simple array. This collection was not accepted by the Ajax request and this collection has to be transformed into an array with a vanilla JS toArray() function.
+
+The last part of development for this iteration involved adding some simple checks to the next and previous position functions to ensure they did not go below 0 or above the number of questions in the quiz.
+
+Helper function https://laracasts.com/discuss/channels/general-discussion/best-practices-for-custom-helpers-on-laravel-5?page=2
 \subsubsection{Testing}
+TODO: write about the tests
 \subsubsection{Extras}
 \newpage
 
