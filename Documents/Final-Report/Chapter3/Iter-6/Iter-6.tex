@@ -33,6 +33,7 @@ Very few tasks as will be explained in the design subsection:
 \subsubsection{Implementation}
 Thanks to the design of the previous subsection, changing the data meant an empty key was sent if the user tried to change the data submitted to the server. This could be checked in either the JavaScript or PHP end, but it was decided both would be the best for maximum security. 
 \subsubsection{Testing}
+This is hard to test, as Dusk does not allow the changing of HTML on the page or the possibility to submit false data. User testing might be a good replacement for Dusk tests here.
 \newpage
 
 \subsection{Story: The Admin can see what percentage of users connected to the session have answered}
