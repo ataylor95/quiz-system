@@ -38,7 +38,7 @@ Because the login and auth is handled by Laravel by default, testing it was deem
 	\item Display a list of quizzes for that user
 \end{itemize}
 \subsubsection{Design}
-The HomeController to be removed in this period of work and the QuizController used in its place. (TODO: Add UI mock)
+The HomeController to be removed in this period of work and the QuizController used in its place. (TODO: Digitize UI mock)
 \subsubsection{Implementation}
 Quite an easy amount of work, changing the controller was a simple change to the routes and then updating the quiz view file to use the same layout as the original home views. To get the user, a helper function is provided: \textit{auth()-$>$user()} which gets the user object. Obtaining the id from this is simple and then using an Eloquent ORM call it is easy to find all the quizzes owned by that user.
 \subsubsection{Testing}

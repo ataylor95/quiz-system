@@ -1,11 +1,15 @@
 \chapter{Testing}
 
 \section{Overview}
-At the start of the project, testing was to use two practices from Agile. These were Test Driven Development and Continuous Integration (CI). Whilst these two practices both failed due to a mixture of reasons as described in the Iterations chapter, testing was still performed within each iteration. Rather than go over the tests made each week within the previous chapter, this section will summarise the tests. Overall there were x tests (TODO: fill in once development finished) that test the overall functionality of the system. Unit tests were dropped for a number of reasons in favour of application tests (TODO: why? take from iter docs).
+At the start of the project, testing was to use two practices from Agile. These were Test Driven Development and Continuous Integration (CI). Whilst these two practices both failed due to a mixture of reasons as described in the Iterations chapter, testing was still performed within each iteration. Rather than go over the tests made each week within the previous chapter, this section will summarise the tests. Overall there were x tests (TODO: fill in once development finished) that test the overall functionality of the system. Unit tests were dropped for a number of reasons in favour of application tests.
+
+Unit testing suits a situation where more of the base code is written by the developer, in this case the majority of the code is built on a pretested framework. Testing the final implementation would fit better than trying to test if a view is rendered by a controller correctly. Application tests can also be used to test the stories, meaning that they can give a much clearer indication of whether a story is complete and whether the customer will be happy.
+
+Unit testing also takes up a lot of time if done as well as application testing which would have affected the final product and dropping it was a necessary exchange to save development time.
 
 \section{Application testing}
 TODO: screenshot final output of all tests. Also could list all tests somewhere in appendix?
-To do application tests, a testing framework called Laravel Dusk (TODO cite https://mattstauffer.co/blog/introducing-laravel-dusk-new-in-laravel-5-4) was used, which is the default testing framework provided with Laravel 5.4. It runs the tests within a Chrome instance by running a standalone server which then calls the Chrome application installed on the machine that the tests are being run on. The advantages of running tests like this rather than say executing PHP on the server and reading a virtual DOM is that this allows JavaScript on the page to be evaluated and executed. JavaScript is vital to many of the components of the application so if it was not usable within tests, many parts of the system would have to be ignored within the tests.
+To do application tests, a testing framework called Laravel Dusk was used, which is the default testing framework provided with Laravel 5.4\cite{dusk}\cite{dusk-desc}. It runs the tests within a Chrome instance by running a standalone server which then calls the Chrome application installed on the machine that the tests are being run on. The advantages of running tests like this rather than say executing PHP on the server and reading a virtual DOM is that this allows JavaScript on the page to be evaluated and executed. JavaScript is vital to many of the components of the application so if it was not usable within tests, many parts of the system would have to be ignored within the tests.
 
 These tests test the application as whole, rather than individual bits of code. This allows the tests to be written with the original requirements, the stories, in mind and so makes these tests a good way to evaluate the application at the end of its development. Tests were organised by story, as these provided an area of the application that needed to be checked, which makes them more human readable for any future development.
 
@@ -29,5 +33,7 @@ Whilst CI was abandoned early on into the development of the application, the Du
 
 
 TODO: Stuff to talk about:
+
 comprehensiveness of testing incl potential of using bdd and cucumber in future
-edge cases? how did we manage those (user and application)
+
+edge cases? how did we manage those = (user and application)

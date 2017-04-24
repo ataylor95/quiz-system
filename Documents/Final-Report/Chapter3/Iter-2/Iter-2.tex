@@ -8,7 +8,7 @@
 \end{itemize}
 \subsubsection{Design}
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
-(TODO: insert images for these, maybe some form of activity diagram?)
+(TODO: digitise images for these)
 \subsubsection{Implementation}
 A create page was added for quizzes, this was linked to from the home page. This was mapped to /quizzes/create address. A simple form was added to this page with the name and description of the quiz. Questions would be added on an individual quiz page. The form sends the form as an HTTP POST request to the /quizzes page which then maps onto the 'Store' action in the Quiz Controller. This action is used for server side validation and saving the data to the database using an Eloquent function. This Eloquent function also returns the id of the new quiz. The user\_id is assigned to the quiz by simply getting the current user. Using this id, this Store function redirects to the newly created quiz.
 
