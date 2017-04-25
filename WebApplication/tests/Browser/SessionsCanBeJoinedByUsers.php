@@ -93,4 +93,29 @@ class SessionsCanBeJoinedByUsers extends DuskTestCase
         });
     
     }
+
+    /**
+     * Test for normal users should not be able to see the admin panel
+     */
+    public function testUserCannotSeeAdminPanel()
+    {
+        $user = factory(User::class)->create();
+        $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
+        factory(Session::class)->create([
+            'user_id' => $user->id,
+            'running' => true,
+            'quiz_id' => $user->id
+        ]);
+        
+        $this->browse(function ($browser) use ($user, $quiz) {
+            $browser->visit('/')
+                ->type('session_key', $user->session->session_key)
+                ->press('Join')
+                ->assertPathIs('/quiz/' . $user->session->session_key)
+                ->assertDontSee('#quiz-prev')
+                ->assertDontSee('#quiz-next')
+                ->assertDontSee('#end-quiz')
+                ->assertDontSee('#show-results');
+        });
+    }
 }
