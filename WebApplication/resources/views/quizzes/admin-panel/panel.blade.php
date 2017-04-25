@@ -8,10 +8,10 @@
         </div>
         <div class='row'>
             <div class="col-xs-2">
-                <button id="prev-quiz" name="prev-quiz" class="btn btn-info">Prev</button>
+                <button id="quiz-prev" name="quiz-prev" class="btn btn-info">Prev</button>
             </div>
             <div class="col-xs-2">
-                <button id="next-quiz" name="next-quiz" class="btn btn-info">Next</button>
+                <button id="quiz-next" name="quiz-next" class="btn btn-info">Next</button>
             </div>
             <div class="col-xs-2">
                 <button id="show-results" name="show-results" class="btn btn-primary">Results</button>
