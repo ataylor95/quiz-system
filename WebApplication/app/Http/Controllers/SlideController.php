@@ -73,7 +73,7 @@ class SlideController extends Controller
 
         //For some reason its rediect does not work when called from another function
         //So we do one here anyway
-        return redirect()->route('quizSession', ['session_key' => $sessionKey]);
+        return redirect()->route('quizzes.show', ['quiz' => $request->quiz]);
     }
 
     /**
