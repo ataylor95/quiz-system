@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 use App\Quiz;
 use App\Question;
+use App\Session;
 
 class CreateNewQuizTest extends DuskTestCase
 {
@@ -24,6 +25,7 @@ class CreateNewQuizTest extends DuskTestCase
         $quizDesc = "Test Quiz Please Ignore";
 
         $user = factory(User::class)->create();
+        factory(Session::class)->create(['user_id' => $user->id]);
 
         $this->browse(function ($browser) use ($user, $quizName, $quizDesc) {
             $browser->loginAs($user->id)
@@ -50,6 +52,7 @@ class CreateNewQuizTest extends DuskTestCase
         $quizDesc = "";
 
         $user = factory(User::class)->create(['id' => 2]);
+        factory(Session::class)->create(['user_id' => $user->id]);
 
         /*So we check to see that the browser keeps you on the same page
           This is because html validation is hard to see, also it might
@@ -77,6 +80,7 @@ class CreateNewQuizTest extends DuskTestCase
         $quizDesc = "Test"; //None on the length of the description
 
         $user = factory(User::class)->create(['id' => 3]);
+        factory(Session::class)->create(['user_id' => $user->id]);
 
         $this->browse(function ($browser) use ($user, $quizName, $quizDesc) {
             $browser->loginAs($user->id)
@@ -97,6 +101,7 @@ class CreateNewQuizTest extends DuskTestCase
     public function testQuizContainsQuestions()
     {
         $user = factory(User::class)->create(['id' => 4]);
+        factory(Session::class)->create(['user_id' => $user->id]);
         $quiz = factory(Quiz::class)->create(['user_id' => 4]);
         $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
 
@@ -116,6 +121,7 @@ class CreateNewQuizTest extends DuskTestCase
     public function testAddQuestion()
     {
         $user = factory(User::class)->create(['id' => 5]);
+        factory(Session::class)->create(['user_id' => $user->id]);
         $quiz = factory(Quiz::class)->create(['user_id' => 5]);
 
         $this->browse(function ($browser) use ($user, $quiz) {
@@ -141,6 +147,7 @@ class CreateNewQuizTest extends DuskTestCase
     public function testQuestionPage()
     {
         $user = factory(User::class)->create(['id' => 6]);
+        factory(Session::class)->create(['user_id' => $user->id]);
         $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
         $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
 
