@@ -122,4 +122,55 @@ class AdminsCanRunASession extends DuskTestCase
                 ->assertSee($question->question_text);
         });
     }
+
+    /**
+     * Testing prev and next buttons with refresh
+     */
+    public function testPrevNextWithRefresh()
+    {
+        $user = factory(User::class)->create();
+        factory(Session::class)->create(['user_id' => $user->id]);
+        $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
+        $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
+
+        $this->browse(function ($browser) use ($user, $quiz, $question) {
+            $browser->loginAs($user->id)
+                ->visit('/quizzes')
+                ->press('#quiz-' . $quiz->id) 
+                ->assertSee($quiz->name)
+                ->assertSee($quiz->desc)
+                ->press('#quiz-next')
+                ->refresh()
+                ->assertSee($question->question_text)
+                ->assertSee('Submit')
+                ->assertDontSee($quiz->name)
+                ->press('#quiz-prev')
+                ->refresh()
+                ->assertSee($quiz->name)
+                ->assertDontSee($question->question_text);
+        });
+    }
+
+    /**
+     * Test the end quiz button with refreshing
+     */
+    public function testEndQuizWithRefresh()
+    {
+        $user = factory(User::class)->create();
+        factory(Session::class)->create(['user_id' => $user->id]);
+        $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
+        $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
+
+        $this->browse(function ($browser) use ($user, $quiz, $question) {
+            $browser->loginAs($user->id)
+                ->visit('/quizzes')
+                ->press('#quiz-' . $quiz->id) 
+                ->assertSee($quiz->name)
+                ->assertSee($quiz->desc)
+                ->press('#end-quiz')
+                ->refresh()
+                ->assertDontSee($quiz->name)
+                ->assertSee('No quiz running for: ' . $user->session->session_name);
+        });
+    }
 }
