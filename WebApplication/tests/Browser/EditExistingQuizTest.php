@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\User;
+use App\Session;
 use App\Quiz;
 use App\Question;
 
@@ -20,6 +21,7 @@ class EditExistingQuizTest extends DuskTestCase
     public function testDeleteQuiz()
     {
         $user = factory(User::class)->create();
+        factory(Session::class)->create(['user_id' => $user->id]);
         $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
 
         $this->browse(function ($browser) use ($user, $quiz) {
@@ -40,6 +42,7 @@ class EditExistingQuizTest extends DuskTestCase
     public function testDeleteQuestion()
     {
         $user = factory(User::class)->create(['id' => 2]);
+        factory(Session::class)->create(['user_id' => $user->id]);
         $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
         $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
 
@@ -62,6 +65,7 @@ class EditExistingQuizTest extends DuskTestCase
     public function testEditQuiz()
     {
         $user = factory(User::class)->create(['id' => 3]);
+        factory(Session::class)->create(['user_id' => $user->id]);
         $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
         $message = "42 is the answer to life, the universe and everything";
 
@@ -87,6 +91,7 @@ class EditExistingQuizTest extends DuskTestCase
     public function testEditQuestion()
     {
         $user = factory(User::class)->create(['id' => 4]);
+        factory(Session::class)->create(['user_id' => $user->id]);
         $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
         $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
         $message = "Its turtles all the way down";
