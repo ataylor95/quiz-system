@@ -90,6 +90,11 @@ class SecurityTest extends DuskTestCase
 		], $connection = null);
     }
 
+    /**
+     * Tests sql injection when a user searches for a session
+     *
+     * @return void
+     */
     public function testSqlInjectionSessionSearch()
     {
         $injection = "INSERT INTO `quizzes` (`name`, `desc`, `user_id`, `created_at`, `updated_at`) VALUES ('SQL Injection', 'this is an attack', '1', now(), now());";
@@ -106,4 +111,49 @@ class SecurityTest extends DuskTestCase
 		], $connection = null);
     }
 
+    /**
+     * Tests xss attack when a lecturer creates a quiz and
+	 * attempts to add some javascript
+     *
+     * @return void
+     */
+    public function testXSSAttackQuiz()
+    {
+        $quizName = "XSS test";
+        $quizDesc = "<script>alert('hey xss');</script>";
+
+        $user = factory(User::class)->create();
+        factory(Session::class)->create(['user_id' => $user->id]);
+
+        $this->browse(function ($browser) use ($user, $quizName, $quizDesc) {
+            $browser->loginAs($user->id)
+                    ->visit('/quizzes')
+                    ->clickLink('New Quiz')
+                    ->type('name', $quizName)
+                    ->type('desc', $quizDesc)
+                    ->press('Create')
+					->assertSourceMissing($quizDesc);
+        });
+		//Whilst the code is technically on the page, it is escaped so in the
+		//source code looks like &lt;script&gt;alert('hey xss');&lt;/script&gt;
+        
+    }
+
+    /**
+     * Tests xss attack when a user searches for a session and
+	 * attempts to add some javascript
+     *
+     * @return void
+     */
+	public function testXSSAttackSessionSearch()
+	{
+        $xss = "<script>alert('hey xss');</script>";
+
+        $this->browse(function ($browser) use ($xss) {
+            $browser->visit('/')
+                ->type('session_key', $xss)
+                ->press('Join')
+				->assertSourceMissing($xss);
+        });
+	}
 }
