@@ -43,6 +43,9 @@ class AdminsCanRunASession extends DuskTestCase
         $quiz1 = factory(Quiz::class)->create(['user_id' => $user->id]);
         $quiz2 = factory(Quiz::class)->create(['user_id' => $user->id]);
 
+        //The reason for using press over clicklink is that clicklink
+        //just clicks the first matching item, and cannot click based on id
+        //Dumb but this works
         $this->browse(function ($browser) use ($user, $quiz1, $quiz2) {
             $browser->loginAs($user->id)
                     ->visit('/quizzes')
@@ -54,8 +57,69 @@ class AdminsCanRunASession extends DuskTestCase
                     ->assertSee($quiz2->name)
                     ->assertSee($quiz2->desc);
         });
-		//The reason for using press over clicklink is that clicklink
-		//just clicks the first matching item, and cannot click based on id
-		//Dumb but this works
+    }
+
+    /**
+     * This tests the next and prev buttons
+     * NOTE: Not working
+     * Dusk appears to not work with Pusher/ WebSockets
+     * Therefore removed from execution by removing 'test' 
+     * from start of function name
+     */
+    public function NextAndPrevButtons()
+    {
+        $user = factory(User::class)->create();
+        factory(Session::class)->create(['user_id' => $user->id]);
+        $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
+        $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
+
+        $this->browse(function ($browser) use ($user, $quiz, $question) {
+            $browser->loginAs($user->id)
+                ->visit('/quizzes')
+                ->clickLink('View')
+                ->assertSee($quiz->name)
+                ->assertSee($quiz->desc)
+                ->assertSee($question->question_text)
+                ->visit('/quizzes')
+                ->press('#quiz-' . $quiz->id) 
+                ->assertSee($quiz->name)
+                ->assertSee($quiz->desc)
+                ->press('#quiz-next')
+                ->pause(2000)
+                ->assertSee($question->question_text)
+                ->assertSee('Submit');
+        });
+    }
+
+    /**
+     * Use a refresh instead of waiting for the WebSockets
+     * Proves that the prev/ next button actually does update
+     * in the database and that new users land on the correct
+     * page
+     */
+    public function testSecondUserWithRefresh()
+    {
+        $user = factory(User::class)->create();
+        factory(Session::class)->create(['user_id' => $user->id]);
+        $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
+        $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
+
+        $this->browse(function ($first, $second) use ($user, $quiz, $question) {
+            $first->loginAs($user->id)
+                ->visit('/quizzes')
+                ->press('#quiz-' . $quiz->id) 
+                ->assertSee($quiz->name)
+                ->assertSee($quiz->desc);
+
+            $second->visit('/quiz/' . $user->session->session_key)
+                ->assertSee($quiz->name);
+
+            $first->press('#quiz-next')->pause(1000);
+
+            //Seeing as WebSockets dont seem to work, refresh it
+            //Users dont have to do this though
+            $second->refresh()
+                ->assertSee($question->question_text);
+        });
     }
 }
