@@ -1,12 +1,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
-    $('#prev-quiz').on('click', function() {
+    $('#quiz-prev').on('click', function() {
         removeChart();
         $.ajax({
             url: "{{route('prevQuiz')}}",
         });
     }); 
-    $('#next-quiz').on('click', function() {
+    $('#quiz-next').on('click', function() {
         removeChart();
         $.ajax({
             url: "{{route('nextQuiz')}}",
