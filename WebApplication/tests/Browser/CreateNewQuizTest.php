@@ -13,7 +13,7 @@ use App\Session;
 class CreateNewQuizTest extends DuskTestCase
 {
     use DatabaseMigrations;
-//fail
+
     /**
      * Test to create a new quiz
      *
@@ -40,7 +40,6 @@ class CreateNewQuizTest extends DuskTestCase
         });
     }
 
-//pass
     /**
      * Test the frontend validation when creating new quiz
      * This test is not fantastic, but it kind of works
@@ -69,7 +68,6 @@ class CreateNewQuizTest extends DuskTestCase
         });
     }
 
-//pass
     /**
      * Test the backend validation when creating new quiz
      * Name should be minimum 5 characters
@@ -95,7 +93,6 @@ class CreateNewQuizTest extends DuskTestCase
         });
     }
 
-//fail
     /**
      * Test whether a quiz owns a question
      *
@@ -116,7 +113,6 @@ class CreateNewQuizTest extends DuskTestCase
         });
     }
 
-//error
     /**
      * Test adding a question to a quiz
      *
@@ -143,7 +139,6 @@ class CreateNewQuizTest extends DuskTestCase
         });
     }
 
-//error
     /**
      * Test the question page
      *
