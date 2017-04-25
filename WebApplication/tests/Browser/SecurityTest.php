@@ -90,4 +90,20 @@ class SecurityTest extends DuskTestCase
 		], $connection = null);
     }
 
+    public function testSqlInjectionSessionSearch()
+    {
+        $injection = "INSERT INTO `quizzes` (`name`, `desc`, `user_id`, `created_at`, `updated_at`) VALUES ('SQL Injection', 'this is an attack', '1', now(), now());";
+
+        $this->browse(function ($browser) use ($injection) {
+            $browser->visit('/')
+                ->type('session_key', $injection)
+                ->press('Join');
+        });
+
+		$this->assertDatabaseMissing("quizzes", [
+			'name' => 'SQL Injection', 
+			'desc' => 'this is an attack'
+		], $connection = null);
+    }
+
 }
