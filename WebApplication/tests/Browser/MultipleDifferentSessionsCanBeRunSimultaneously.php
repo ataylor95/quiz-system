@@ -42,11 +42,36 @@ class MultipleDifferentSessionsCanBeRunSimultaneously extends DuskTestCase
                 ->assertPathIs('/quiz/' . $user2->session->session_key)
                 ->assertDontSee($quiz1->name);
         });
-    
     }
 
-    public function twoUsersJoinDifferentSessions()
+    /**
+     * Test two users joining different sessions
+     */
+    public function testTwoUsersJoinDifferentSessions()
     {
-    
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $quiz1 = factory(Quiz::class)->create(['user_id' => $user1->id]);
+        $quiz2 = factory(Quiz::class)->create(['user_id' => $user2->id]);
+        factory(Session::class)->create([
+            'user_id' => $user1->id,
+            'quiz_id' => $quiz1->id,
+            'running' => true,
+        ]);
+        factory(Session::class)->create([
+            'user_id' => $user2->id,
+            'quiz_id' => $quiz2->id,
+            'running' => true,
+        ]);
+        
+        $this->browse(function ($first, $second) use ($user1, $user2, $quiz1, $quiz2) {
+            $first->visit('/quiz/' . $user1->session->session_key)
+                ->assertSee($quiz1->name)
+                ->assertDontSee($quiz2->name);
+
+            $second->visit('/quiz/' . $user2->session->session_key)
+                ->assertSee($quiz2->name)
+                ->assertDontSee($quiz1->name);
+        });
     }
 }
