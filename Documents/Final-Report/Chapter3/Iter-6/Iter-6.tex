@@ -21,6 +21,7 @@ To read this data on the front end, an AJAX request was set up from an admin pan
 
 This JSON data could then be used in the ChartJS library which was selected to render the results bar chart on the page\cite{chartjs}. The ChartJS library allows the creation of an object that can be attached to an HTML canvas tag. Within this object, the options and variables that make it up can be specified using JSON. The JSON data is split into two arrays of equal length, one of the keys and one of the values, they are then passed to the chart object and the results are rendered as a bar chart. This chart is then deleted if it already exists and rendered when the results button is pressed. This means every time it is pressed, the most up to date results will be displayed. 
 \subsubsection{Testing}
+Testing appears to be quite hard for this story as the results box is rendered using an iframe and canvas HTML tags. It seems that anything within these cannot be seen by the assertions within Laravel Dusk and therefore cannot be reliably tested. A single test was written to check whether or not the iframe was made visible when the results button was clicked.
 \newpage
 
 \subsection{Story: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizom}
@@ -33,7 +34,7 @@ Very few tasks as will be explained in the design subsection:
 \subsubsection{Implementation}
 Thanks to the design of the previous subsection, changing the data meant an empty key was sent if the user tried to change the data submitted to the server. This could be checked in either the JavaScript or PHP end, but it was decided both would be the best for maximum security. 
 \subsubsection{Testing}
-This is hard to test, as Dusk does not allow the changing of HTML on the page or the possibility to submit false data. User testing might be a good replacement for Dusk tests here.
+This is hard to test, as Dusk does not allow the changing of HTML on the page or the possibility to submit false data. Additionally, even if the data could be submitted the tests int he previous story indicate that the results cannot be read and therefore this story cannot be tested fully. User testing might be a good replacement for this.
 \newpage
 
 \subsection{Story: The Admin can see what percentage of users connected to the session have answered}
@@ -47,4 +48,5 @@ This should appear above the results table, possibly as part of the title.
 \subsubsection{Implementation}
 After attempting to get a number of users connected to the channel it became clear that this number is not readily accessible for public channels. It can be obtained via the Pusher API but implementing that would mean locking some functionality down with Pusher and the long term plan is likely to involve changing to a Redis based WebSocket system. Therefore this number has just been changed to the total number of responses which should give a good idea to the lecturer of what percentage of users have responded. This was simply added to the title attribute of the chart.
 \subsubsection{Testing}
+Like with the above stories this iteration, this cannot be tested because this information is contained within the canvas that cannot be seen in Dusk tests.
 \newpage
