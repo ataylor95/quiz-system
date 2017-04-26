@@ -21,6 +21,7 @@ Database transactions could have been used instead, which use a pre migrated dat
 One story specifically concerns security: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizdom. The tests for this however are not that easy to do within the confines of Dusk due to the nature of the framework. The framework is concerned with user facing application tests and has no ability to change the DOM of the page or send custom POST requests to the server. This means that this story is better tested in the User testing section.
 
 Other aspects of security can be checked however, being a web application there are a number of well known attack types including SQL injection, cross site scripting and cross site request forgery attacks. These are tested in (TODO: screenshot of these in action)
+http://www.easylaravelbook.com/blog/2015/07/22/how-laravel-5-prevents-sql-injection-cross-site-request-forgery-and-cross-site-scripting/
 
 \section{User testing}
 TODO
