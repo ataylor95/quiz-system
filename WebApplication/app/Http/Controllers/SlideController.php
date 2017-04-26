@@ -31,6 +31,20 @@ class SlideController extends Controller
         return view('quizzes.run.slides', compact('quiz'));
     }
 
+	/**
+	 * Action to remove the slides
+	 *
+	 * @param int $quiz - id of the quiz
+	 */
+	public function removeSlides($quiz)
+	{
+        $user = auth()->user()->id;
+        $sessionKey = User::find($user)->session->session_key;
+
+        $this->removeOldSlides($sessionKey, $quiz);
+		return back();
+	}
+
     /**
      * Saves the pdf slides to the storage folder
      * Then converts each slide to an image and saves that

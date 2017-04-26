@@ -75,10 +75,11 @@
                     @endif
                 @endforeach
                 <div class="panel-footer text-right">
-                    <a href="{{route('questions.create', ['quiz' => $quiz['id']])}}" class="btn">Add Question</a>
+                    <a href="{{route('questions.create', ['quiz' => $quiz['id']])}}" class="btn btn-primary">Add Question</a>
                 </div>
                 <div class="panel-footer text-right">
-                    <a href="{{route('runSlides', ['quiz' => $quiz->id])}}" class="btn">Add Slides</a>
+                    <a href="{{route('runSlides', ['quiz' => $quiz->id])}}" class="btn btn-primary">Add Slides</a>
+                    <a href="{{route('removeSlides', ['quiz' => $quiz->id])}}" class="btn btn-danger">Remove Slides</a>
                 </div>
                 <div class="panel-footer text-right">
                     <a href="{{route('runQuiz', ['id' => $quiz['id']])}}" class="btn btn-primary">Run</a>
