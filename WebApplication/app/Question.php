@@ -121,8 +121,14 @@ class Question extends Model
     {
         $currentPosition = $question->position;
         $quizID = $question->quiz->id;
+
         if ($direction == "up") {
+            //Make sure the position cant go above total number items
+            $totalNumberItems = count($question->quiz->questions) + count($question->quiz->slides);
             $newPosition = $currentPosition + 1;
+            if ($newPosition > $totalNumberItems) {
+                $newPosition = $totalNumberItems;
+            }
             
             $positionOccupied = Question::checkPosition($newPosition, $quizID);
             Question::swapOrUpdate($positionOccupied, $question, $newPosition);
@@ -144,7 +150,7 @@ class Question extends Model
      * Either swaps question with whatever is at the current position
      * or updates the question with a new position
      *
-     * @param [] $positionOccupied 
+     * @param [boolean - occupied, Object - Question || Slide, String - type] $positionOccupied 
      * @param Question $question
      * @param int $newPosition
      */
