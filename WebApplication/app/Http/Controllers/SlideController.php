@@ -63,6 +63,9 @@ class SlideController extends Controller
         for($i=1;$i<=$num;$i++){ 
             $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.jpg');
         }
+		//For some reason the first image is converted to the wrong size, but if we run
+		//it again its fine
+		$pdf->setPage(1)->saveImage($address . 'slide-' . 1 . '.jpg');
         
         //We need to save some information about the slides to the db to use them later
         Slide::saveSlides($num, $request->quiz);
