@@ -80,6 +80,9 @@
                 <div class="panel-footer text-right">
                     <a href="{{route('runSlides', ['quiz' => $quiz->id])}}" class="btn">Add Slides</a>
                 </div>
+                <div class="panel-footer text-right">
+                    <a href="{{route('runQuiz', ['id' => $quiz['id']])}}" class="btn btn-primary">Run</a>
+                </div>
             </div>
         </div>
     </div>
