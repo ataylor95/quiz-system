@@ -30,6 +30,21 @@ class Answer extends Model
     public static function saveResult($sessionKey, $userSession, $answer)
     {
         $session = Session::where('session_key', $sessionKey)->get()[0];
+        $answerToUse = '';
+
+        //If its an array, its a multi select question
+        if (is_array($answer)) {
+            foreach($answer as $a) {
+                if (strlen($answerToUse) == 0) {
+                    //If its the first item, we dont want a comma
+                    $answerToUse = $a;
+                } else {
+                    $answerToUse = $answerToUse . ', ' . $a;
+                }
+            }
+        } else {
+            $answerToUse = $answer;
+        }
 
         Answer::updateOrCreate(
             [
@@ -38,7 +53,7 @@ class Answer extends Model
                 'user_session' => $userSession,
             ],
             [
-                'answer' => $answer
+                'answer' => $answerToUse
             ]
         );
     }
