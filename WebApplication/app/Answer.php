@@ -85,6 +85,8 @@ class Answer extends Model
             ->get();
         $listOfAnswers = array();
 
+        //Take out the answers and add them to a seperate array that will
+        //be easier to work with that a collection of collections
         foreach ($answers as $answer) {
             $listOfAnswers[] = $answer->answer;
         }
@@ -121,8 +123,20 @@ class Answer extends Model
         //of the old one
         //Then unset the old array item
         foreach ($listOfAnswers as $key => $value) {
-            $listOfAnswers[$question->$key] = $listOfAnswers[$key];
-            unset($listOfAnswers[$key]);
+            //If the string contains a , then its from a multi select and handled differently
+            if (strpos($key, ',')) {
+                $answers = '';
+                $multiSelectAnswers = explode(', ', $key);
+                foreach ($multiSelectAnswers as $answer) {
+                    $answers .= $question->$answer . ', '; 
+                }
+                $answers = trim($answers, ', ');
+                $listOfAnswers[$answers] = $listOfAnswers[$key];
+                unset($listOfAnswers[$key]);
+            } else {
+                $listOfAnswers[$question->$key] = $listOfAnswers[$key];
+                unset($listOfAnswers[$key]);
+            }
         }
         //Unset empty array item, this is caused when users try and submit their own
         //answers, this is just clean up
