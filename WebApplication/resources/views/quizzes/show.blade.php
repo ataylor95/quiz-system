@@ -25,7 +25,7 @@
                             </div>
                             <div class='col-xs-2'></div>
                             <div class='col-xs-3'>
-                                <a href="{{$imageBase . $item->file_name}}.png">View</a>
+                                <a href="{{$imageBase . $item->file_name}}.jpg">View</a>
                             </div>
                         </div>
                     @elseif ($item->question_text)

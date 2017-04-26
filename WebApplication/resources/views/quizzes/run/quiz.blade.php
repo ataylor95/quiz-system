@@ -23,7 +23,7 @@
             </div>
         @elseif (is_null($question) && !is_null($slide))
             @php
-                $fileName = $slide->file_name . '.png';
+                $fileName = $slide->file_name . '.jpg';
                 $location = '/storage/slides/' . $key . '/quiz-' . $slide->quiz_id . '/' . $fileName;
             @endphp
             @include('slides.slide')

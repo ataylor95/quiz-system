@@ -59,9 +59,9 @@ class SlideController extends Controller
         $num = $pdf->getNumberOfPages();  
     
         $address = (storage_path() . '/app/public/slides/' . $sessionKey .'/quiz-' . $request->quiz . '/');
-        //Convert each page in the pdf to a png and save them
+        //Convert each page in the pdf to a jpg and save them
         for($i=1;$i<=$num;$i++){ 
-            $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.png');
+            $pdf->setPage($i)->saveImage($address . 'slide-' . $i . '.jpg');
         }
         
         //We need to save some information about the slides to the db to use them later
@@ -102,7 +102,7 @@ class SlideController extends Controller
 			->session
 			->session_key;
 
-        $fileName = $request->file_name . '.png';
+        $fileName = $request->file_name . '.jpg';
         $location = '/storage/slides/' . $sessionKey . '/quiz-' . $request->quiz_id . '/' . $fileName;
         return view('slides.slide', compact('location'));
     }
