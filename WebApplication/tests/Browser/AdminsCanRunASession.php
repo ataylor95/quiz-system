@@ -66,7 +66,7 @@ class AdminsCanRunASession extends DuskTestCase
      * Therefore removed from execution by removing 'test' 
      * from start of function name
      */
-    public function NextAndPrevButtons()
+    public function /*test*/NextAndPrevButtons()
     {
         $user = factory(User::class)->create();
         factory(Session::class)->create(['user_id' => $user->id]);
