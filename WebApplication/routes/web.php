@@ -28,6 +28,7 @@ Route::resource('questions', 'QuestionController');
 //These routes are for running a quiz, including uploading slides
 Route::get('quizzes/run-choice/{quiz}', 'QuizController@runChoice')->name('runChoice');
 Route::get('quizzes/run-slides/{quiz}', 'SlideController@runSlides')->name('runSlides');
+Route::get('quizzes/remove-slides/{quiz}', 'SlideController@removeSlides')->name('removeSlides');
 Route::post('quizzes/run-slides/{quiz}', 'SlideController@storeSlides')->name('storeSlides');
 Route::get('quizzes/run/{quiz}', 'QuizController@run')->name('runQuiz');
 Route::resource('quizzes', 'QuizController');

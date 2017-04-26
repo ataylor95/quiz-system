@@ -64,5 +64,6 @@ class Slide extends Model
         foreach ($slides as $slide) {
             Slide::destroy($slide->id);
         }
+        Question::removeSlides($quizID);
     }
 }
