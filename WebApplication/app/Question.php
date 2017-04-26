@@ -233,4 +233,21 @@ class Question extends Model
             ]);
         }
     }
+
+    /**
+     * When slides are removed, the positions of the question should be
+     * reset
+     *
+     * @param int $quizID
+     */
+    public static function removeSlides($quizID)
+    {
+        $questions = Quiz::find($quizID)->questions;
+        $numQuestions = count($questions);
+        for ($i=0;$i<$numQuestions;$i++) {
+            Question::find($questions[$i]->id)->update([
+                'position' => $i + 1
+            ]);
+        }
+    }
 }
