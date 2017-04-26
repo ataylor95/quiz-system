@@ -39,16 +39,16 @@ class SecurityTest extends DuskTestCase
         });
 
         //Check the database too
-		$this->assertDatabaseMissing("quizzes", [
-			'name' => 'SQL Injection', 
-			'desc' => 'this is an attack'
-		], $connection = null);
+        $this->assertDatabaseMissing("quizzes", [
+          'name' => 'SQL Injection', 
+          'desc' => 'this is an attack'
+        ], $connection = null);
 
-        //As the text should be escaped, it will be in the database as the description, not a new row
-		$this->assertDatabaseHas("quizzes", [
-			'name' => $quizName, 
-			'desc' => $quizDesc
-		], $connection = null);
+            //As the text should be escaped, it will be in the database as the description, not a new row
+        $this->assertDatabaseHas("quizzes", [
+          'name' => $quizName, 
+          'desc' => $quizDesc
+        ], $connection = null);
     }
 
     /**
@@ -79,15 +79,15 @@ class SecurityTest extends DuskTestCase
         });
 
         //Check the database too
-		$this->assertDatabaseMissing("quizzes", [
-			'name' => 'SQL Injection', 
-			'desc' => 'this is an attack'
-		], $connection = null);
+        $this->assertDatabaseMissing("quizzes", [
+          'name' => 'SQL Injection', 
+          'desc' => 'this is an attack'
+        ], $connection = null);
 
-        //As the text should be escaped, it will be in the database as the name, not a new row
-		$this->assertDatabaseHas("questions", [
-			'question_text' => $questionName, 
-		], $connection = null);
+            //As the text should be escaped, it will be in the database as the name, not a new row
+        $this->assertDatabaseHas("questions", [
+          'question_text' => $questionName, 
+        ], $connection = null);
     }
 
     /**
@@ -105,15 +105,15 @@ class SecurityTest extends DuskTestCase
                 ->press('Join');
         });
 
-		$this->assertDatabaseMissing("quizzes", [
-			'name' => 'SQL Injection', 
-			'desc' => 'this is an attack'
-		], $connection = null);
+        $this->assertDatabaseMissing("quizzes", [
+          'name' => 'SQL Injection', 
+          'desc' => 'this is an attack'
+        ], $connection = null);
     }
 
     /**
      * Tests xss attack when a lecturer creates a quiz and
-	 * attempts to add some javascript
+     * attempts to add some javascript
      *
      * @return void
      */
@@ -132,33 +132,31 @@ class SecurityTest extends DuskTestCase
                     ->type('name', $quizName)
                     ->type('desc', $quizDesc)
                     ->press('Create')
-					->assertSourceMissing($quizDesc);
+          ->assertSourceMissing($quizDesc);
         });
-		//Whilst the code is technically on the page, it is escaped so in the
-		//source code looks like &lt;script&gt;alert('hey xss');&lt;/script&gt;
-        
+        //Whilst the code is technically on the page, it is escaped so in the
+        //source code looks like &lt;script&gt;alert('hey xss');&lt;/script&gt;
     }
 
     /**
      * Tests xss attack when a user searches for a session and
-	 * attempts to add some javascript
+     * attempts to add some javascript
      *
      * @return void
      */
-	public function testXSSAttackSessionSearch()
-	{
+    public function testXSSAttackSessionSearch()
+    {
         $xss = "<script>alert('hey xss');</script>";
 
         $this->browse(function ($browser) use ($xss) {
             $browser->visit('/')
                 ->type('session_key', $xss)
                 ->press('Join')
-				->assertSourceMissing($xss);
+        ->assertSourceMissing($xss);
         });
-	}
+    }
 
     public function testUserSubmittingModifiedAnswer()
     {
-    
     }
 }
