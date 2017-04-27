@@ -17,11 +17,33 @@ Tests use a test database rather than the production one to ensure the integrity
 
 Database transactions could have been used instead, which use a pre migrated database and then any data input during each test is deleted at the end of the test. Whilst the test db could be migrated before any tests were run to allow the use of transactions, this would mean than any future changes to the migration files would mean that the developer would have to remember to re-migrate the test database as well. Doing a migration for every test might be somewhat resource intensive, but it allows the tests to be written and run completely standalone from each other with no need to tie into any earlier setup functions. 
 
-\section{Security testing}
-One story specifically concerns security: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizdom. The tests for this however are not that easy to do within the confines of Dusk due to the nature of the framework. The framework is concerned with user facing application tests and has no ability to change the DOM of the page or send custom POST requests to the server. This means that this story is better tested in the User testing section.
+\subsection{Limitations of dusk}
+Various problems
+Also cucumber or something?
 
-Other aspects of security can be checked however, being a web application there are a number of well known attack types including SQL injection, cross site scripting and cross site request forgery attacks. These are tested in (TODO: screenshot of these in action)
-http://www.easylaravelbook.com/blog/2015/07/22/how-laravel-5-prevents-sql-injection-cross-site-request-forgery-and-cross-site-scripting/
+\section{Security testing}
+One story specifically concerns security: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizdom. The tests for this however are not that easy to do within the confines of Dusk due to the nature of the framework. The framework is concerned with user facing application tests and has no ability to change the DOM of the page or send custom POST requests to the server. This means that this story is better tested in the user testing section.
+
+Other aspects of security can be checked however, being a web application there are a number of well known attack types including SQL injection, cross site scripting and cross site request forgery attacks. These tests are located in SecurityTest.php. There are five tests that test both SQL Injection and XSS attacks.
+
+For the SQL injection tests, a string that tries to insert a new database extry is used:
+\begin{verbatim}
+	"INSERT INTO `quizzes` 
+		(`name`, `desc`, `user_id`, `created_at`, `updated_at`) 
+		VALUES ('SQL Injection', 'this is an attack', '1', now(), now());"
+\end{verbatim}
+And for the XSS attacks it tries to add a script tag with an alert:
+\begin{verbatim}
+	<script>alert('hey xss');</script>
+\end{verbatim} 
+
+There are two main places that these attacks can be carried out. The first is on the front page, the session search field could be used to insert malicious data. Though nothing is saved from this input, it does query the database, which means it could be subject to an SQL injection attack. If the search returned the original search query, then it could be used to embed some javascript, and if the search was then linkable (i.e. in the URL parameters), it could be sent on to other users. The other place that these two attacks can be carried out are on the admin area, in the quiz and quetion creation pages where SQL or XSS code could be added to the body of the various quiz and question fields.
+
+For SQL injection attacks, the easiest way to check that this data has not been added is to look for the record in the quizzes table. With the XSS attack, the page source can be searched for the script tag. Laravel copes with these attacks by default by escaping the inputs\cite{laravel-web-attacks}. With SQL, the entire string is quoted and not seen as an actual SQL command. With the XSS the HTML tags are escaped in a similar fashion, the \textless and \textgreater symbols are turned into \&lt; and \&gt; which are not rendered as HTML when written to the page.
+
+The tests prove that the system works as intended and these two attack types are not possible. Cross site request forgery attacks are another form of attack but harder to test as they rely on the browsers weaknesses and come from another website. Dusk cannot simulate this sort of environment. However, for forms to be submitted within the system a CSRF token has to be submitted with the form. This token is compared to the user session to ensure they are the ones submitting this data, not a third party site. Laravel forces forms to contain this token, ensuring this attack cannot take place. 
+
+TODO: explain XSS, SQL Injection and CRSF in more detail.
 
 \section{User testing}
 TODO
