@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name">Name:</label>
+                        <label for="name">Session Key:</label>
                         <input type="text" class="form-control" id="session_key" name="session_key" value="{{$sessionKey}}" required>
                     </div>
 
