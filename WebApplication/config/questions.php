@@ -5,8 +5,8 @@ return [
     'types' => [
         'multi_choice' => 'Multiple Choice',
         'multi_select' => 'Multiple Select',
-        'number_range' => 'Number Range',
+        //'number_range' => 'Number Range',
         'boolean' => 'True/ False',
-        'text' => 'Text',
+        //'text' => 'Text',
     ],
 ];
