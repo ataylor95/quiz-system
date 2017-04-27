@@ -42,9 +42,15 @@
 @endsection
     
 @section('scripts')
-<script>
-    //By fefault we want the select box to show the correct type
-    $('#type').val("{{$question['type']}}");
-</script>
+    @include('questions.javascript')
+    <script>
+        //By fefault we want the select box to show the correct type
+        $('#type').val("{{$question['type']}}");
 
+        //For this edit page, we want the boolean options presented as they
+        //would be on a create page
+        if($('#type').val() == 'boolean'){
+            booleanQuestionSelected();
+        }
+    </script>
 @endsection

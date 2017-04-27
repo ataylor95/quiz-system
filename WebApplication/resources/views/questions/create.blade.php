@@ -40,3 +40,7 @@
 </div>
 
 @endsection
+
+@section('scripts')
+    @include('questions.javascript')
+@endsection
