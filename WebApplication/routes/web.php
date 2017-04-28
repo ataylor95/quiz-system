@@ -53,3 +53,5 @@ Route::get('questions/type/{type}', 'QuestionController@getQuestion')->name('que
 Route::post('question/{id}/{direction}', 'QuestionController@changePosition')->name('changePosition');
 //Gets the slide for the quiz
 Route::get('slide', 'SlideController@getSlide')->name('slide');
+
+Route::get('quiz/download/{session_key}', 'SessionController@downloadResults')->name('downloadResults');
