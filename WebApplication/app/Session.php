@@ -31,6 +31,11 @@ class Session extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
+
     /**
      * Gets the session key used in the channel name
      *
