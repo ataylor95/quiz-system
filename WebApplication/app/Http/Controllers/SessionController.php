@@ -10,6 +10,16 @@ use App\Answer;
 class SessionController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Function to download the results from a quiz session
      * TODO: refactor this out a little
      *
