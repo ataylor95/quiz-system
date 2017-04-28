@@ -82,6 +82,9 @@
                     <a href="{{route('removeSlides', ['quiz' => $quiz->id])}}" class="btn btn-danger">Remove Slides</a>
                 </div>
                 <div class="panel-footer text-right">
+                    <a href="{{route('downloadResults', ['session_key' => $quiz->user->session->session_key])}}" class="btn btn-primary">Download Results</a>
+                </div>
+                <div class="panel-footer text-right">
                     <a href="{{route('runQuiz', ['id' => $quiz['id']])}}" class="btn btn-primary">Run</a>
                 </div>
             </div>
