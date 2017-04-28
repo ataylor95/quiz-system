@@ -32,9 +32,11 @@
 			$(answer).closest('div').show();
 		}
 
-		$("#answer1").prop("readonly", false);
-		$("#answer1").val("");
-		$("#answer2").prop("readonly", false);
-		$("#answer2").val("");
+		if($("#answer1").val() == "True" || $("answer1").val() == "False"){
+			$("#answer1").prop("readonly", false);
+			$("#answer1").val("");
+			$("#answer2").prop("readonly", false);
+			$("#answer2").val("");
+		}
 	}
 </script>
