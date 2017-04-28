@@ -29,8 +29,9 @@
                             </div>
                         @endfor
                     
-                    <div class='form-group'>
-                        <button type="submit" class="btn center-block btn-default">Update</button> 
+                    <div class='form-group' style="padding-left: 5px; padding-right: 5px;">
+                        <a href="{{route('quizzes.show', ['quiz' => $question->quiz->id])}}" class="btn btn-danger">Cancel</a> 
+                        <button type="submit" class="btn btn-success" style="float: right;">Update</button> 
                     </div>
 
                     @include('layouts.form-errors')
