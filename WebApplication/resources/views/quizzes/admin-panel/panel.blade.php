@@ -8,10 +8,18 @@
         </div>
         <div class='row'>
             <div class="col-xs-2">
-                <button id="quiz-prev" name="quiz-prev" class="btn btn-info">Prev</button>
+                @if ($position == 0)
+                    <button id="quiz-prev" name="quiz-prev" class="btn btn-info" disabled>Prev</button>
+                @else
+                    <button id="quiz-prev" name="quiz-prev" class="btn btn-info">Prev</button>
+                @endif
             </div>
             <div class="col-xs-2">
-                <button id="quiz-next" name="quiz-next" class="btn btn-info">Next</button>
+                @if ($position == $totalNumItems)
+                    <button id="quiz-next" name="quiz-next" class="btn btn-info" disabled>Next</button>
+                @else
+                    <button id="quiz-next" name="quiz-next" class="btn btn-info">Next</button>
+                @endif
             </div>
             <div class="col-xs-2">
                 <button id="show-results" name="show-results" class="btn btn-primary">Results</button>

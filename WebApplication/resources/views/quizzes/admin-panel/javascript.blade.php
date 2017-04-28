@@ -1,12 +1,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
+    var position = {{$position}}
+
     $('#quiz-prev').on('click', function() {
+        position--;
+        changePrevNextClasses(position);
         removeChart();
         $.ajax({
             url: "{{route('prevQuiz')}}",
         });
     }); 
     $('#quiz-next').on('click', function() {
+        position++;
+        changePrevNextClasses(position);
         removeChart();
         $.ajax({
             url: "{{route('nextQuiz')}}",
@@ -122,6 +128,24 @@
         $('#results-box').append(
             '<canvas id="myChart"></canvas>'
         );
+    }
+
+    /**
+     * Changes the prev and next buttons to be disabled if the quiz is at position
+     * 0 or at the end
+     *
+     * @param int position
+     */
+    function changePrevNextClasses(position) {
+        var totalNumItems = {{$totalNumItems}};
+        if(position == 0) {
+            $('#quiz-prev').prop('disabled', true);
+        } else if(position == totalNumItems) {
+            $('#quiz-next').prop('disabled', true);
+        } else {
+            $('#quiz-prev').prop('disabled', false);
+            $('#quiz-next').prop('disabled', false);
+        }
     }
 
 </script>
