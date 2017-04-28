@@ -227,7 +227,10 @@ class QuizController extends Controller
             $position = $content[3];
         }
 
-        return view('quizzes.run.quiz', compact('key', 'quiz', 'question', 'slide', 'position'));
+        $totalNumItems = count($session->quiz->questions) + count($session->quiz->slides);
+
+        return view('quizzes.run.quiz', compact('key', 
+            'quiz', 'question', 'slide', 'position', 'totalNumItems'));
     }
 
     private function getQuizOrSlide($quizID, $session)
