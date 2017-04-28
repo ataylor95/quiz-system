@@ -34,8 +34,6 @@ Route::get('quizzes/run/{quiz}', 'QuizController@run')->name('runQuiz');
 Route::resource('quizzes', 'QuizController');
 
 Route::group(['prefix' => 'quiz'], function () {
-    //Base used in some javascript stuff for constructing links
-    Route::get('/')->name('quizBase');
     //Quiz control routes
     Route::get('prev', 'QuizController@prevQuestion')->name('prevQuiz');
     Route::get('next', 'QuizController@nextQuestion')->name('nextQuiz');
