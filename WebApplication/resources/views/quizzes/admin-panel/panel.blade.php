@@ -24,6 +24,9 @@
             <div class="col-xs-2">
                 <button id="show-results" name="show-results" class="btn btn-primary">Results</button>
             </div>
+            <div class="col-xs-3">
+                <a href="{{route('downloadResults', ['session_key' => $quiz->user->session->session_key])}}" class="btn btn-primary">Download Quiz Results</a>
+            </div>
             <div class="col-xs-2">
                 <button id="end-quiz" name="end-quiz" class="btn btn-danger">End Quiz</button>
             </div>
