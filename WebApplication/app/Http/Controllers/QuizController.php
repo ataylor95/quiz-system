@@ -219,15 +219,15 @@ class QuizController extends Controller
             $quiz = null;
             $question = null;
             $position = null;
+            $totalNumItems = 0;
         } else {
             $content = $this->getQuizOrSlide($quizID, $session);
             $quiz = $content[0];
             $question = $content[1];
             $slide = $content[2];
             $position = $content[3];
+            $totalNumItems = count($session->quiz->questions) + count($session->quiz->slides);
         }
-
-        $totalNumItems = count($session->quiz->questions) + count($session->quiz->slides);
 
         return view('quizzes.run.quiz', compact('key', 
             'quiz', 'question', 'slide', 'position', 'totalNumItems'));
