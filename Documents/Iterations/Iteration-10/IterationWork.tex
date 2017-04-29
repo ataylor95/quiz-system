@@ -53,16 +53,22 @@ The problem here was that the answer text in the databse is stored as "answer1" 
 TODO
 \newpage
 
-\section{Report writing}
-Report Writing: Restructuring, Iter10, Design, Eval, touching up, User Testing 
-\newpage
-
 \section{Extra implemenation based on feedback from admin user tester}
+An admin user effectively tested the application whilst using the system to build a quiz that would be used in the user testing. During this, some feedback was receieved about the applciation which could be worked on to improve it in small ways.
 \subsection{Quiz control buttons should be greyed out}
-\subsection{Cancel button on edit pages}
+The next and previous buttons on the quiz were changed so that they should be greyed out if the quiz was at the start or end of the quiz. To disable them the "diabled" HTML attribute was added to the buttons. The position and total number of items in the quiz were passed to the page from the controller and could be used to determine whether or not the buttons should be disabled. For these to be disabled when the page loads, some embedded PHP was used to render the buttons with disabled if needed. When the quiz was running, JavaScript was used to add and remove the disabled attribute wheneven next or previous was pressed.
+\subsection{Question creation true/ false changes}
+Some JavaScript was used to change the question creation and question edit pages. It was needed for true/ false questions which should be submitted with answer1 as 'True', and answer2 as 'False', with the other fields left blank. The other fields would be ignored when the question was rendered, but allowing them to be filled in could be confusing. So JavaScript was used to hide the other fields, fill the first two with 'True' and 'False', and disable the fields so they could not be edited. This was actually part of the original design for the question creator but was left due to more pressing tasks such as the running of quizzes.
+\subsection{Cancel button on question edit pages}
+Finally, the tester asked if a cancel button could be added, as pressing the back button would work but having a button would probably be better for the users. This was simple a back button placed at the bottom of the edit page.
 \subsection{Bugs}
-Upload times
-Route logic issue
+Various bugs were fixed in this final iteration after being found by the admin user. One was a bug concerning the upload time of slides, which took long enough for the PHP execution time to be exceeded. Whilst normally this would require a change to the php.ini file, this was not easily accessible on the server, so a call to the php function, set\_time\_limit() was made to increase this past the default for the function in question. This was probably a better solution due to it only increasing the limit for the one function, whereas changing the times in the ini file would change the whole system and possibly lead to unintentional side effects.
+
+Another small bug was a "LogicException" found by going to an incorrect url, which is not the standard 404 thrown by an incorrect url. This was caused by a route which had no defined action in the router, something left over from an earlier iteration that ought to have been deleted.
+
+\section{Report writing}
+Restructuring, Iter10, Design, Eval, touching up, User Testing, feedback changes, more citations
+\newpage
 
 
 %\section{Bibliography}
