@@ -24,8 +24,6 @@ As for the actual tests, there were a number of problems with the asserts and na
 
 Other problems with selectors included that it could not see inside iframes or canvas tags, a major part of showing results of quizzes. And if a selector did find a collection, it returned the first item on the page, and not an iterable collection of items as one might expect. This problem in particular meant more work adding various unique ids or classes to items that were repeated on the page.
 
-The last major problem was that it does not seem to support the WebSocket functionality of the site. This is a major component of how quizzes are run, meaning that a lot of tests do not actually test these fully and instead have to use things like browser refreshes. This is not representative of what the user would do and so somewhat defeats the point of browser tests. The user tests somewhat make up for this shortfall however. There does not appear to be a reason or explanation for this, however it could potentially be Dusk blocking the sending and recieving messages to an external sevice as the testing environment .
-
 There was additionally the issue that due to the amount of initial database seeding used within each test, the actual tests could get quite long in terms of line numbers. There was a lot of code repetition and this is something that could be improved upon in future by refactoring out some of the funcitionality into initialiser functions.
 
 \section{Security testing}
