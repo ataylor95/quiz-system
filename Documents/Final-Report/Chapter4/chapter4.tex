@@ -20,11 +20,16 @@ Database transactions could have been used instead, which use a pre migrated dat
 \subsection{Limitations of dusk}
 Various problems
 Also cucumber or something?
+Dusk cant do WebSockets for some reason, assume blocking communication?
+Dusk cannot see inside Canvas tags
+Dusk selectors are rubbish, sometimes by text, sometimes id but never returns a collection, always the first item it sees
+Lots of code repetition for moi
+Pauses
 
 \section{Security testing}
 One story specifically concerns security: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizdom. The tests for this however are not that easy to do within the confines of Dusk due to the nature of the framework. The framework is concerned with user facing application tests and has no ability to change the DOM of the page or send custom POST requests to the server. This means that this story is better tested in the user testing section.
 
-Other aspects of security can be checked however, being a web application there are a number of well known attack types including SQL injection, cross site scripting and cross site request forgery attacks. These tests are located in SecurityTest.php. There are five tests that test both SQL Injection and XSS attacks.
+Other aspects of security can be checked however, being a web application there are a number of well known attack types including SQL injection, cross site scripting (XSS) and cross site request forgery (CSRF) attacks. These tests are located in SecurityTest.php. There are five tests that test both SQL Injection and XSS attacks. SQL injection attacks involves attackers trying to execute their own SQL code on the server, thereby giving them access to the system or to try and damage the system by say dropping some tables. XSS attacks are when attackers attempt to inject thier own JavaScript into the system that may be run on another users page. Typically this would include injecting a script tag with malicioud code into the database that would then be executed when written to the page by another user viewing a page. (TODO: cite these?) 
 
 For the SQL injection tests, a string that tries to insert a new database extry is used:
 \begin{verbatim}
@@ -42,8 +47,6 @@ There are two main places that these attacks can be carried out. The first is on
 For SQL injection attacks, the easiest way to check that this data has not been added is to look for the record in the quizzes table. With the XSS attack, the page source can be searched for the script tag. Laravel copes with these attacks by default by escaping the inputs\cite{laravel-web-attacks}. With SQL, the entire string is quoted and not seen as an actual SQL command. With the XSS the HTML tags are escaped in a similar fashion, the \textless and \textgreater symbols are turned into \&lt; and \&gt; which are not rendered as HTML when written to the page.
 
 The tests prove that the system works as intended and these two attack types are not possible. Cross site request forgery attacks are another form of attack but harder to test as they rely on the browsers weaknesses and come from another website. Dusk cannot simulate this sort of environment. However, for forms to be submitted within the system a CSRF token has to be submitted with the form. This token is compared to the user session to ensure they are the ones submitting this data, not a third party site. Laravel forces forms to contain this token, ensuring this attack cannot take place. 
-
-TODO: explain XSS, SQL Injection and CRSF in more detail.
 
 \section{User testing}
 TODO
