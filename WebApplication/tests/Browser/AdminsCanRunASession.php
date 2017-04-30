@@ -61,12 +61,8 @@ class AdminsCanRunASession extends DuskTestCase
 
     /**
      * This tests the next and prev buttons
-     * NOTE: Not working
-     * Dusk appears to not work with Pusher/ WebSockets
-     * Therefore removed from execution by removing 'test' 
-     * from start of function name
      */
-    public function /*test*/NextAndPrevButtons()
+    public function testNextAndPrevButtons()
     {
         $user = factory(User::class)->create();
         factory(Session::class)->create(['user_id' => $user->id]);
@@ -85,19 +81,16 @@ class AdminsCanRunASession extends DuskTestCase
                 ->assertSee($quiz->name)
                 ->assertSee($quiz->desc)
                 ->press('#quiz-next')
-                ->pause(2000)
+                ->pause(1000)
                 ->assertSee($question->question_text)
                 ->assertSee('Submit');
         });
     }
 
     /**
-     * Use a refresh instead of waiting for the WebSockets
-     * Proves that the prev/ next button actually does update
-     * in the database and that new users land on the correct
-     * page
+     * Test to show that a second users browser is updated when admin pressed next
      */
-    public function testSecondUserWithRefresh()
+    public function testSecondUser()
     {
         $user = factory(User::class)->create();
         factory(Session::class)->create(['user_id' => $user->id]);
@@ -115,46 +108,16 @@ class AdminsCanRunASession extends DuskTestCase
                 ->assertSee($quiz->name);
 
             $first->press('#quiz-next')->pause(1000);
+            //Need to pause it slightly to allow the websocket communication and update
 
-            //Seeing as WebSockets dont seem to work, refresh it
-            //Users dont have to do this though
-            $second->refresh()
-                ->assertSee($question->question_text);
+            $second->assertSee($question->question_text);
         });
     }
 
     /**
-     * Testing prev and next buttons with refresh
+     * Test the end quiz button
      */
-    public function testPrevNextWithRefresh()
-    {
-        $user = factory(User::class)->create();
-        factory(Session::class)->create(['user_id' => $user->id]);
-        $quiz = factory(Quiz::class)->create(['user_id' => $user->id]);
-        $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
-
-        $this->browse(function ($browser) use ($user, $quiz, $question) {
-            $browser->loginAs($user->id)
-                ->visit('/quizzes')
-                ->press('#quiz-' . $quiz->id) 
-                ->assertSee($quiz->name)
-                ->assertSee($quiz->desc)
-                ->press('#quiz-next')
-                ->refresh()
-                ->assertSee($question->question_text)
-                ->assertSee('Submit')
-                ->assertDontSee($quiz->name)
-                ->press('#quiz-prev')
-                ->refresh()
-                ->assertSee($quiz->name)
-                ->assertDontSee($question->question_text);
-        });
-    }
-
-    /**
-     * Test the end quiz button with refreshing
-     */
-    public function testEndQuizWithRefresh()
+    public function testEndQuiz()
     {
         $user = factory(User::class)->create();
         factory(Session::class)->create(['user_id' => $user->id]);
@@ -168,9 +131,9 @@ class AdminsCanRunASession extends DuskTestCase
                 ->assertSee($quiz->name)
                 ->assertSee($quiz->desc)
                 ->press('#end-quiz')
-                ->refresh()
+                ->pause(1000)
                 ->assertDontSee($quiz->name)
-                ->assertSee('No quiz running for: ' . $user->session->session_name);
+                ->assertSee('End of the Quiz');
         });
     }
 }
