@@ -1,15 +1,15 @@
 %\addcontentsline{toc}{chapter}{Development Process}
-\chapter{Design}
-This chapter will give an overview of the final design of the system reached by iteration 10. It will not go into detail for individual parts of the system as these were covered in the iteration chapter but instead will offer an top level perspective of the system.
+\chapter{Final design}
+This chapter will give an overview of the final design of the system reached by iteration 10. It will not go into detail for individual parts of the system as these were covered in the iteration chapter but instead will offer a top level perspective of the system.
 
-\section{Overall Architecture}
+\section{Overall architecture}
 The Laravel framework uses a Model-View-Controller design pattern to build applications. It works in the same way as a normal MVC application. Data is stored and manipulated within the models, controllers handle most of the interactions the user has with the system, and the views are the web pages presented to the users. Within Laravel, there is also a front controller, which is used to route incoming HTTP requests to the appropriate views and controllers\cite{Laravel-architechture}.
 
 There are two basic sections of the system, the student end, and the lecturer end. The lecturer end is an admin panel that they can login to, to create and manage their quizzes. The student end consists of the portal for connecting to a session, and the session pages themselves that display the slides and questions for users to answer.
 
 Students only have two bits of functionality available to  them, being able to join a quiz and then being able to answer questions. Lecturers however can do much more on the site. On the admin panel they can create new quizzes, create and add questions to the quizzes and also add slides to the quizzes. They can also change their user details including their session key. The main operation they can perform is that they can run a quiz, this then takes them to the same view as the students, albeit with a small control panel for changing questions or slides, and displaying the results of the quiz. TODO: add final use-case diagram, add final activity diagram, maybe a ui diagram too?
 
-\section{Database Design}
+\section{Database design}
 \begin{sidewaysfigure}
 	\caption{Entity relationship digram for final database}
 	\includegraphics[width=\textwidth]{Chapter3/Final-ER-Image}
