@@ -4,7 +4,7 @@
 Currently lecturers at Aberystwyth University have the option to use a service called Qwizdom\cite{Qwizdom} which allows lecturers to embed quiz questions into their slideshow presentations. During a lecture, students can join a session through an online portal and have the slides and questions streamed through to their devices. Quiz questions can then be answered by the students and their results can be displayed live by the lecturer, who can also save these results for later analysis.
 
 \subsection{Replacement}
-A replacement system was wanted to fix some of the problems that Qwizdom has. Primarily that the Univ ersity only has one session key, which means only one session can be used by all lecturers at any one time, leading to some clashes. With a new system, there would be no limit to the number of sessions that can be run. Other problems with Qwizdom include:
+A replacement system was wanted to fix some of the problems that Qwizdom has. Primarily that the university only has one session key, which means only one session can be used by all lecturers at any one time, leading to some clashes. With a new system, there would be no limit to the number of sessions that can be run. Other problems with Qwizdom include:
 \begin{itemize}
 	\item Maximum of 6 answers
 	\item Students can submit their own answers by changing the HTML on the page
@@ -20,22 +20,22 @@ The reason for having two parts is that the first would be mostly built as part 
 \subsection{Part 1}
 A web based approach was chosen for the first part. This application would allow lecturers to log in to an admin panel and from there create and run quizzes for the students. This would also lay the groundwork for the second part, setting up the front end for students, how sessions are run and how answering questions worked. 
 \subsubsection{Framework}
-The PHP language was selected due to two primary reasons. The first is that the lead developer was familiar with PHP after using it in an industrial job. The second is that a large number of University projects are PHP based which will make integrating this with the University easier in the future. Whilst Ruby or Javascript might be applicable, the familiarity and ability to extend PHP made it the best choice.
+PHP was the language selected due to two primary reasons. The first is that the developer was familiar with PHP after using it in an industrial job. The second is that a large number of University projects are PHP based which will make integrating this with the University easier in the future. Whilst Ruby or Javascript might be applicable, the familiarity and ability to extend PHP made it the best choice.
 \subsubsection{Laravel}
 Laravel is a web framework written in PHP, and has been chosen for the web server part of this project\cite{laravel}. There are a number of reasons for choosing Laravel in this project over other available frameworks. The first and most important is familiarity with Laravel as the developer has used it in the past, and the main framework used in their year in industry was based on Laravel.
 
 Laravel is also the most popular PHP framework available\cite{PopularPHPFrameworks}, which means there is an enormous amount of support available in the form of user forums, video guides and its own tag on Stack Overflow.
 
-Laravel 5 also natively supports web sockets, a technology that was being considered for the first part of the project. Other features of Laravel is its conformance to PSR-2, a PHP coding standard, meaning it would be easier to follow good coding standards more easily.
+Laravel 5 also natively supports WebSockets, a technology that was being considered for the first part of the project. Other features of Laravel is its conformance to PSR-2, a PHP coding standard, meaning it would be easier to follow good coding standards more easily.
 \subsection{Part 2}
-The second part required more extensive research to be done when it was reached in development. But the main suggestion was to create an Microsoft PowerPoint extension much like Qwizdom to create slides embedded with questions\cite{powerpoint-addins}. Due to the size of such an undertaking, another potential solution was to create the web application in such a way that an extension could be worked on in the future, i.e. set up the system for future extensions.
+The second part required more extensive research to be done when it was reached in development. But the main suggestion was to create a Microsoft PowerPoint extension much like Qwizdom to create slides embedded with questions\cite{powerpoint-addins}. Due to the size of such an undertaking, another potential solution was to create the web application in such a way that an extension could be worked on in the future, i.e. set up the system for future extensions.
 \newpage
 
 \section{Process}
 The methodology chosen for this project was an Extreme Programming (XP) based approach. One of the core advantages of using an XP based approach is the ability to adapt to change. The second part of this project, implementing a method to stream slides to students, was much more open to change than the first part where the scope was far more understood. If another process such as Feature Driven Development was used, it would work for the first part of the project as all the requirements and features are known but most likely would be a struggle to use in the second part. XP gives the flexibility needed to complete the second part of the project whilst also allowing the first part to be done with ease.
 
 \subsection{Practices}
-A number of practices were selected for the project that work in a single developer project:
+XP does not enforce the use of any single practice and as such a number of practices were selected for the project that work in a single developer project:
 \begin{itemize}
 	\item Test Driven Development - Writing tests before coding any of the application logic helps to enhance both the design and also mean tests should actually be written rather than left until the end and "hacked" in.
 	\item Coding Standards - Keeping to strict coding standards helps ensure the code is good quality and easy to extend in the future as this project may well be.
@@ -45,6 +45,8 @@ A number of practices were selected for the project that work in a single develo
 	\item Planning Game - This can be adapted to be done by one person at the start of the project, the list of stories was written and then iterations and releases planned out.
 	\item Continuous Integration - Some online tools can be used to provide an CI workflow, to run tests continually with the constant small releases.
 \end{itemize}
+
+On the flip side, a number of practices were less appropriate and had to be dropped, such as Pair Programming and Collective Code Ownership, due to there only being one developer.
 
 \subsection{Stories - functional requirements}
 Before any development could start, an initial list of functional requirements was needed. For an XP based project, these would be in the form of "stories". The stories have a difficulty ranking associated with each item in relation to the other stories. 1 would the easiest and 10 the hardest.
