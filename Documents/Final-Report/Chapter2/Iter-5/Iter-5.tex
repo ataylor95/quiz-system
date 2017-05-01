@@ -24,7 +24,31 @@ An interesting bug with multiple selection questions was that when the answers w
 The last part of development for this iteration involved adding some simple checks to the next and previous position functions to ensure they did not go below 0 or above the number of questions in the quiz.
 
 \subsubsection{Testing}
-TODO: write about the tests
+A number of tests were written for this large part of the system split into three main areas, each with a number of tests:
+
+Admins running sessions:
+\begin{itemize}
+	\item Test that an admin can set a quiz running
+	\item Test that an can change the quiz running
+	\item Test the next and previous buttons work from the admins point of view
+	\item Test that a students view gets updated when the admin presses next and previous
+	\item Test the end quiz button
+\end{itemize}
+
+Students joining sessions
+\begin{itemize}
+	\item Test to see if a student sees the start of the quiz if they join at the start
+	\item Test to see if a student sees the correct content if they join midway through a quiz
+	\item Test a student joining a session not running
+	\item Test a student trying to join a session that does not exist
+	\item Test that a student cannot see the admin panel used by lecturers
+\end{itemize}
+
+Multiple sessions running simultaneously
+\begin{itemize}
+	\item Test that two admins can run two sessions and see their quiz
+	\item Test that two users join two different sessions and see the different quizzes
+\end{itemize}
 \newpage
 
 \subsection{Stories Completed}
