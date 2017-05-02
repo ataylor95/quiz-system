@@ -18,9 +18,16 @@ These have been added to the story list document.
 	\item Add register page
 \end{itemize}
 \subsubsection{Design}
-Design was limited due to the automated builder. However it added some view files and a default HomeController for a basic homepage.
+A use case diagram was produced to show the actions a lecturer needs for logging in \ref{fig:login-use-case}
+
+\begin{figure}
+	\caption{Use case diagram for the admin backend for login}
+	\centerline{\includegraphics{Chapter2/Iter-1/iter-1-use-case}}
+	\label{fig:login-use-case}
+\end{figure}
+
 \subsubsection{Implementation}
-Implementing this was far easier than originally anticipated, Laravel comes with the needed tables out of the box and has a command to run that sets up simple auth for users: \textit{php artisan make:auth}
+Implementing this was far easier than originally anticipated, Laravel comes with the needed tables out of the box and has a command to run that sets up simple auth for users: \textit{php artisan make:auth} 
 \subsubsection{Testing}
 Because the login and auth is handled by Laravel by default, testing it was deemed to not be a priority. However, three simple tests were written to ensure it never breaks due to future changes. Dusk Tests:
 \begin{enumerate}
@@ -38,7 +45,14 @@ Because the login and auth is handled by Laravel by default, testing it was deem
 	\item Display a list of quizzes for that user
 \end{itemize}
 \subsubsection{Design}
-The HomeController to be removed in this period of work and the QuizController used in its place. (TODO: Digitize UI mock)
+The HomeController to be removed in this period of work and the QuizController used in its place. (TODO: Digitize UI mock) \ref{fig:quiz-list-use-case}
+
+\begin{figure}
+	\caption{Use case diagram for the admin backend including show quizzes}
+	\centerline{\includegraphics{Chapter2/Iter-1/iter-1-use-case-v2}}
+	\label{fig:quiz-list-use-case}
+\end{figure}
+
 \subsubsection{Implementation}
 Quite an easy amount of work, changing the controller was a simple change to the routes and then updating the quiz view file to use the same layout as the original home views. To get the user, a helper function is provided: \textit{auth()-$>$user()} which gets the user object. Obtaining the id from this is simple and then using an Eloquent ORM call it is easy to find all the quizzes owned by that user.
 \subsubsection{Testing}

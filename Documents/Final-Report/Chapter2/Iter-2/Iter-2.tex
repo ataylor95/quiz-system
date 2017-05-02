@@ -9,6 +9,12 @@
 \subsubsection{Design}
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
 (TODO: digitise images for these)
+Use case at this point \ref{fig:quiz-create-use-case}
+\begin{figure}
+	\caption{Use case diagram for the admin backend with create quiz functionality}
+	\centerline{\includegraphics{Chapter2/Iter-2/iter-2-use-case-create}}
+	\label{fig:quiz-create-use-case}
+\end{figure}
 \subsubsection{Implementation}
 A create page was added for quizzes, this was linked to from the home page. This was mapped to /quizzes/create address. A simple form was added to this page with the name and description of the quiz. Questions would be added on an individual quiz page. The form sends the form as an HTTP POST request to the /quizzes page which then maps onto the 'Store' action in the Quiz Controller. This action is used for server side validation and saving the data to the database using an Eloquent function. This Eloquent function also returns the id of the new quiz. The user\_id is assigned to the quiz by simply getting the current user. Using this id, this Store function redirects to the newly created quiz.
 
@@ -45,7 +51,12 @@ After attempting to use the transactions it appears as though they are not usabl
 	\item You can delete a quiz and its associated questions
 \end{itemize}
 \subsubsection{Design}
-There was not much design for this stage as it only really adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data that is being editing. Additionally a delete button should be added for quizzes and questions. (TODO: more design here)
+There was not much design for this stage as it only really adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data that is being editing. Additionally a delete button should be added for quizzes and questions. (TODO: more design here) Figure \ref{fig:quiz-edit-use-case}
+\begin{figure}
+	\caption{Use case diagram for the admin backend with edit quiz functionality}
+	\centerline{\includegraphics{Chapter2/Iter-2/iter-2-use-case-edit}}
+	\label{fig:quiz-edit-use-case}
+\end{figure}
 \subsubsection{Implementation}
 Pre filling the edit page was done by getting the record in the database by the id and just setting the default values of the input fields. The main difference to the creation stage was that the form had to use the HTTP PATCH method rather than POST. This PATCH method is automatically routed to the update function in the controller\cite{laravel-resource-controller}. Within this function, server side validation is performed and and Eloquent called to update the row in the database. It then redirects back to the quiz page for editing either a question or quiz.
 
