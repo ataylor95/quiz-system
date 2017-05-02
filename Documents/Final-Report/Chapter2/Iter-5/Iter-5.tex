@@ -8,6 +8,14 @@ Tasks left over from the previous week:
 	\item Questions need limiting on going above/ below max and min
 \end{itemize}
 \subsubsection{Design}
+The only new design for this story from the last iteration is to add to the use case for students on the frontend. \ref{fig:iter-5-frontend-use-case}
+
+\begin{figure}
+	\caption{Use case for front end now including what students can do}
+	\centerline{\includegraphics{Chapter2/Iter-5/iter-5-frontend-use-case}}
+	\label{fig:iter-5-frontend-use-case}
+\end{figure}
+
 \subsubsection{Implementation}
 Users still had to connect to the quizzes from the welcome page. A problem with this is that the sessions are being run under the url /quiz/sessionb\_name. This means that submitting a GET or POST form will not work as the url cannot be specified, as the user enters the session key. A solution was to have an input field that took the session key and then used JavaScript to redirect to that session. An alternative solution would be to use a form that redirected to a controller action that then itself redirected to the correct session page. Whilst this method would work, having multiple redirections in one request is not good practice or nice for the users browser.
 
@@ -64,7 +72,14 @@ This iteration and the last have both operated underneath the umbrella of the on
 
 \subsection{Non-Story Work}
 \subsubsection{User Page}
-A large amount of work was done on the user pages, this was to ensure that admin could view and edit their details including changing their session keys. This work was rather simple and just involved creating the user blade pages, adding the various functions to the controller and model and adding a little bit of functionality to the authentication actions for registering a new user.
+A large amount of work was done on the user pages, this was to ensure that admin could view and edit their details including changing their session keys. This work was rather simple and just involved creating the user blade pages, adding the various functions to the controller and model and adding a little bit of functionality to the authentication actions for registering a new user. Very similar work took several hours when the initial quiz pages were created, however with the experience from that work this only took an hour. Figure \ref{fig:iter-5-users-use-case}
+
+\begin{figure}
+	\caption{Use case for the users page}
+	\centerline{\includegraphics{Chapter2/Iter-5/iter-5-users-use-case}}
+	\label{fig:iter-5-users-use-case}
+\end{figure}
+
 \subsubsection{JavaScript Clean Up}
 A lot of JavaScript that was being rendered on the page is not used and useless to the project, in fact the libraries are quite large and take up a significant amount of space. Removing these unused libraries, VueJs being the largest, frees up the JavaScript output file considerably, which will increase load times significantly.
 \newpage

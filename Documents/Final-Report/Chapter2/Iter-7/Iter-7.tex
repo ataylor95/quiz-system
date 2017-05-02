@@ -6,7 +6,7 @@
 	\item Media query for welcome page
 \end{itemize}
 \subsubsection{Design}
-A quiz page should look like the design specified in iteration 4. TODO: ref the image maybe?
+A quiz page should look like the design specified in iteration 4  (\ref{fig:iter-4-use-case}).
 \subsubsection{Implementation}
 Finding the media query sizes was simple, Bootstrap recommends some default sizes for phones, tablets etc. (TODO: cite this https://getbootstrap.com/css/\#grid-media-queries ) It was then a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
 \subsubsection{Testing}
@@ -36,7 +36,14 @@ There are some disadvantages to this however. The main issues is that slide anim
 	\item Show the slides on the Quiz.show page
 \end{itemize}
 \subsubsection{Design}
-TODO
+See \ref{fig:iter-7-use-case}
+
+\begin{figure}
+	\caption{Use case for quiz creation featuring moving questions and the add slides function. See Iteration 2 for more detailed use case diagram of the rest of the backend.}
+	\centerline{\includegraphics{Chapter2/Iter-7/iter-7-use-case}}
+	\label{fig:iter-7-use-case}
+\end{figure}
+
 \subsubsection{Implementation}
 To upload the slides, it was done with a standard HTML file input but the backend used techniques native to Laravel: (TODO cite: https://laracasts.com/series/whats-new-in-laravel-5-3/episodes/12). These images are then saved in the /storage/app/public/slides folder. Within this, they are organised into folders named after the session id and then quiz id within those.
 
@@ -55,7 +62,8 @@ The last task involved showing the slides and questions on the Quiz.show page. S
 	\item Add some limits to positioning like not going below 1
 \end{itemize}
 \subsubsection{Design}
-As a minor change to the system, no major design choices were made here. Simple Bootstrap icons can be used for the position changing arrows, which is the only front end change. 
+As a minor change to the system, no major design choices were made here. Simple Bootstrap icons can be used for the position changing arrows, which is the only front end change.
+See \ref{fig:iter-7-use-case} 
 \subsubsection{Implementation}
 Main functionality to add was the changing of positions. This was rather simple, adding a simple Route and buttons that triggered the actions associated with the new route. It was decided that the Route would be a POST request rather than GET as technically it is submitting some data, the direction and id of the question. The action it calls simply updates the position in the database after doing some checks of the position it wants to move to. If it is already occupied, it swaps the object at the new position with its current position. This object could be a question or slide.   
 \subsubsection{Testing}
