@@ -8,7 +8,7 @@
 \subsubsection{Design}
 A quiz page should look like the design specified in iteration 4  (\ref{fig:iter-4-use-case}).
 \subsubsection{Implementation}
-Finding the media query sizes was simple, Bootstrap recommends some default sizes for phones, tablets etc. (TODO: cite this https://getbootstrap.com/css/\#grid-media-queries ) It was then a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
+Finding the media query sizes was simple, Bootstrap recommends some default sizes for phones, tablets etc\cite{bootstrap-media-queries}. It was then a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
 \subsubsection{Testing}
 This is not really possible to test with automated testing, but should be easy to test with users later in the project. Additionally once live the system could be tested with the Google Responsive Test site that gives a score for the usability of a site in mobile view.
 \newpage
@@ -45,9 +45,9 @@ See \ref{fig:iter-7-use-case}
 \end{figure}
 
 \subsubsection{Implementation}
-To upload the slides, it was done with a standard HTML file input but the backend used techniques native to Laravel: (TODO cite: https://laracasts.com/series/whats-new-in-laravel-5-3/episodes/12). These images are then saved in the /storage/app/public/slides folder. Within this, they are organised into folders named after the session id and then quiz id within those.
+To upload the slides, it was done with a standard HTML file input but the backend used techniques native to Laravel\cite{laravel-saving-files}. These images are then saved in the /storage/app/public/slides folder. Within this, they are organised into folders named after the session id and then quiz id within those.
 
-These slides are then converted using a library that uses Imagick - (TODO: cite this https://github.com/spatie/pdf-to-image). Whilst saving them, references are also saved to the database. This is so that the images can be referenced quickly later on when displaying an slide or question as database reading is quick. For this functionality, a new table for slides was added to the system, storing the file name, quiz it was associated with and a position. 
+These slides are then converted using a library that uses Imagick\cite{spatie-pdf-converter}. Whilst saving them, references are also saved to the database. This is so that the images can be referenced quickly later on when displaying an slide or question as database reading is quick. For this functionality, a new table for slides was added to the system, storing the file name, quiz it was associated with and a position. 
 
 The last task involved showing the slides and questions on the Quiz.show page. Seeing as the new story involved reordering them, simply rendering the slides after the questions would not do, it should render them in order of the position. The main problem is that there is no simple SQL query that can select two sets of results and then order them by a common column. The easier solution was to create a PHP function to create an array of all the items in the order wanted. (TODO: Cite this function in appendix, should I explain here or in the appendix?)
 \subsubsection{Testing}
