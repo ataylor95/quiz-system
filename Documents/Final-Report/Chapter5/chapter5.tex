@@ -8,15 +8,22 @@
    \item If you were starting again, what would you do differently?
 \end{itemize}
 \section{Story/ requirements comparison}
-For a list of the final stories see appendix TODO.
+For the final list of stories see appendix \ref{appendix:final-stories}. When looking at the final application and the final stories, they can all be argued as being completed with the exception of stories 7, 9 and 12. 
+
+Concerning story 7, whilst technically the application only supports up to a hundred users simulataneously, this is not throttled by the application. But instead is due to the WebSockets provider Pusher, which for free use is limited at a hundred users. If the system were to go live, then this would be replaced by using an in house Redis server, or by paying Pusher for more slots. These would be able to meet this upper capacity and therefore meet the story. For story 9, a percentage of answers was decided to be too hard to do without relying too much on the WebSocket server being used, which as mentioned above could be changed therefore a simpler solution was added, just giving the number of answers submitted. This number would give a rough estimate of the percentage, as if the lecturer knew the class size, they could compare it to the number answered. It was important to not rely on Pusher and instead offer an alternative solution that did not quite meet the story.
+
+As for the final story that was not completed, 12, the downloading of stories was done in the last iteration. It was decided that the reuploading of these to view on the application would have taken too long given how much other work was yet to be completed. Additionally, due to the download being a csv rather than the other potential format (XML), if the lecturer wished to view the results in a more graphical view, their preffered spreadsheet can easily be used to create graphs of the data. Whilst this is more work for the lecturer, it seemed like a minor issue and one worth causing if it meant more time for writing the report.
+
+Of course, there were significant difference between the initial list of stories, \ref{appendix:initial-stories}, and the final list. A couple of new ones were added, such as number 14 and 15 on the final list. However, all the stories for part two were changed. The reasons for these changes have already been explained but it is obviously different from the initial set of stories. However, the redesign and production of new stories fills the same functionality as originally specified and therefore it can be argued that the original specifications are still met.
+
 \section{Methodology}
-Got rid a couple of practices,
-Liked adaptability,
-Liked stories,
-Like iterations,
-Part 2 changes,
-Overall happy with that,
-desgn stuff
+I am very happy with the the methodology used. XP's main strength is its adaptability and the first thing to do was adapt a set its practices to fit the needs of the project. This was very beneficial as some practices were not relevant and would have not worked or even hindered the development. As development progressed, some of the practices had to be further adapted, such as dropping test driven development, allowing even more flexibility to the way I worked.
+
+I particularly liked working to stories and in iterations. The iterations allowed small bits of working functionality to be written on a weekly basis. They were particularly useful in that they enforced small bits of design, implementation and testing each week, meaning there was a good mix of things to do. But most importantly, the iterations helped adapt to change. The best example is the part two redesign, which was originally planned to include a lot of work, two or three iterations worth, but instead came down to less than a full iteration of work. The iteration also included the creation of a review document at the end. This was used to evaluate the work done and the methodology itself, such as deciding that TDD should be dropped.
+
+There were some problems though, the design and testing sections sometimes suffered within the iterations. This was because I was more interesting in getting the implementation done. Its not to say that design and testing didn't happen when they were supposed to, its just that occasionally it had to be done the following iteration.
+
+Another major problem is that due to a lack of overall design at the start, as encouraged by the use of XP, there was some redesigning and reimplementation happening throughout. This effectively meant that some of the work could have been avoided if it had been designed from the ground up. An upfront design might also have led to an overall better design, rather than what sometimes feels like lots of small bits of functionality tied together. On the flip side though, it might have caused there to be too much work, seeing as without the iterations part two might have been designed in a way similar to the original proposals.
 \section{Tools and technologies}
 Laravel, Dusk, Websockets, Javascripty stuff, Chrome? Editor? --Better tools? Diary, Trello, Git
 \section{User testing evaluation}
