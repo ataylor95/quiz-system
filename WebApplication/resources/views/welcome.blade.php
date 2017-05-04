@@ -12,6 +12,7 @@
             <div class="form-group session-input">
                 <label for="session_key">Session Key:</label>
                 <input name="session_key" id="session_key"></input>
+                <p>Please note that it is case sensitive</p>
             </div>
 
             <div class="form-group">
