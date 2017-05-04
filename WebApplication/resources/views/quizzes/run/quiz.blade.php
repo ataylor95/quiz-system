@@ -119,7 +119,6 @@
          * @param JSON response from websockets
          */
         function renderSlide(response) {
-            console.log(response);
             $.ajax({
                 url: "{{route('slide')}}",
                 data: {

@@ -56,7 +56,7 @@ class Session extends Model
     public static function isASessionKey($key)
     {
         $record = Session::where('session_key', $key)->get();
-        return (sizeof($record) > 0);
+        return ($record[0]->session_key == $key);
     }
 
     /**
