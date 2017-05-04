@@ -1,6 +1,6 @@
 \subsection{Story: Admins can login to the website and run a session with a quiz}
-\subsubsection{Analysis - Breakdown of Tasks}
-This story is quite large and whilst it will probably be split into a number of tasks, the first thing to do was some spike work on the way this system would work. One route is with WebSockets, a relatively new technology that allows the server to push data to the page quickly and easily. This would be nice solution as it is relatively future proof and seems like a better alternative to other solutions that involve a lot of JavaScript and forcing page changes on the users.
+\subsubsection{Analysis - breakdown of tasks}
+This story is quite large and whilst it will probably be split into a number of tasks, the first thing to do was some spike work on the way this system would work. One route is with WebSockets, a relatively new technology that allows the server to push data to the page quickly and easily. This would be nice solution as it is relatively future proof and seems like a better alternative to other solutions that involve a lot of JavaScript and forcing page changes on the users. TODO: add https://developer.mozilla.org/en-US/docs/Web/API/WebSockets\_API
 \subsubsection{Design}
 WebSockets were introduced into Laravel 5 and have become one of the defacto ways to update the front end in real time. Unlike in some other web frameworks such as Ruby on Rails the web sockets in Laravel requires some extra set up. In Rails the WebSockets can be run on the main web server that is used to run the site\cite{rails-websockets}, in Laravel however another server has to be set up to run these. Laravel offers several different drivers for running the WebSockets, including a Redis server and a third party application called Pusher\cite{laravel-broadcasting}. Pusher handles most of the work for you and requires little set up other than creating a free account\cite{pusher-what-is}.
 \subsubsection{Implementation}
@@ -12,18 +12,19 @@ Or with a custom made artisan command that can trigger the event: php artisan qu
 
 Two online guides were used to help write this section of the system due to WebSockets being a new technology\cite{pusher-guide}\cite{echo-guide}. Though they were used to get the basic concepts working, the final code used within the project is tailored to the system and is therefore different overall.
 \subsubsection{Testing}
+There was no testing as it was spike work.
 \newpage
 
-\subsection{Non-Story Work}
-\subsubsection{Refactor Controllers}
+\subsection{Non-story work}
+\subsubsection{Refactor controllers}
 The first major piece of work was to refactor the controllers and models into a far more sensible structure. The problem was that the Eloquent functions for modifying and reading from the database was within the controllers. In a full MVC system, this functionality should be inside the models. To fix this, the Eloquent functions were refactored into the respective quiz and question models. This would make it easier if anything ever needed to change within the logic for any database interactions.
-\subsubsection{Changing the DB Structure}
+\subsubsection{Changing the DB structure}
 The original design was changed, and the quiz\_questions table for linking quizzes and questions together was removed. The original reason for this table was most likely such that questions could be reused. However, after thinking about the potential for that to happen, and the issues that the structure was causing in the model logic it was decided that the quiz\_question table was more of a hindrance than a help.
 
 The questions table now simply has a quiz\_id column that references the quiz it belongs to. Doing this means that the relationships between the two tables are much easier to define in the models, simply having a belongsTo and hasMany function in both that automatically return the necessary data. Thanks to the previous refactoring of model logic, changing this functionality was quite quick. Deleting rows in the database was also simpler now that there was no quiz\_questions table, all the related questions when a quiz is deleted can be deleted at the same time using the onDelete cascade property in the database.
-\subsubsection{Front-End Setup}
+\subsubsection{Front-end setup}
 This was the first time that any custom CSS was written and Laravel uses sass to generate its css. To build this SASS into CSS, and also to build any future JavaScript, Laravel Mix was needed to run builds for this code. For this, npm and node had to be installed so that they could run their Webpack build scripts. There were some issues trying to get the build scripts to run, even though it worked on fresh installs of Laravel, but eventually a Github issue was discovered that had some solutions.
-https://github.com/JeffreyWay/laravel-mix/issues/478
-\subsubsection{Dusk and Travis}
+TODO https://github.com/JeffreyWay/laravel-mix/issues/478
+\subsubsection{Dusk and travis}
 The aim was to try and set up Laravel Dusk on Travis. Dusk can use a few different browser drivers for running the tests in, by default this is Chrome but Travis comes preconfigured with PhantomJS which is also supported by Dusk. It should be a simple swap in drivers and then to set Travis to run a PhantomJS server. Unfortunately this does not seem to work, and no reason can be found. A supposedly working copy was even cloned and that does not work for me therefore I have to conclude it is currently not working.
 \newpage

@@ -1,5 +1,5 @@
 \subsection{Story: Admins can log into the website and run a session with a quiz}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 After doing some spike work last week, this task can now be approached and broken into several sub tasks:
 \begin{itemize}
 	\item Set up config for Pusher
@@ -33,14 +33,12 @@ Mockups of the student end of the system:
 		\label{fig:quiz-mobile}
 	\end{figure}
 
-
 Use case of the new system \ref{fig:iter-4-use-case}
 \begin{figure}
 	\caption{Use case diagram with the quiz control functionality. Omitted backend extends and includes to make more readable. See previous iterations for more complete backend use case.}
 	\centerline{\includegraphics{Chapter2/Iter-4/iter-4-use-case}}
 	\label{fig:iter-4-use-case}
 \end{figure}
-
 
 \subsubsection{Implementation}
 It began by configuring pusher, creating an event and writing some basic JavaScript to append to the front page. Some work was done on the admin panel as well, making it only visible to logged in users (the lecturer running the quiz), and adding the functionality for previous and next question buttons. These are buttons that send AJAX requests to quiz controller actions which then trigger the event for WebSockets with the appropriate question data.

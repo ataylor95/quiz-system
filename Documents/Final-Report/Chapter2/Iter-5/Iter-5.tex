@@ -1,5 +1,5 @@
 \subsection{Story: Admins can login to the backend and run a session with a quiz}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 Tasks left over from the previous week:
 \begin{itemize}
 	\item Form on front page redirects to quiz
@@ -59,7 +59,7 @@ Multiple sessions running simultaneously
 \end{itemize}
 \newpage
 
-\subsection{Stories Completed}
+\subsection{Stories completed}
 This iteration and the last have both operated underneath the umbrella of the one story. This is not necessarily accurate as the work that has been completed with this one story covers a multitude of stories. The reason they weren't split up is slightly unclear but part of the reason is the severe overlap between them and some of them being more like functional requirements than areas of work to do. The stories that are now complete:
 \begin{itemize}
 	\item Multiple different sessions can be run simultaneously
@@ -70,8 +70,8 @@ This iteration and the last have both operated underneath the umbrella of the on
 \end{itemize}
 \newpage
 
-\subsection{Non-Story Work}
-\subsubsection{User Page}
+\subsection{Non-story work}
+\subsubsection{User page}
 A large amount of work was done on the user pages, this was to ensure that admin could view and edit their details including changing their session keys. This work was rather simple and just involved creating the user blade pages, adding the various functions to the controller and model and adding a little bit of functionality to the authentication actions for registering a new user. Very similar work took several hours when the initial quiz pages were created, however with the experience from that work this only took an hour. Figure \ref{fig:iter-5-users-use-case}
 
 \begin{figure}
@@ -80,6 +80,6 @@ A large amount of work was done on the user pages, this was to ensure that admin
 	\label{fig:iter-5-users-use-case}
 \end{figure}
 
-\subsubsection{JavaScript Clean Up}
+\subsubsection{JavaScript clean up}
 A lot of JavaScript that was being rendered on the page is not used and useless to the project, in fact the libraries are quite large and take up a significant amount of space. Removing these unused libraries, VueJs being the largest, frees up the JavaScript output file considerably, which will increase load times significantly.
 \newpage

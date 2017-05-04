@@ -5,7 +5,7 @@ A lot of report work was completed this last week. This primarily focussed on tr
 Five tests were written to test the security of the system. These tested SQL Injection and Cross Site Scripting (XSS) across the site. Whilst Laravel is supposed to handle much of this it should still be tested to ensure the security of the system. There are only two main places that these attacks can take place, the session search field on the front page of the application, and the question and quiz creation pages in the admin area. The tests proved that Laravel does indeed stop XSS and SQL injection by escaping the inputs. For further information see section 4.3.
 
 \subsection{Server setup}
-There was some time spent on setting up the server for use in the user tests in the final iteration, the server was provided by the Department of Computer Science. The setup included moving the project onto the server via Git, setting up the MySQL server, and making the site visible to the internet with an htaccess.
+There was some time spent on setting up the server for use in the user tests in the final iteration, the server was provided by the Department of Computer Science. The setup included moving the project onto the server via Git, setting up the MySQL server, and making the site visible to the internet with an htaccess. With this task, help was obtained from two fellow students Stephen James and Max Atkins, and also from the Computer Officer in IMPACS, Alun Jones. This was due to having little knowledge in the area of server setup.
 \newpage
 
 \subsection{Bug fixing}

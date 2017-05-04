@@ -1,10 +1,10 @@
 \subsection{Story: They can create a new quiz in the backend}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Need quiz/new form to add name
 	\item Add validation
-	\item This then redirects to quiz.show for this new quiz
-	\item This page needs a button that can add a question
+	\item Redirect to quiz.show for new quiz
+	\item Add a button for adding a question
 \end{itemize}
 \subsubsection{Design}
 The design is split into two parts, design for the quiz/new page and a design for the question/new page:
@@ -41,7 +41,7 @@ After attempting to use the transactions it appears as though they are not usabl
 \newpage
 
 \subsection{Story: They can edit an existing quiz they own}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item There is an edit button on quizzes that links to quiz/edit
 	\item You can edit the name of the quiz
@@ -73,11 +73,11 @@ Dusk Tests:
 \end{enumerate}
 \newpage
 
-\subsection{Non-Story Work}
+\subsection{Non-story work}
 \subsubsection{Seeding}
 Some more data needed to be seeded for this subsection of work, the question data. This involved creating some new Model Factories and using them in the seeders correctly. One issue was trying to create many questions for individual quizzes, but this was overcome using some very basic looping and calling the model factories in the right places.
-\subsubsection{Quiz Description}
+\subsubsection{Quiz description}
 It was decided that quizzes should probably have descriptions attached to them, in case the lecturer needs reminding of what it is in 6 months time. This involved creating a new migration and simply adding a column to the table.
-\subsubsection{Travis Setup}
+\subsubsection{Travis setup}
 Travis is a CI tool that can be used to run tests automatically on git pushes. Setting it up involved doing some spike work with another git project. It is really easy to set up, needing you to simply add a travis.yml file which specifies what Travis will do after a push. The project also has to be added from Github which is simple.
 \newpage

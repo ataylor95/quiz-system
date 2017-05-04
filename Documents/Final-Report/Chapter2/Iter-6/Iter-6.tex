@@ -1,5 +1,5 @@
 \subsection{Story: The Admin can show the results of the question in a sensible format e.g. graph}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Save the data
 	\item Ensure no users submit twice
@@ -36,11 +36,11 @@ For users submitting tests:
 	\item multiple students answering different answers
 \end{itemize}
 
-Testing appears to be quite hard for showing the results as the results box is rendered using an iframe and canvas HTML tags. It seems that anything within these cannot be seen by the assertions within Laravel Dusk and therefore cannot be reliably tested. A single test was written to check whether or not the iframe was made visible when the results button was clicked.
+For the second task, testing the showing of results is relatively hard as the results box is rendered using an iframe and canvas HTML tags. It seems that anything within these cannot be seen by the assertions within Laravel Dusk and therefore cannot be reliably tested. A single test was written to check whether or not the iframe was made visible when the results button was clicked.
 \newpage
 
 \subsection{Story: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizom}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 Very few tasks as will be explained in the design subsection:
 \begin{itemize}
 	\item Add check for empty arrays on frontend
@@ -53,7 +53,7 @@ This is hard to test, as Dusk does not allow the changing of HTML on the page or
 \newpage
 
 \subsection{Story: The Admin can see what percentage of users connected to the session have answered}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Get total number of responses
 	\item Post this number on the page as part of the results form
@@ -63,5 +63,5 @@ This should appear above the results table, possibly as part of the title.
 \subsubsection{Implementation}
 After attempting to get a number of users connected to the channel it became clear that this number is not readily accessible for public channels. It can be obtained via the Pusher API but implementing that would mean locking some functionality down with Pusher and the long term plan is likely to involve changing to a Redis based WebSocket system. Therefore this number has just been changed to the total number of responses which should give a good idea to the lecturer of what percentage of users have responded. This was simply added to the title attribute of the chart.
 \subsubsection{Testing}
-Like with the above stories this iteration, this cannot be tested because this information is contained within the canvas that cannot be seen in Dusk tests.
+Like with the above stories this iteration, this cannot be tested because this information is contained within the iframe that cannot be seen in Dusk tests.
 \newpage

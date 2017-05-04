@@ -1,5 +1,5 @@
 \subsection{Story: Admins can create quizzes via the website}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 This story is quite large and should be broken down into several substories:
 \begin{itemize}
 	\item (3) Admins can log into a backend
@@ -7,11 +7,10 @@ This story is quite large and should be broken down into several substories:
 	\item (5) They can create a new quiz in the backend
 	\item (3) They can edit an existing quiz they own
 \end{itemize}
-These have been added to the story list document.
 \newpage
 
 \subsection{Story: Admins can log into the backend}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Create users table
 	\item Add login page
@@ -38,7 +37,7 @@ Because the login and auth is handled by Laravel by default, testing it was deem
 \newpage
 
 \subsection{Story: They are presented a list of their quizzes}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Make the homepage the QuizController rather than the HomeController
 	\item Check and get the user who is logged in
@@ -67,13 +66,13 @@ These tests highlighted a problem with the testing framework however. Chrome is 
 Potential future tests: Use sessions have two users log in and see/ not see the relevant quizzes.
 \newpage
 
-\subsection{Non-Story Work}
-\subsubsection{Database Work}
+\subsection{Non-story work}
+\subsubsection{Database work}
 Some initial work that is needed for almost all the stories is having a working database set up to store the users, quizzes, questions etc. Seeing as the amount of work to setup all the tables and their relationships would not take long, it was decided that this could be done all at once at the start of the iteration.
 
 While creating these tables it was possible to create the controllers needed within the application at the same time using: \textit{php artisan make:model *name* -mc } 
-\subsubsection{Seed Data}
+\subsubsection{Seed data}
 Because of the amount of changes to the database that were being made, the tables were repeatedly wiped and seeding some data was needed. To do this some seeders were generated with \textit{php artisan make: seed *name*}. These were created under database/seeds/ and simply required creating new objects of the desired Model and adding the various fields as parameters of the objects. These objects are then saved to the database. These seeders can be run when a migration is called such that the data is replaced as soon as its lost.
-\subsubsection{Layout Changes}
+\subsubsection{Layout changes}
 The initial \textit{make:auth} command created a default home page with a menu bar and some basic styling. This styling was created with Bootstrap and looks quite nice so the basic styling has been kept. This layout was modified somewhat to add some menu options that persist across pages. This layout is then used by all the backend pages created by extending it.
 \newpage

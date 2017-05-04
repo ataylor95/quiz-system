@@ -1,5 +1,5 @@
 \subsection{Story: Site should be mobile responsive}
-\subsubsection{Analysis - Breakdown of Tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Create standard media query sizes
 	\item Create media query for quiz questions
@@ -13,7 +13,7 @@ Finding the media query sizes was simple, Bootstrap recommends some default size
 This is not really possible to test with automated testing, but should be easy to test with users later in the project. Additionally once live the system could be tested with the Google Responsive Test site that gives a score for the usability of a site in mobile view.
 \newpage
 
-\subsection{Part Two Re-Design}
+\subsection{Part two re-design}
 Originally planned to be an extension to Microsoft PowerPoint or a similar technology, such as Libre Office, this was determined to be a large amount of work (TODO: cite this). This meant an alternative solution had to be devised or some extra requirements had to be added to the system. An alternative solution was found rather than abandon the idea of having slides within the quizzes. Slideshow programs usually have the ability to render their slides as PDF, a format which is more heavily supported compared to a propriety format such as .pptx provided by Microsoft. If a PDF is uploaded to the application, PHP can be used to turn these PDF slides into images, which can then be rendered on the quiz pages.
 
 This new approach means some changes to the original stories for the second part, here are the revised stories for this part:
@@ -28,7 +28,7 @@ There are some disadvantages to this however. The main issues is that slide anim
 \newpage
 
 \subsection{Story: The admin can upload these slides to a quiz they have created in the past}
-\subsubsection{Analysis - Breakdown of tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Upload pdf slides
 	\item Convert these slides to images
@@ -51,10 +51,11 @@ These slides are then converted using a library that uses Imagick\cite{spatie-pd
 
 The last task involved showing the slides and questions on the Quiz.show page. Seeing as the new story involved reordering them, simply rendering the slides after the questions would not do, it should render them in order of the position. The main problem is that there is no simple SQL query that can select two sets of results and then order them by a common column. The easier solution was to create a PHP function to create an array of all the items in the order wanted. (TODO: Cite this function in appendix, should I explain here or in the appendix?)
 \subsubsection{Testing}
+TODO
 \newpage
 
 \subsection{Story: The admin can reorder the questions within the quiz to move them around the slides}
-\subsubsection{Analysis - Breakdown of tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Add buttons to reorder questions
 	\item This button increases or decreases position of question
@@ -67,10 +68,11 @@ See \ref{fig:iter-7-use-case}
 \subsubsection{Implementation}
 Main functionality to add was the changing of positions. This was rather simple, adding a simple Route and buttons that triggered the actions associated with the new route. It was decided that the Route would be a POST request rather than GET as technically it is submitting some data, the direction and id of the question. The action it calls simply updates the position in the database after doing some checks of the position it wants to move to. If it is already occupied, it swaps the object at the new position with its current position. This object could be a question or slide.   
 \subsubsection{Testing}
+TODO
 \newpage
 
 \subsection{Story: When the quiz is run, it should render the slides as well as question in the order specified}
-\subsubsection{Analysis - Breakdown of tasks}
+\subsubsection{Analysis - breakdown of tasks}
 \begin{itemize}
 	\item Find the position in the database and decide whether its a slide or question
 	\item Render a question like normal
@@ -83,6 +85,7 @@ This should work in much the same way as the questions, in that it will send an 
 \subsubsection{Implementation}
 The first task is to determine what is at the position, this involved changing the current function to check if the question at the requested position was null, if it was then it should find a slide at the specified position. As well as the data about the slide or question, it would return a type so that when it was called the system knew what type of content it was to expect. The data was then sent to the WebSockets and another case was added to the JavaScript receiving end for triggering an AJAX call to a slide page. This page would render a simple img tag with the slide specified which is then added to the current page like the questions.
 
-A problem with rendering the images was the files stored within the /storage folder are not publicly accessible, usually only files within the /public folder are. However, there is a simple artisan command to create a symlink from the public folder that points to the storage/app/public folder. TODO add command: php artisan storage:link
+A problem with rendering the images was the files stored within the /storage folder are not publicly accessible, usually only files within the /public folder are. However, there is a simple artisan command, \textit{php artisan storage:link}, that creates a symbolic link from the public folder to the storage/app/public folder. This means that the images can be accessed via /storage when specifying the image path.
 \subsubsection{Testing}
+TODO
 \newpage
