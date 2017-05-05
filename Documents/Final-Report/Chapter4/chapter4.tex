@@ -49,14 +49,16 @@ For SQL injection attacks, the easiest way to check that this data has not been 
 The tests prove that the system works as intended and these two attack types are not possible. Cross site request forgery attacks are another form of attack but harder to test as they rely on the browsers weaknesses and come from another website. Dusk cannot simulate this sort of environment. However, for forms to be submitted within the system a CSRF token has to be submitted with the form. This token is compared to the user session to ensure they are the ones submitting this data, not a third party site. Laravel forces forms to contain this token, ensuring this attack cannot take place. 
 
 \section{User testing}
-TODO
+At the end of development, the system was tested in a first year workshop, where they were asked to give some feedback about the module. Feedback asked about their experience answering questions, viewing the graphs on the lecturers screen and the general user interface. The quiz was made by the lecturer beforehand rather than the developer, allowing some feedback from both a lecturer and the students. Feedback from students was split between those using mobile devices and desktops, with a larger number using desktops and only two responses for mobile. The feedback from desktops was very positive, with all the responses rating four or five out of five. There were a number of comments that indicated a problem was lack of feedback when an answer was submitted, which would be an easy task for any further work.
+
+As for mobile, due to the lack of responses it is hard to tell what users thought, however, the two responses were split on their experiences. The first response indicated a somewhat positive experience, with a final rating of three out of five. The other response was much more negative, with a final rating of one. In the bug feedback it was stated that the quiz boxes were out of position and the wrong sizes. They also stated that they were using the default Samsung browser, which is not a browser that was tested on beforehand. Without knowing what the positive response was using, it is hard to tell if this is restricted to the Samsung browser. Mobile testing did use Chrome for Android which may be why this was missed as it appears like they behave differently.
+
+TODO: lecturers results
+
+For a more detailed breakdown of results, see appendix \ref{appendix:user-results}.
 
 \section{Stress testing}
-Though there are a number of tools out there to do exactly that, there was no time to set up and any official stress testing. However, the user tests within the lecture helped a give a good idea of the stress the system could take. Like many sites though, the application was mostly restricted by its server setup rather than by its design. (TODO: prove after user testing)
+Though there are a number of tools out there to do exactly that, there was no time to set up and any official stress testing. However, the user tests within the lecture helped a give a good idea of the stress the system could take. It was able to support about twenty students connecting and answering questions without any issues. While the system is supposed to be up to 300, this is the best indicator at this point, and there were no problems.
 
 \section{Automated testing}
 Whilst CI was abandoned early on into the development of the application, the Dusk tests are easy to run and automatically execute within a browser if the appropriate browser drivers are available. This means that it should not be too hard to integrate these tests into a CI tool if required in any future development.
-
-
-TODO: Stuff to talk about:
-comprehensiveness of testing incl potential of using bdd and cucumber in future
