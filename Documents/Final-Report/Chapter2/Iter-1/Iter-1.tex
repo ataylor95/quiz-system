@@ -62,8 +62,6 @@ Dusk tests for this story:
 	\item Test to see if a quiz that belongs to another user is not present on your page whilst your own is
 \end{enumerate}
 These tests highlighted a problem with the testing framework however. Chrome is used as the Remote Web Driver for running these application tests in. For each test a new migration is made within the test database, thereby wiping the data created within each test. An unintended side effect however is that every new user created starts at id=1 in the users table (a user has to be created for all these tests.) The Chrome driver seems to remember that the user of id=1 logged in, in the previous test and therefore skips the auth step. This means the test order is messed up due to the test trying to log in even though it is already logged in. The solution to this is to create each new user in the next id record, whilst this is somewhat convoluted, it seems to work.
-
-Potential future tests: Use sessions have two users log in and see/ not see the relevant quizzes.
 \newpage
 
 \subsection{Non-story work}

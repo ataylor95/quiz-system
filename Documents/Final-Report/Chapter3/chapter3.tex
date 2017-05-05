@@ -3,7 +3,7 @@
 This chapter will give an overview of the final design of the system reached by iteration 10. It will not go into detail for individual parts of the system as these were covered in the iteration chapter but instead will offer a top level perspective of the system.
 
 \section{Overall architecture}
-The Laravel framework uses a Model-View-Controller design pattern to build applications. It works in the same way as a normal MVC application. Data is stored and manipulated within the models, controllers handle most of the interactions the user has with the system, and the views are the web pages presented to the users. Within Laravel, there is also a front controller, which is used to route incoming HTTP requests to the appropriate views and controllers\cite{Laravel-architechture}.
+The Laravel framework uses a Model-View-Controller design pattern\cite{mvc} to build applications. It works in the same way as a normal MVC application. Data is stored and manipulated within the models, controllers handle most of the interactions the user has with the system, and the views are the web pages presented to the users. Within Laravel, there is also a front controller, which is used to route incoming HTTP requests to the appropriate views and controllers\cite{Laravel-architechture}.
 
 There are two basic sections of the system, the student end, and the lecturer end. The lecturer end is an admin panel that they can login to, to create and manage their quizzes. The student end consists of the portal for connecting to a session, and the session pages themselves that display the slides and questions for users to answer.
 
