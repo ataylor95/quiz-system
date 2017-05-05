@@ -1,18 +1,15 @@
-\subsection{Review}
-\subsubsection{Completed Stories}
+\subsection{Review and restrospective}
+\subsubsection{Review}
 \begin{enumerate}
 	\item (5) Admins can create a new quiz in the backend
 	\item (3) They can edit an existing quiz they own
 \end{enumerate}
-The difficulties were about right, with the work taking about the expected amount. Some of the extra work here involved trying to set up Travis for continuous integration which could be used for running tests automatically was somewhat problematic but did not take up too much time.
-\subsubsection{Incomplete Stories}
-These stories were completed with the exception of some testing as described below.
+The difficulties were about right, with the work taking about the expected amount. Some of the extra work here involved trying to set up Travis for continuous integration which could be used for running tests automatically was somewhat problematic but did not take up too much time. These stories were almost fully completed with the exception of some testing as described below.
 
-\subsection{Retrospective}
-\subsubsection{What went well}
+\subsubsection{Retrospective}
 The documentation stage went much better this week, even with the added responsibility of finishing documentation from the week before.
-\subsubsection{What went badly}
-Testing took a hit this week, this is mainly due to the attempted use of test driven development. This practice was originally done to try and improve the code quality. However the nature of a web application and the use of a large framework is problematic for TDD. Trying to write tests for all the various parts of the web application is hard, and the framework also does a lot of work for you, so writing things like unit tests beforehand is hard. Application tests using Laravel Dusk are more appropriate but they test the story itself rather than underlying logic, which is less applicable to TDD. 
+
+Unfortunately, testing took a hit this week, this is mainly due to the attempted use of test driven development. This practice was originally done to try and improve the code quality. However the nature of a web application and the use of a large framework is problematic for TDD. Trying to write tests for all the various parts of the web application is hard, and the framework also does a lot of work for you, so writing things like unit tests beforehand is hard. Application tests using Laravel Dusk are more appropriate but they test the story itself rather than underlying logic, which is less applicable to TDD. 
 
 To mitigate the lack of tests written in future, TDD will be dropped due to the above reasons.
 \newpage
