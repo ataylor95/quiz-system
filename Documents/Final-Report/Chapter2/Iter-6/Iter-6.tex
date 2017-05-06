@@ -26,17 +26,9 @@ To read this data on the front end, an AJAX request was set up from an admin pan
 
 This JSON data could then be used in the ChartJS library which was selected to render the results bar chart on the page\cite{chartjs}. The ChartJS library allows the creation of an object that can be attached to an HTML canvas tag. Within this object, the options and variables that make it up can be specified using JSON. The JSON data is split into two arrays of equal length, one of the keys and one of the values, they are then passed to the chart object and the results are rendered as a bar chart. This chart is then deleted if it already exists and rendered when the results button is pressed. This means every time it is pressed, the most up to date results will be displayed. 
 \subsubsection{Testing}
-Two things were tested here, the first is that users can submit their answers and that they are saved correctly in the database. The second is the testing how the results are shown by an admin.
+Two areas were tested here, the first is that users can submit their answers and that they are saved correctly in the database, thus mostly involving normal unit testing on the database records rather than using Dusk. 
 
-For users submitting tests:
-\begin{itemize}
-	\item Test a student submitting a multiple choice answer
-	\item Test a user changing their answer and resubmitting
-	\item Test multiple users answering the same answer
-	\item multiple students answering different answers
-\end{itemize}
-
-For the second task, testing the showing of results is relatively hard as the results box is rendered using an iframe and canvas HTML tags. It seems that anything within these cannot be seen by the assertions within Laravel Dusk and therefore cannot be reliably tested. A single test was written to check whether or not the iframe was made visible when the results button was clicked.
+The second area is the testing of results being shown on the lecturers view. Testing this is relatively hard as the results box is rendered using an iframe and canvas HTML tags. It seems that anything within these cannot be seen by the assertions within Laravel Dusk and therefore cannot be reliably tested. A single test was written to check whether or not the iframe was made visible when the results button was clicked.
 \newpage
 
 \subsection{Story: Users should not be able to submit their own answers by altering the HTML, as they did with Qwizom}
@@ -49,7 +41,7 @@ Very few tasks as will be explained in the design subsection:
 \subsubsection{Implementation}
 Thanks to the design of the previous subsection, changing the data meant an empty key was sent if the user tried to change the data submitted to the server. This could be checked in either the JavaScript or PHP end, but it was decided both would be the best for maximum security. 
 \subsubsection{Testing}
-This is hard to test, as Dusk does not allow the changing of HTML on the page or the possibility to submit false data. Additionally, even if the data could be submitted the tests int he previous story indicate that the results cannot be read and therefore this story cannot be tested fully. User testing might be a good replacement for this.
+This is hard to test, as Dusk does not allow the changing of HTML on the page or the possibility to submit false data. Additionally, even if the data could be submitted the tests in the previous story indicate that the results cannot be read and therefore this story cannot be tested fully. User testing might be a good replacement for this.
 \newpage
 
 \subsection{Story: The Admin can see what percentage of users connected to the session have answered}

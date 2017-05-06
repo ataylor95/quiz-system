@@ -32,42 +32,7 @@ An interesting bug with multiple selection questions was that when the answers w
 The last part of development for this iteration involved adding some simple checks to the next and previous position functions to ensure they did not go below 0 or above the number of questions in the quiz.
 
 \subsubsection{Testing}
-A number of tests were written for this large part of the system split into three main areas, each with a number of tests:
-
-Admins running sessions:
-\begin{itemize}
-	\item Test that an admin can set a quiz running
-	\item Test that an can change the quiz running
-	\item Test the next and previous buttons work from the admins point of view
-	\item Test that a students view gets updated when the admin presses next and previous
-	\item Test the end quiz button
-\end{itemize}
-
-Students joining sessions
-\begin{itemize}
-	\item Test to see if a student sees the start of the quiz if they join at the start
-	\item Test to see if a student sees the correct content if they join midway through a quiz
-	\item Test a student joining a session not running
-	\item Test a student trying to join a session that does not exist
-	\item Test that a student cannot see the admin panel used by lecturers
-\end{itemize}
-
-Multiple sessions running simultaneously
-\begin{itemize}
-	\item Test that two admins can run two sessions and see their quiz
-	\item Test that two users join two different sessions and see the different quizzes
-\end{itemize}
-\newpage
-
-\subsection{Stories completed}
-This iteration and the last have both operated underneath the umbrella of the one story. This is not necessarily accurate as the work that has been completed with this one story covers a multitude of stories. The reason they weren't split up is slightly unclear but part of the reason is the severe overlap between them and some of them being more like functional requirements than areas of work to do. The stories that are now complete:
-\begin{itemize}
-	\item Multiple different sessions can be run simultaneously
-	\item The Admin specifies which question is being run by clicking next/prev question
-	\item Sessions can be joined by users via the website
-	\item Up to 300 users should be able to join and answer questions (this story is somewhat subjective, but in theory it should scale upwards with no issues)
-	\item Users answer the question being displayed by the quiz
-\end{itemize}
+A number of tests were written for this large part of the system split into three main areas: admins running quizzes, students joining quizzes, and multiple sessions being run simulataneously. Some of tests used Dusks ability to create two browsers and imitate two users of the system, this was used to check WebSocket functionality. TODO: explain problems here?
 \newpage
 
 \subsection{Non-story work}
