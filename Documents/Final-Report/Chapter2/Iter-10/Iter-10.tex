@@ -17,7 +17,7 @@ The action itself does not seem to fit onto any of the other controllers, and a 
 
 The csv format would be in the form of a single sheet with many rows. The first row would be the question, the second row the answers and the third the number of times the answer was chosen. These three rows would then repeat for each question, so a three question quiz would contain nine rows.
 \subsubsection{Implementation}
-Setting up the new route, button and controller was a quick task. Artisan (TODO have i mentioned artisan before?) was used to generate the new controller and then all that needed manually doing was adding a route to the web routing file and creating a new button on the admin panel to call this route.
+Setting up the new route, button and controller was a quick task. A new controller was generated, a new route added to the web routing file and a new button added to the admin panel to call this route.
 
 Installing the extension was done with Composer which installed it under the vendor/ folder. It was then added as a Facade\cite{laravel-facades} which allow the quick use and access to the functions it contained. The extension took an array of data and turned that into a spreadsheet of the type specified, in this case a csv. The array is looped over and each item in the array is a row in the sheet. If an item of the array is an arrays itself, then each item within these sub arrays would be a cell within the row. This means the sheet is built from an array of arrays. 
 
@@ -30,10 +30,10 @@ The problem here was that the answer text in the database is stored as "answer1"
 TODO
 \newpage
 
-\subsection{Extra implemenation based on feedback from admin user tester}
+\subsection{Extra implementation based on feedback from admin user tester}
 An admin user effectively tested the application whilst using the system to build a quiz that would be used in the user testing. During this, some feedback was received about the application which could be worked on to improve it in small ways.
 \subsubsection{Quiz control buttons should be greyed out}
-The next and previous buttons on the quiz were changed so that they should be greyed out if the quiz was at the start or end of the quiz. To disable them the "diabled" HTML attribute was added to the buttons. The position and total number of items in the quiz were passed to the page from the controller and could be used to determine whether or not the buttons should be disabled. For these to be disabled when the page loads, some embedded PHP was used to render the buttons with disabled if needed. When the quiz was running, JavaScript was used to add and remove the disabled attribute whenever next or previous was pressed.
+The next and previous buttons on the quiz were changed so that they should be greyed out if the quiz was at the start or end of the quiz. To disable them the "disabled" HTML attribute was added to the buttons. The position and total number of items in the quiz were passed to the page from the controller and could be used to determine whether or not the buttons should be disabled. For these to be disabled when the page loads, some embedded PHP was used to render the buttons with disabled if needed. When the quiz was running, JavaScript was used to add and remove the disabled attribute whenever next or previous was pressed.
 \subsubsection{Question creation true/ false changes}
 Some JavaScript was used to change the question creation and question edit pages. It was needed for true/ false questions which should be submitted with answer1 as 'True', and answer2 as 'False', with the other fields left blank. The other fields would be ignored when the question was rendered, but allowing them to be filled in could be confusing. So JavaScript was used to hide the other fields, fill the first two with 'True' and 'False', and disable the fields so they could not be edited. This was actually part of the original design for the question creator but was left due to more pressing tasks such as the running of quizzes.
 \subsubsection{Cancel button on question edit pages}
