@@ -63,7 +63,7 @@ TODO
 	\item Add some limits to positioning like not going below 1
 \end{itemize}
 \subsubsection{Design}
-As a minor change to the system, no major design choices were made here. Simple Bootstrap icons can be used for the position changing arrows, which is the only front end change.
+As a minor change to the system, no major design choices were made. Simple Bootstrap icons can be used for the position changing arrows, which is the only front end change.
 See \ref{fig:iter-7-use-case} 
 \subsubsection{Implementation}
 Main functionality to add was the changing of positions. This was rather simple, adding a simple Route and buttons that triggered the actions associated with the new route. It was decided that the Route would be a POST request rather than GET as technically it is submitting some data, the direction and id of the question. The action it calls simply updates the position in the database after doing some checks of the position it wants to move to. If it is already occupied, it swaps the object at the new position with its current position. This object could be a question or slide.   

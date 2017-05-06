@@ -41,7 +41,7 @@ Use case of the new system \ref{fig:iter-4-use-case}
 \end{figure}
 
 \subsubsection{Implementation}
-It began by configuring pusher, creating an event and writing some basic JavaScript to append to the front page. Some work was done on the admin panel as well, making it only visible to logged in users (the lecturer running the quiz), and adding the functionality for previous and next question buttons. These are buttons that send AJAX requests to quiz controller actions which then trigger the event for WebSockets with the appropriate question data.
+It began by configuring pusher, creating an event and writing some basic JavaScript to append to the front page. Work was also done on the admin panel, making it only visible to logged in users (the lecturer running the quiz), and adding the functionality for previous and next question buttons. These are buttons that send AJAX requests to quiz controller actions which then trigger the event for WebSockets with the appropriate question data.
 
 Early into the iteration a major flaw with using the WebSockets came up, whilst new content was easy to add to the page, if a new user joined the session late, they would see a blank page/ or the original content of the page that has not yet been removed with JavaScript. To remedy this, the current position in the quiz should be kept track of and the PHP on the page should load the question specified at that position. At the same time, the WebSockets will be running and updating the page from that point onwards in the session. It was decided the best place for keeping track was within the session table, which now has appropriate columns for the position, quiz and if it is running.
 
