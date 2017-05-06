@@ -54,7 +54,9 @@ Test that showcases Dusks ability to use multiple browsers that are needed to te
             'running' => true,
         ]);
         
-        $this->browse(function ($first, $second) use ($user1, $user2, $quiz1, $quiz2) {
+        $this->browse(function ($first, $second) use ($user1, $user2, 
+        	$quiz1, $quiz2) 
+        {
             $first->visit('/quiz/' . $user1->session->session_key)
                 ->assertSee($quiz1->name)
                 ->assertDontSee($quiz2->name);
