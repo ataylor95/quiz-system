@@ -1,5 +1,53 @@
 \chapter{Maintenance guide}
 \section{Installing and running}
+See the readme.md file in the accompanying submission folder.
+
 \section{Useful commands}
-\section{Layout and MVC}
+There are a number of artisan commands that are used to build the system and debug:
+\begin{itemize}
+	\item php artisan migrate - migrates the database, use migrate:refresh to rollback database and migrate. Add --seed option at the end to seed using the seeders.
+	\item php artisan make - used to create most components of the system, such as models and controllers. 
+	\item php artisan dusk - runs the dusk tests. Can also supply a file to run a subset of the tests
+	\item php artisan route:list - lists all the routes for the application, a good debugging tool
+	\item php artisan tinker - enters a custom console in which Eloquent commands can be executed to interact with the database. Might be easier to use this if you prefer an ORM to however you interact with the database. Example command: App\textbackslash Session::all();
+\end{itemize}
+It is recommended that you visit the official doc pages for more information\cite{laravel-docs} or the Laracasts guides\cite{laracasts}.
+
+For building CSS or JavaScript: 
+\begin{itemize}
+	\item npm run dev - builds the JS and CSS in development mode, unminified.
+	\item npm run production - builds the JS and CSS in production mode, minified into build files.
+	\item npm run watch - continously builds the JS and CSS in development mode, meaning whenever a file is changed and saved, it is rebuilt saving having to run dev repeatedly.
+\end{itemize}
+
+\section{Layout}
+The model files are located in \textbackslash app. The controllers in \textbackslash app\textbackslash Http\textbackslash Controllers. The views under \textbackslash resources\textbackslash views.
+
+CSS  and JS is in the \textbackslash resouces\textbackslash assets folder.
+
+The views are built in Blade, a templating language that combines PHP and HTML. The views use a number of base templates locates under \textbackslash layouts which are then extended by other view files. For example, the quiz.index page extends the layouts template, and adds the content with the blade @content tag.
+
+The database files are located under \textbackslash database. The migrations folder within this holds all the migrations that are used to create the database.
+
+The \textbackslash routes folder contains the web.php file which is the primary routing file used to determine all the routing in the application.
+
+The \textbackslash tests folder contains all the tests. Dusk tests are under Browser and Unit tests would be under Feature.
+
+The \textbackslash storage folder is used to store all the files that the system uses, namely the slides images and pdfs.
+
 \section{Major components}
+\subsection{Broadcasting and running quizzes}
+Most of the functionality for running a quiz is located within the QuizController. It controls the running of quizzes and also their creation. The other controllers concern themselves with their namesakes on the whole with few exceptions.
+
+The Event used to broadcast to the WebSockets is located under \textbackslash app\textbackslash Events. This Event is called whenever a quiz is started or next or prev is pressed. It broadcasts the relevant quiz information for the position in the quiz that it is moving to. This information is then received on the client end within the PusherJS code within the \textbackslash rousources\textbackslash views\textbackslash quizzes\textbackslash run\textbackslash quiz.blade.php file.
+
+Within this file, the JavaScript is used to update the content of the page by making an ajax call to the needed content and then replacing the pages content with this ajaxed content. Similarly the admin panel uses an ajax request to get the render the results and then renders them using a third party library.
+
+\subsubsection{Change WebSocket provider}
+A free alternative to Pusher is using Redis and Socket.IO servers. A guide for them can be found here\cite{broadcasting-socketio}. 
+
+\subsection{Creating quizzes}
+The quiz creation is mostly handled within the Quiz and Question controllers which display the relevant views and call the creation and update functions in the respective models. Changing question position is within the Question model.
+
+\subsection{Slide uploading}
+Adding slides is handled inside the SlideController, which uploads them to the storage folder and then uses a third party library to convert the uploaded PDF to images before adding them to the slides database table.
