@@ -67,6 +67,25 @@ Test that showcases Dusks ability to use multiple browsers that are needed to te
 \end{verbatim}
 \newpage
 
+\section{Multi selection saving}
+This is part of the function that saves answers to the database. It highlights the extra logic needed to deal with multiple selection answers:
+\begin{verbatim}
+        //If its an array, its a multi select question
+        if (is_array($answer)) {
+            foreach($answer as $a) {
+                if (strlen($answerToUse) == 0) {
+                    //If its the first item, we dont want a comma
+                    $answerToUse = $a;
+                } else {
+                    $answerToUse = $answerToUse . ', ' . $a;
+                }
+            }
+        } else {
+            $answerToUse = $answer;
+        }
+\end{verbatim}
+\newpage
+
 \section{CSV downloader}
 A rather large function that creates the CSV of results:
 \begin{verbatim}

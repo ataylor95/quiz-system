@@ -6,7 +6,7 @@ WebSockets were introduced into Laravel 5 and have become one of the defacto way
 \subsubsection{Implementation}
 Pusher was chosen due to its ease of use and due to its high recommendation rate within the Laravel community. A problem with Pusher is that due to it being a third party service, it is not free indefinitely (it has a number of users limitation). However you could host your own Redis server to mitigate this cost. This means that the system had to be designed in a way that the driver for WebSockets could be changed with ease.
 
-After configuring the spike work application to use Pusher, a simple Laravel Event was created to send a message to the Pusher. To test this event there were a couple methods implemented. The first was to simply register a route that triggers it when the page is visited. (TODO: show an example of an event call?)
+After configuring the spike work application to use Pusher, a simple Laravel Event was created to send a message to the Pusher. To test this event there were a couple methods implemented. The first was to simply register a route that triggers it when the page is visited.
  
 Or with a custom made artisan command that can trigger the event: php artisan quiz:send {message}. A command is very useful for testing the event as it can be used without building a button on the front end to trigger it.
 
