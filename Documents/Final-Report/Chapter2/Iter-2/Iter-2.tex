@@ -8,9 +8,9 @@
 \end{itemize}
 \subsubsection{Design}
 There are a number of function that lecturers will have in this story, see the use case in figure \ref{fig:quiz-create-use-case} for these.
-\begin{figure}
+\begin{figure}[H]
 	\caption{Use case diagram for the admin backend with create quiz functionality}
-	\centerline{\includegraphics{Chapter2/Iter-2/iter-2-use-case-create}}
+	\centerline{\includegraphics[scale=0.9]{Chapter2/Iter-2/iter-2-use-case-create}}
 	\label{fig:quiz-create-use-case}
 \end{figure}
 \subsubsection{Implementation}
@@ -39,12 +39,12 @@ After attempting to use the transactions it appears as though they are not usabl
 	\item A quiz can be deleted
 \end{itemize}
 \subsubsection{Design}
-There was not much design for this stage as it only adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data from the database. Additionally a delete button could be added for quizzes and questions. Figure \ref{fig:quiz-edit-use-case} for the use case that now includes editing and deleting quizzes and questions.
-\begin{figure}
+There was not much design for this stage as it only adds an edit page which should look the same as the create pages in the above story except that the input fields are pre-filled with data from the database. Additionally a delete button could be added for quizzes and questions. See figure \ref{fig:quiz-edit-use-case} for the use case that now includes editing and deleting quizzes and questions.
+\begin{sidewaysfigure}
 	\caption{Use case diagram for the admin backend with edit quiz functionality}
 	\centerline{\includegraphics{Chapter2/Iter-2/iter-2-use-case-edit}}
 	\label{fig:quiz-edit-use-case}
-\end{figure}
+\end{sidewaysfigure}
 \subsubsection{Implementation}
 Pre filling the edit page was done by getting the record in the database by the question id and setting the input fields to the content from the question being edited. The main difference between the creation stage was that the form had to use the HTTP PATCH method rather than POST. This PATCH method was automatically routed to the update function in the controller\cite{laravel-resource-controller}. Within this function, server side validation was added and Eloquent used to update the row in the database. It then redirects back to the individual quiz page.
 

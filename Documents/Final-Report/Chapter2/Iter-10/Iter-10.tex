@@ -26,7 +26,7 @@ Formatting the arrays was the primary task here. First all the questions from th
 The problem here was that the answer text in the database is stored as "answer1" rather than what the student actually clicked. This meant that these answers had to be changed, this was accomplished by using the answer value, like "answer1", as the key in the current question variable and adding this value to a new "keys" array. Another problem was the way multi selection questions were stored, such as "answer1, answer2". This meant adding another extra step to break the string into an array and replacing them with the actual answer values and recombining them into a single string, see appendix \ref{appendix:code} for the function.
 
 See figure \ref{fig:csv-example} for an example of a generated CSV.
-\begin{figure}
+\begin{figure}[H]
 	\caption{Example of a csv generated}
 	\centerline{\includegraphics{Chapter2/Iter-10/csv-example}}
 	\label{fig:csv-example}
