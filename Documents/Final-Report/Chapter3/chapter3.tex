@@ -7,7 +7,7 @@ The Laravel framework uses a Model-View-Controller design pattern\cite{mvc} to b
 
 There are two sections of the system, the student end, and the lecturer end. The lecturer end is an admin panel that they can login to, to create and manage their quizzes. The student end consists of the portal for connecting to a session, and the session pages themselves that display the slides and questions for users to answer.
 
-Students only have two bits of functionality available to  them, being able to join a quiz and then being able to answer questions. Lecturers however have more options on the site. On the admin backend they can create and edit new quizzes and questions, and add slides to the quizzes. They can also change their user details including their session key. The main operation they can perform is that they can run a quiz, this then takes them to the same view as the students, albeit with a small control panel for changing questions or slides, displaying the results of the quiz in real time and downloading the results. TODO: add final activity diagram, maybe a ui diagram too? See \ref{fig:final-backend-use-case} and \ref{fig:final-frontend-use-case}
+Students only have two bits of functionality available to  them, being able to join a quiz and then being able to answer questions. Lecturers however have more options on the site. On the admin backend they can create and edit new quizzes and questions, and add slides to the quizzes. They can also change their user details including their session key. The main operation they can perform is that they can run a quiz, this then takes them to the same view as the students, albeit with a small control panel for changing questions or slides, displaying the results of the quiz in real time and downloading the results. See \ref{fig:final-backend-use-case} and \ref{fig:final-frontend-use-case} and \ref{fig:overall-class-design} for the two use case diagrams and the overall class design.
 
 \begin{sidewaysfigure}
 	\caption{Use case for backend of system}
@@ -19,6 +19,12 @@ Students only have two bits of functionality available to  them, being able to j
 	\caption{Use case for frontend of system}
 	\centerline{\includegraphics{Chapter3/final-frontend-use-case}}
 	\label{fig:final-frontend-use-case}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+	\caption{Class design for final system}
+	\centerline{\includegraphics{Chapter3/overall-class-design}}
+	\label{fig:overall-class-design}
 \end{sidewaysfigure}
 
 \section{Database design}
@@ -36,9 +42,3 @@ The quizzes table contains information about the quizzes themselves, and are ass
 The sessions table stores the information about the runnable session, each user has one associated session row. Within this row, the session\_key is stored, which is the key that students would use to connect to a session. Additionally it stores information about the session when it is running, specifying if it is running, and what position it is at. This position references the positions specified in the questions and slides tables, though there is no actual foreign key relationship between them. 
 
 The final table, answers, stores all the responses from users to questions. It stores which question, the answer given and the user that submitted the answer. The user\_session is a cookie value rather than a user from the database.
-
-\begin{sidewaysfigure}
-	\caption{Class design for final system}
-	\centerline{\includegraphics{Chapter3/overall-class-design}}
-	\label{fig:overall-class-design}
-\end{sidewaysfigure}
