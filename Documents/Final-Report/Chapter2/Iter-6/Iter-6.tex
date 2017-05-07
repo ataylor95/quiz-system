@@ -3,7 +3,7 @@
 \begin{itemize}
 	\item Save the data
 	\item Ensure no users submit answers twice
-	\item Read from that data in the admin panel
+	\item Display that data in the admin panel
 	\item Prettify the results tab
 \end{itemize}
 \subsubsection{Design}
@@ -16,15 +16,15 @@ The new use case for the front end of the system: \ref{fig:iter-6-frontend-use-c
 \subsubsection{Implementation}
 There was significant work in this story, with the first item containing the majority of work. At first it was decided that a simple database could be used to store all the responses however it was soon realised that users could probably submit more than once if users were not associates responses. The best way to deal with users that do not login is to use the Laravel session cookie to identify them anonymously.
 
-To store all these responses in a database would require a lot of storage space. Rather than having say six rows for a question, each with six answers that just totals up the number of times an answer was selected, the user session identifier had to be stored with the answer given so it could be associated with specific students. This meant that now there would be a row per answer, equalling at worst case 300 rows per question. This was thought to be a bit drastic so an alternative was suggested: to use a CSV file with each row having the user and an answer, with each question being a separate csv file. These would be stored locally under a session folder in the public directory. These files would be created and destroyed during quiz cycle. This method would also be good for the downloading of answers from another story. 
+To store all these responses in a database would require a lot of storage space. Rather than having say six rows for a question, each with six answers that just totals up the number of times an answer was selected, the user session identifier had to be stored with the answer given so it could be associated with specific students. This meant that now there would be a row per answer, equalling at worst case 300 rows per question. This was thought to be a bit drastic so an alternative was suggested: to use a CSV file with each row having the user and an answer, with each question being a separate CSV file. These would be stored locally under a session folder in the public directory. These files would be created and destroyed during quiz cycle. This method would also be good for the downloading of answers from another story. 
 
 Ultimately, trying to write all this data to a csv proved too troublesome to do. If a user changed their answer then the entire CSV had to be copied with one line changed. Editing a single line is not possible with PHP. Therefore it was decided that going back to a database based method would be better, with the idea that at the end of a quiz, all the data would be deleted.
 
 An answers table was created that specified the session, question, user and the answer given. The first three of those were used in a unique composite key to prevent multiple answers from the same users on the same questions in the same session. The model was then written to save this data when data was POST'ed to the /results url. Other functions included those to delete the data when a quiz was ended and various DB association functions.
 
-To read this data on the front end, an AJAX request was set up from an admin panel button that GETs the same results url which calls an action to render the results data in a JSON format. The results are in a very basic format in a key-value pairs of answer, total number of selections.
+To read this data on the front end, an Ajax request was set up from a button on the admin panel that GETs the same results url. This calls an action to render the results data in a JSON format. The results are in a key-value format; the answer as the key, with the value as the total number of times it was selected.
 
-This JSON data could then be used in the ChartJS library which was selected to render the results bar chart on the page\cite{chartjs}. The ChartJS library allows the creation of an object that can be attached to an HTML canvas tag. Within this object, the options and variables that make it up can be specified using JSON. The JSON data is split into two arrays of equal length, one of the keys and one of the values, they are then passed to the chart object and the results are rendered as a bar chart. This chart is then deleted if it already exists and rendered when the results button is pressed. This means every time it is pressed, the most up to date results will be displayed. 
+This JSON data could then be used in the ChartJS library which was selected to render the results bar chart on the page\cite{chartjs}. ChartJS allows the creation of an object that can be attached to an HTML canvas tag. Within this object, the options and variables that make it up can be specified using JSON. The JSON data is split into two arrays of equal length, one of the keys and one of the values, they are then passed to the chart object and the results are rendered as a bar chart. This chart is then deleted if it already exists and rendered when the results button is pressed. This means every time it is pressed, the most up to date results will be displayed. 
 \subsubsection{Testing}
 Two areas were tested here, the first was concerned with users submitting their answers and that they were saved correctly in the database. Thus it mostly involved standard unit tests using database records rather than using Dusk. 
 
