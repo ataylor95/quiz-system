@@ -6,7 +6,7 @@
 	\item Media query for welcome page
 \end{itemize}
 \subsubsection{Design}
-A quiz page should look like the design specified in iteration 4  (\ref{fig:iter-4-use-case}).
+A quiz page should look like the design specified in iteration 4 (\ref{fig:iter-4-use-case}).
 \subsubsection{Implementation}
 For the media query sizes, Bootstrap recommends some default sizes for phones, tablets etc\cite{bootstrap-media-queries}. It was then a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
 \subsubsection{Testing}
@@ -51,7 +51,7 @@ These slides were then converted using a library that uses Imagick\cite{spatie-p
 
 The last task involved showing the slides and questions on the Quiz.show page. Seeing as the new story involved reordering them, merely rendering the slides after the questions would not do, it should render them in order of the position. The main problem is that there exists no simple SQL query that can select two sets of results and then order them by a common column. The easier solution was to create a PHP function to create an array of all the items in the order wanted, see appendix \ref{appendix:code} for the function.
 \subsubsection{Testing}
-TODO
+There does not appear to be the capacity to upload files in Dusk tests, making this impossible to test unfortunately.
 \newpage
 
 \subsection{Story: The admin can reorder the questions within the quiz to move them around the slides}
@@ -68,7 +68,7 @@ See \ref{fig:iter-7-use-case}
 \subsubsection{Implementation}
 Main functionality to add was the changing of positions. This involved adding a new route and buttons that triggered the actions associated with this new route. It was decided that the Route would be a POST request rather than GET as technically the button is submitting some data, the direction and id of the question. The action called updates the position in the database after doing some checks of the position it wants to move to. If the position is already occupied, the two objects positions are swapped. This object could be a question or slide.   
 \subsubsection{Testing}
-TODO
+Again as there are no slides it completely testable. However, it was possible to test that the questions positions changed when their positions were changed without any slides on the page. TODO
 \newpage
 
 \subsection{Story: When the quiz is run, it should render the slides as well as the questions in the order specified}
@@ -87,5 +87,5 @@ The first task was to determine what is at the position. This involved changing 
 
 A problem with rendering the images was the files stored within the /storage folder were not publicly accessible, usually only files within the /public folder are. However, there is an artisan command, \textit{php artisan storage:link}, that creates a symbolic link from the public folder to the storage/app/public folder. This meant that the images could be accessed via /storage/ when specifying the image path.
 \subsubsection{Testing}
-TODO
+Given that slides cannot be uploaded, testing for them is not really practical and would involve leaving some test data on the system permanently.
 \newpage
