@@ -6,17 +6,17 @@
 	\item Media query for welcome page
 \end{itemize}
 \subsubsection{Design}
-A quiz page should look like the design specified in iteration 4 (\ref{fig:iter-4-use-case}).
+A quiz page should look like the design specified in iteration 4, figures (\ref{fig:iter-4-use-case}).
 \subsubsection{Implementation}
-For the media query sizes, Bootstrap recommends some default sizes for phones, tablets etc\cite{bootstrap-media-queries}. It was then a simple task of using the Chrome developer tools to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
+For the media query sizes, Bootstrap recommends some default sizes for phones, tablets etc\cite{bootstrap-media-queries}. The Chrome developer tools were used to view the page in mobile view and change the various sizes of buttons and titles in the CSS editor to be more mobile friendly.
 \subsubsection{Testing}
 This was not really possible to test with Dusk or unit tests, but should be easy to test with users later in the project. Additionally once live the system could be tested using the Google Responsive Test that gives a score for the mobile usability.
 \newpage
 
 \subsection{Part two re-design}
-Part two involved streaming slides to students with embedded question and was originally planned to be an extension to Microsoft PowerPoint or a similar technology, such as Libre Office. However, after some further research this work was determined to be too large. This meant an alternative solution had to be devised or some extra requirements had to be added to the system. An alternative solution was found rather than abandon the idea of having slides within the quizzes. Slideshow programs usually have the ability to render their slides as PDF, a format which is more heavily supported compared to a propriety format such as .pptx provided by Microsoft. If a PDF is uploaded to the application, PHP can be used to turn these PDF slides into images, which can then be rendered on the quiz pages.
+Part two involved streaming slides to students with embedded question and was originally planned to be an extension to Microsoft PowerPoint or a similar technology, such as Libre Office. However, after some further research this work was determined to be too large. This meant an alternative solution had to be devised or some extra requirements had to be added to the system. An alternative solution was found rather than abandon the idea of having slides within the quizzes. Slideshow programs usually have the ability to render their slides as PDF, a format which is more heavily supported compared to a propriety format such as .pptx provided by Microsoft. If a PDF is uploaded to the application, PHP could be used to turn these slides into images, which can then be placed on the quiz pages.
 
-This new approach meant some changes to the original stories for the second part, here are the revised stories for the second part:
+This new approach meant some changes to the original stories for the second part, here are the revised stories:
 \begin{itemize}
 	\item (1) The admin creates slides in their preferred editor and exports them as a PDF
 	\item (4) The admin can upload these slides to a quiz they have created in the past
@@ -47,9 +47,9 @@ See \ref{fig:iter-7-use-case}
 \subsubsection{Implementation}
 To upload the slides, it was done with a standard HTML file input but the backend used techniques native to Laravel\cite{laravel-saving-files}. These images were then saved in the /storage/app/public/slides folder. Within this, they were organised into folders named after the session id and then quiz id within those.
 
-These slides were then converted using a library that uses Imagick\cite{spatie-pdf-converter}. After saving the images, references were also saved to the database. This is so that the images can be referenced quickly later on when displaying a slide. For this functionality, a new table for slides was added to the system, storing the file name, quiz it was associated with and a position. 
+These slides were then converted using a library that uses Imagick\cite{spatie-pdf-converter}. A problem is that the details of these images are not kept track of, so after saving the images, references were also saved to a new table in the database. This is so that the images can be referenced quickly later on when displaying a slide. The new table was called slides which stores the file name, quiz it was associated with and a position. 
 
-The last task involved showing the slides and questions on the Quiz.show page. Seeing as the new story involved reordering them, merely rendering the slides after the questions would not do, it should render them in order of the position. The main problem is that there exists no simple SQL query that can select two sets of results and then order them by a common column. The easier solution was to create a PHP function to create an array of all the items in the order wanted, see appendix \ref{appendix:code} for the function.
+The last task involved showing the slides and questions on the Quiz.show page. Seeing as one of the other new stories involved reordering questions, merely rendering the slides after the questions would not do. Both the slides and questions needed to be rendered in order of their positions. Unfortunately, there exists no simple SQL query that can select two sets of results and then order them by a common column. The easier solution was to create a PHP function to create an array of all the items in the order required, see appendix \ref{appendix:code} for the function.
 \subsubsection{Testing}
 There does not appear to be the capacity to upload files in Dusk tests, making this impossible to test unfortunately.
 \newpage
@@ -64,11 +64,11 @@ There does not appear to be the capacity to upload files in Dusk tests, making t
 \end{itemize}
 \subsubsection{Design}
 As a minor change to the system, no major design choices were made. Simple Bootstrap icons can be used for the position changing arrows, which was the only front end change.
-See \ref{fig:iter-7-use-case} 
+For the newest use case see figure \ref{fig:iter-7-use-case}.
 \subsubsection{Implementation}
-Main functionality to add was the changing of positions. This involved adding a new route and buttons that triggered the actions associated with this new route. It was decided that the Route would be a POST request rather than GET as technically the button is submitting some data, the direction and id of the question. The action called updates the position in the database after doing some checks of the position it wants to move to. If the position is already occupied, the two objects positions are swapped. This object could be a question or slide.   
+The main functionality to add was the changing of positions. This involved adding a new route and buttons that triggered the actions associated with this new route. It was decided that the Route would be a POST request rather than GET as the button is submitting some data, the direction and id of the question. The action that was called updates the position in the database after doing some checks of the position it wants to move to. The problem here is that there might be a slide or question occupying that position already, therefore it needs to be checked and swapped if true.
 \subsubsection{Testing}
-Again as there are no slides it completely testable. However, it was possible to test that the questions positions changed when their positions were changed without any slides on the page. TODO
+Again as there are no slides it is not fully testable. However, it was possible to test that the questions positions changed in the database when the buttons were clicked without any slides on the page.
 \newpage
 
 \subsection{Story: When the quiz is run, it should render the slides as well as the questions in the order specified}
@@ -83,9 +83,9 @@ Again as there are no slides it completely testable. However, it was possible to
 \subsubsection{Design}
 This should work in much the same way as the questions, in that it will send an Ajax request to a page with the image name and then copy the content of the Ajax page into the live page. The content page to Ajax should be a simple container with an img tag. The other tasks are extensions to previously created functions.
 \subsubsection{Implementation}
-The first task was to determine what is at the position. This involved changing the current function to check if the question at the requested position was null, if it was then it should find a slide at the specified position. As well as the data about the slide or question, it would return a type so that when it was called the system knew what type of content it was to expect. The data was then sent to the WebSockets and another case was added to the JavaScript receiving end for triggering an Ajax call to a slide page. This page renders a simple img tag with the slide specified which was then added to the current page, similar to the way questions are rendered.
+The first task was to determine what is at the position. This involved changing the current function to include a check for if the question at the requested position was null. If it was then it should find a slide at the specified position instead of a question. As well as the data about the slide or question, it would return a type so that when it was called the system knew what type of content was expected. The data was then sent to the WebSockets and another case was added to the JavaScript receiving end for triggering an Ajax call to a slide page. This page renders a simple img tag with the slide specified which was then added to the current page, similar to the way questions are rendered.
 
-A problem with rendering the images was the files stored within the /storage folder were not publicly accessible, usually only files within the /public folder are. However, there is an artisan command, \textit{php artisan storage:link}, that creates a symbolic link from the public folder to the storage/app/public folder. This meant that the images could be accessed via /storage/ when specifying the image path.
+A problem with rendering the images was that files are stored within the /storage folder which was not publicly accessible. Usually only files within the /public folder are. However, there is an artisan command, \textit{php artisan storage:link}, that creates a symbolic link from the public folder to the storage/app/public folder. This meant that the images could be accessed via /storage/ when specifying the image path.
 \subsubsection{Testing}
 Given that slides cannot be uploaded, testing for them is not really practical and would involve leaving some test data on the system permanently.
 \newpage
