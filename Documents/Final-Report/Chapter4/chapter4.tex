@@ -1,14 +1,19 @@
 \chapter{Testing}
 
 \section{Overview}
-At the start of the project, testing was to use two practices from Agile. These were Test Driven Development (TDD) and Continuous Integration (CI). Whilst these two practices both failed due to a mixture of reasons as described in the Iterations chapter, testing was still performed within each iteration. Rather than go over the tests made each week within the previous chapter, this section will summarise the testing. Overall there were x tests (TODO: fill in once development finished) that tested the overall functionality of the system. Unit tests were dropped for a number of reasons in favour of application tests.
+At the start of the project, testing was to use two practices from Agile. These were Test Driven Development (TDD) and Continuous Integration (CI). Whilst these two practices both failed due to a mixture of reasons as described in the Iterations chapter, testing was still performed within each iteration. Rather than go over the tests made each week within the previous chapter, this section will summarise the testing. Overall there were 22 tests that tested the overall functionality of the system, see figure \ref{fig:test-output}. Unit tests were dropped for a number of reasons in favour of application tests.
 
 Unit testing suits a situation where more of the base code is written by the developer, in this case the majority of the code is built on a pretested framework. Testing the final implementation would fit better than trying to test if a view is rendered by a controller correctly. Application tests can also be used to test the stories, meaning that they can give a much clearer indication of whether a story is complete and whether the end user will be happy. 
 
 The time for extensive testing was also limited, meaning some tests had to be cut. The unit tests were the easiest to cut and seeing as the application tests tested the overall functionality of the system the lack of unit tests is not a terrible missing feature. 
 
+\begin{figure}
+	\caption{Output of the tests}
+	\centerline{\includegraphics[scale=0.8]{Chapter4/test-output}}
+	\label{fig:test-output}
+\end{figure}
+
 \section{Application testing}
-TODO: screenshot final output of all tests.
 To perform application tests, a testing framework called Laravel Dusk was used, which is the default testing framework provided with Laravel 5.4\cite{dusk}\cite{dusk-desc}. It runs the tests within a Chrome instance by running a standalone server which then calls the Chrome application installed on the machine that the tests are being run on. The advantages of running tests like this rather than say executing PHP on the server and reading a virtual DOM is that this allows JavaScript on the page to be evaluated and executed. JavaScript is vital to many of the components of the application so if it was not usable within tests, many parts of the system would have to be ignored within the tests.
 
 These tests test the application as whole, rather than individual bits of code. This allows the tests to be written with the original requirements, the stories, in mind and so makes these tests a good way to evaluate the application at the end of its development. Tests were organised by story, as these provided an area of the application that needed to be checked, which makes them more human readable for any future development.
