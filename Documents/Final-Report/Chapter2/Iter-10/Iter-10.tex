@@ -2,13 +2,13 @@ Note: This iteration is slightly longer as it includes the half week between whe
 
 \subsection{Story: Admins can then save the results as csv or xml}
 \subsubsection{Analysis - breakdown of tasks}
-The most convenient way to save these results would be to convert the data to a csv format, as that can be read by many Spreadsheet programs. After some researching, an extension for Laravel was found that could easily create spreadsheets within a Laravel application\cite{laravel-excel}.
+The most convenient way to save these results would be to convert the data to a CSV format, as that can be read by many Spreadsheet programs. After some researching, an extension for Laravel was found that could easily create spreadsheets within a Laravel application\cite{laravel-excel}.
 
 There the list of tasks for this story:
 \begin{itemize}
 	\item Add route, button and an action for this
 	\item Install Laravel spreadsheet converter extension
-	\item Pass the formatted answer data into the csv creator
+	\item Pass the formatted answer data into the CSV creator
 \end{itemize}
 \subsubsection{Design}
 Due to the way the original answer handling was designed, results are only saved for a session and not for quizzes. This means when a new quiz is run, the results are wiped. This means a good place for the download action would be the quiz admin panel, the one containing the next and previous buttons. This would be an ideal place as it means lecturers can press download before they end the quiz.
@@ -27,7 +27,7 @@ The problem here was that the answer text in the database is stored as "answer1"
 
 See figure \ref{fig:csv-example} for an example of a generated CSV.
 \begin{figure}[H]
-	\caption{Example of a csv generated}
+	\caption{Example of a CSV generated}
 	\centerline{\includegraphics{Chapter2/Iter-10/csv-example}}
 	\label{fig:csv-example}
 \end{figure}
@@ -55,4 +55,3 @@ Used the system in a first year workshop to gather some module feedback for the 
 
 \subsection{Report writing}
 A lot of report work in this final iteration, including the restructuring of the iteration and design chapters, writing the design, evaluation, appendices, and generally editing the whole document based on feedback from proof readers.
-\newpage
