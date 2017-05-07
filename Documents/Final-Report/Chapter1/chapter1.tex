@@ -4,16 +4,17 @@
 Currently lecturers at Aberystwyth University have the option to use a service called Qwizdom\cite{Qwizdom} which allows lecturers to embed quiz questions into their slideshow presentations. During a lecture, students can join a session through an online portal and have the slides and questions streamed through to their devices. Quiz questions can then be answered by the students and their results can be displayed live by the lecturer, who can also save these results for later analysis.
 
 \subsection{Replacement}
-There has been a demand for Qwizdom to fix some key problems. Primarily, that the university only has one session key, which means only one session can be used by all lecturers at any one time, leading to some clashes. With a new system, there would be no limit to the number of sessions that can be run. Other problems with Qwizdom include:
+There has been a demand for a replacement to Qwizdom to fix some key problems it has. Primarily, that the university only has one session key, which means only one session can be used by all lecturers at any one time, leading to some clashes. With a new system, there would be no limit to the number of sessions that can be run. Other problems with Qwizdom include:
 \begin{itemize}
-	\item Maximum of 6 answers
+	\item Maximum of 6 answers per question
 	\item Students can submit their own answers by changing the HTML on the page which are then displayed when the lecturer displays the results
 	\item Creating quizzes is tied into Microsoft PowerPoint which not all lecturers use
 \end{itemize}
 
 \section{Analysis}
 \subsection{Two parts}
-It was decided that the project would be split into two main parts, the first was to create an application that lecturers can run a simple quiz from without any slides. The second part involves developing an application or extension to the first part that allows the lecturer to create the quiz as part of a set of slides. The slide the lecturer is viewing would then be displayed in the quiz session on the web where students can access it. Once a relevant quiz slide appears, the students will be given the quiz options to select an answer in the same way as the first part. The lecturer can then display the results in the same way, though it would not be via the web application as before. This part of the project behaves in much the same was as Qwizdom.
+It was decided that the project would be split into two main parts, the first was to create an application lecturers can run a simple quiz from without any slides. The second part involves developing an application or extension to the first part that allows the lecturer to create the quiz as part of a set of slides. The slide the lecturer is viewing would then be displayed in the quiz session on the web where students can access it. Once a relevant quiz slide appears, the students will be given the quiz options to select an answer in the same way as the first part. The lecturer can then display the results in the same way, though it would not be via the web application as before. This part of the project behaves in much the same way as Qwizdom.
+
 
 The reason for having two parts is that the first would be mostly built as part of the development for the second part but if built as a standalone part it allows lecturers to create quizzes rather than a set of slides with quizzes within it. Features like the session joining, front-end view for students and the way answers are submitted would be used in the second part, which means only creating quizzes would need to be added for the first part for it to be stand alone. Additionally, the second part had the potential to be much larger in scope than originally anticipated and as such having the first part to extend in a different direction should the second part become unviable would be provide a safety net.
 
@@ -42,7 +43,7 @@ XP does not enforce the use of any single practice and as such a number of pract
 	\item Small Releases - Small releases help enforce releases bit of working code regularly and results in a better overall project if the sub parts are all working.
 	\item On Site Customer - This practice is somewhat applicable, the developer can act as a customer, and the project supervisor can also somewhat act as a customer, due to them being the originator of the idea and also a lecturer, one of the main users of this application.
 	\item Merciless Refactoring - Refactoring is already encouraged by using TDD, but it can also be used at other points in the project to ensure the code is structured sensibly.
-	\item Planning Game - This can be adapted to be done by one person at the start of the project, the list of stories was written and then iterations and releases planned out.
+	\item Planning Game - This can be adapted to be done by one person at the start of the project, the list of stories written and then iterations and releases planned out.
 	\item Continuous Integration - Some online tools can be used to provide an CI workflow, to run tests continually with the constant small releases.
 \end{itemize}
 
@@ -54,7 +55,7 @@ Before any development could start, an initial list of functional requirements w
 \section{Planning Game}
 A plan was created early in development:
 \begin{itemize}
-	\item 10 iterations beginning on Thursdays remaining from when the original plan was made (22/02/2017)
+	\item 10 iterations beginning on Thursdays after the original plan was made (22/02/2017)
 	\item Leave 2 iterations for Report Writing and emergency bug fixing at the end, from iterations beginning 20/04/2017
 	\item 8 iterations between planning and iteration 8, these to be devoted to majority of coding
 	\item ~3 iterations before mid-project demonstration from initial planning

@@ -1,18 +1,17 @@
 \chapter{Iterations}
-This chapter chronicles the development in a diary format. Iterations were used during the development of this project, with each iteration typically consisting of at least one story and often included non story based work. However, due to the iteration process, each story consisted of analysis, design, implementation and testing. Therefore, each of these bits of work are given within the iteration they were completed in, negating the need for an initial design section.
+This chapter chronicles the development in a diary format. Iterations were used during the development of this project, with each iteration typically consisting of at least one story and often included non story based work. However, due to the iteration process, each story consisted of analysis, design, implementation and testing. Therefore, each of these pieces of work are given within the iteration they were completed in, negating the need for an initial design section.
 
 \section{Outline}
-TODO: could this be past tense instead?
 \begin{enumerate}
-	\item Iteration 0 mostly involves the setting up of the tools to be used in the project, some research and the creation of an initial database design.
-	\item Iteration 1 is concerned with the implementation of the database design and setting up the initial admin area with a list of quizzes owned by the admin who logged in.
-	\item Iterations 2 focusses on the creation of quizzes by admin users.
-	\item Iterations 3, 4 and 5 involves the implementation of running sessions.
-	\item Iteration 6 focusses on the submission of answers and displaying results. It also deals with the security issue from Qwizdom.
-	\item Iteration 7 involves making the application mobile responsive, the part two redesign which led to implementation of the the way slideshows could be run on the application.
+	\item Iteration 0 mostly involved setting up of the tools to be used in the project, some research and the creation of an initial database design.
+	\item Iteration 1 was concerned with the implementation of the database design and setting up the initial admin area with a list of quizzes owned by the admin who was logged in.
+	\item Iterations 2 focussed on the creation of quizzes by admin users.
+	\item Iterations 3, 4 and 5 involved the implementation of running sessions.
+	\item Iteration 6 focussed on the submission of answers and displaying results. It also dealt with the security issue from Qwizdom.
+	\item Iteration 7 involved making the application mobile responsive, the part two redesign which led to implementation of the the way slideshows could be run on the application.
 	\item Iteration 8 is only concerned with report writing.
-	\item Iteration 9 contains security testing, more report work, the server setup , and bug fixing.
-	\item Iteration 10 is the last iteration and followed the final bits of report writing, the user testing, and the implementation of downloading results and various bug fixes.
+	\item Iteration 9 contained security testing, more report work, the server setup , and bug fixing.
+	\item Iteration 10 was the last iteration and followed the final bits of report writing, the user testing, and the implementation of downloading results and various bug fixes.
 \end{enumerate}
 
 \section{Tools used}
@@ -29,7 +28,7 @@ Trello is a project management tool that allows users to create a "board" for a 
 \end{figure}
 \newpage
 
-Git was used extensively during development, primarily for version control but also a form of backup and as an easy way to deploy the system. Version control is very important as it allows tracking changes to the project and if a mistake it made, can be used to undo these mistakes. It also allows branching out bits of functionality, so developing features can be done separate from the rest of the project and once working, merged back in. Github was used as the repository service due to it being free and easy to use\cite{github}.
+Git was used extensively during development, primarily for version control but also a form of backup and as an easy way to deploy the system. Version control is very important as it allows tracking changes to the project and if a mistake is made, can be used to undo these mistakes. It also allows branching out bits of functionality, so developing features can be done separate from the rest of the project and once working, merged back in. Github was used as the repository service due to it being free and straightforward to use\cite{github}.
 
 Laravel comes with a custom Command Line Interface, CLI, called Artisan\cite{artisan}. Artisan is used to run the majorty of commands needed in Laravel, from the migrations to the creation of controllers. An example would be \textit{php artisan migrate} which migrates the database. It is always prefixed with "php".
 
